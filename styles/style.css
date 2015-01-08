@@ -1,0 +1,111 @@
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, em, img, strong, ol, table, tr, th, td, form { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; background: transparent; }
+table { border-collapse: collapse; border-spacing: 0; }
+h1,h2,h3,h4,h5,h6
+{
+	margin:4px;
+	color: Maroon;
+}
+p
+{
+	margin: 4px;
+	color: black;
+}
+body
+{
+	background-color: #DCDCDC;
+}
+.hidden-a
+{
+	text-decoration: none;
+	color: Maroon;
+}
+.hidden-a:visited
+{
+	color:inherit;
+}
+.right
+{
+	text-align: right;
+}
+#container
+{
+	position: relative;
+	margin: auto;
+	width: 90%;
+	top:10px;
+	background-color: #C3C3C3;
+	font-family: "Open Sans";
+	border-radius: 10px;
+	padding: 10px;
+}
+#header
+{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	height: 50px;
+	width: 100%;
+}
+#title
+{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	height: 100%;
+	width: 30%;
+	background-color:orange;
+	-webkit-border-top-left-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	border-top-left-radius: 10px;
+}
+
+#content
+{
+	position: absolute;
+	top: 50px;
+	left: 0px;
+	min-height:400px;
+	width: 100%;
+	background-color: #C3C3C3;
+	-webkit-border-bottom-right-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	border-bottom-right-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-left-radius: 10px;
+}
+#breadcrumb p
+{
+	color:maroon;
+	font-weight: bold;
+}
+#account-info
+{
+	position: absolute;
+	left: 30%;
+	top: 0px;
+	height: 100%;
+	width: 70%;
+	text-align: right;
+	background-color:gold;
+	-webkit-border-top-right-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	border-top-right-radius: 10px;	
+}
+#account-info *
+{
+	top: 50px;
+	margin:10px;
+}
+#account-info img
+{
+	float: right;
+	height: 31px;
+}
+#adminavatar img
+{
+	width: 65px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}

@@ -1,0 +1,27 @@
+table,th,td,tr { margin:0px;padding:0px;}
+table
+{
+	margin: 4px;
+	color: maroon;
+}
+th, td 
+{
+	padding-top: 1px;
+	padding-bottom: 1px;
+	padding-left: 9px;
+	padding-right: 9px;
+}
+th
+{
+	background-color: wheat;
+	border-bottom: 2px solid chocolate; 
+	font-weight: normal;
+}
+td
+{
+	background-color: white;
+}
+.selected
+{
+	background-color: grey;
+}
