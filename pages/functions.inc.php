@@ -15,4 +15,5 @@ function isAdmin(){
 }
 //slang
 //hoi
+//stroef
 ?>
