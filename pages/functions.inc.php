@@ -6,4 +6,11 @@ function isLoggedIn(){
 		return false;
 	}
 }
+function isAdmin(){
+	if((isset($_SESSION['forumAdmin'])) & ($_SESSION['forumAdmin']!=="")){
+		return true;
+	} else {
+		return false;
+	}
+}
 ?>
