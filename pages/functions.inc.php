@@ -13,4 +13,5 @@ function isAdmin(){
 		return false;
 	}
 }
+//hoi
 ?>
