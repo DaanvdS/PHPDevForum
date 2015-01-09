@@ -8,6 +8,7 @@ if(isLoggedIn()){
 	$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."' ORDER BY date_created ASC";
 	$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	$i=0;
+	if($MySQL['result']->num_rows==0){ echo "No messages!"; }
 	while($MySQL['row']=$MySQL['result']->fetch_assoc()) {
 		echo "
 		<table class='post'>
@@ -47,6 +48,12 @@ if(isLoggedIn()){
 		</table>";
 		$i++;
 	}
+	echo "
+		<form method='get' id='newPost' action=''>
+			<input type='hidden' name='p' value='inbox'>
+			<div class='post-area'><textarea name='data' rows='4' cols='50'></textarea></div>
+			<input class='post-area-submit' type='submit' name='submit' value='Submit'>
+		</form>";
 	include('dbdisconnect.inc.php');
 }
 ?>
