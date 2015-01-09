@@ -1,5 +1,5 @@
 <?php
-//forum Muziektheater, authored by Wietze Mulder and Daan van der Spek
+//forum Informatica, authored by Wietze Mulder and Daan van der Spek
 //Not to be copied without written permission from the owners
 ?>
 <?php
