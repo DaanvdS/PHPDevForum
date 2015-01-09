@@ -25,6 +25,6 @@ if(!isset($_GET['p'])){
 	$out="<div id='breadcrumb'><p><a class='hidden-a' href='?p=index'>PHPDev Forums</a> > <a class='hidden-a' href='?p=".$_GET['p']."'>".ucwords($_GET['p'])."</a></p></div>";
 }
 
-return $out;
+echo $out;
 include("dbdisconnect.inc.php");
 ?>

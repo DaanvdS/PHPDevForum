@@ -4,12 +4,11 @@
 	}
 </script>
 <?php
-	include('dbconnect.inc.php');
+	include('ptb.inc.php');
 	$id=getID();
 	if(isset($_GET['action'])){
 		ptbAction();
 	} else {
 		ptbShow("p", $id);
 	}
-	include('dbdisconnect.inc.php');
 ?>
