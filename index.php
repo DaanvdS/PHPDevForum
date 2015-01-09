@@ -134,7 +134,7 @@ include('dbdisconnect.inc.php');
 			
 			</div>
 			<div id="content">
-				<?php echo getBreadCrumb(); ?>
+				<?php include("pages/breadcrumb.inc.php"); ?>
 				<?php if($page!=="404"){include("pages/".$page.".inc.php");}else{echo "404 - Page not found";} ?>
 			</div>
 		</div>
