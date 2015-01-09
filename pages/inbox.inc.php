@@ -1,5 +1,10 @@
+<script language="javascript" type="text/javascript">
+	function quote(author,text) {
+		tinyMCE.activeEditor.execCommand('mceInsertContent', false, "<blockquote><span class='small'>" + author + ":</span>" + text + "</blockquote><br>");
+	}
+</script>
 <?php
-//forum Muziektheater, authored by Wietze Mulder and Daan van der Spek
+//Forum, authored by Wietze Mulder and Daan van der Spek
 //Not to be copied without written permission from the owners
 
 if(isLoggedIn()){
