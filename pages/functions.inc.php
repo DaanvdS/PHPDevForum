@@ -70,6 +70,32 @@ function getUsername($userID){
 	return $out;
 }
 
+function getFirstName($userID){
+	include("dbconnect.inc.php");
+	$MySQL['query']="SELECT `firstname` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
+	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
+	if($MySQL['result']->num_rows!==0){
+		$MySQL['row']=$MySQL['result']->fetch_assoc();
+		$out=$MySQL['row']['firstname'];
+	} else {
+		$out="Something went wrong.";
+	}
+	return $out;
+}
+
+function getLastName($userID){
+	include("dbconnect.inc.php");
+	$MySQL['query']="SELECT `lastname` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
+	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
+	if($MySQL['result']->num_rows!==0){
+		$MySQL['row']=$MySQL['result']->fetch_assoc();
+		$out=$MySQL['row']['lastname'];
+	} else {
+		$out="Something went wrong.";
+	}
+	return $out;
+}
+
 function getID(){
 	if(isset($_GET['id'])){$id=$_GET['id'];}else{echo "Something's gone wrong.";exit();}
 	return $id;
