@@ -1,6 +1,7 @@
 <script language="javascript" type="text/javascript">
-	function quote(author,text) {
+	function quote(author,text,authorid) {
 		tinyMCE.activeEditor.execCommand('mceInsertContent', false, "<blockquote><span class='small'>" + author + ":</span>" + text + "</blockquote><br>");
+		document.getElementById('sendID').value = authorid;​​​​​​​​​​
 	}
 </script>
 <?php
@@ -31,7 +32,7 @@ if(isLoggedIn()){
 			echo "
 						<p class='postbuttons'>
 							<script>var text".$i." = '".$MySQL['connection']->real_escape_string($MySQL['row']["text"])."';</script>
-							<a class='hidden-a' onClick='quote(\"".getFirstName($MySQL['row']["senderID"])."\",text".$i.")' href='#newPost'>
+							<a class='hidden-a' onClick='quote(\"".getFirstName($MySQL['row']["senderID"])."\",text".$i.", \"".$MySQL['row']["senderID"]."\")' href='#newPost'>
 								<img src='images/quote.png'>
 							</a>";
 			
