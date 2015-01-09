@@ -1,3 +1,9 @@
+<script language="javascript" type="text/javascript">
+	function quote(author,text,authorid) {
+		document.getElementById('sendID').value = authorid;​​​​​​​​​​
+		tinyMCE.activeEditor.execCommand('mceInsertContent', false, "<blockquote><span class='small'>" + author + ":</span>" + text + "</blockquote><br>");		
+	}
+</script>
 <?php
 //Forum, authored by Wietze Mulder and Daan van der Spek
 //Not to be copied without written permission from the owners
@@ -75,9 +81,3 @@ if(isLoggedIn()){
 	}
 }
 ?>
-<script language="javascript" type="text/javascript">
-	function quote(author,text,authorid) {
-		tinyMCE.activeEditor.execCommand('mceInsertContent', false, "<blockquote><span class='small'>" + author + ":</span>" + text + "</blockquote><br>");
-		document.getElementById('sendID').value = authorid;​​​​​​​​​​
-	}
-</script>
