@@ -5,7 +5,7 @@
 
 if(isLoggedIn()){
 	include('dbconnect.inc.php');
-	$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' LIMIT 1";
+	$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."' ORDER BY date_created ASC";
 	$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	$i=0;
 	while($MySQL['row']=$MySQL['result']->fetch_assoc()) {
@@ -49,7 +49,7 @@ if(isLoggedIn()){
 					<div class='post-content'>
 						<p><b></b></p>
 						<p><b></b></p>
-						<p class='postedon'>".$postnr.", posted on: ".$MySQL['row']["date_created"]."
+						<p class='postedon'>Sent on: ".$MySQL['row']["date_created"]."
 						<hr />".$MySQL['row']["text"]."
 					</div>
 				</td>
