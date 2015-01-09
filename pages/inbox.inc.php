@@ -24,16 +24,13 @@ if(isLoggedIn()){
 							<img src='images/quote.png'>
 						</a>";
 		}
-		if (hasRights($MySQL['row']['user_id'])) {
+		
 			echo "
-						<a class='hidden-a' href='?p=thread&action=change&ptb=p&id=".$MySQL['row']['id']."'>
-							<img src='images/change.png'>
-						</a>
 						<a class='hidden-a' href='?p=thread&action=delete&ptb=p&id=".$MySQL['row']['id']."'>
 							<img src='images/remove.png'>
 						</a>
 					</p>";
-		}
+		
 		/*if($i==0){
 			$threadtitle=$MySQL['row']["name"];
 			$postnr="First post";
