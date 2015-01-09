@@ -61,7 +61,7 @@ if(isLoggedIn()){
 		}
 		echo "
 			<form method='get' id='newPost' action=''>
-				<div class='post-area'>Send to: <select name='sendID'></div>";
+				<div class='post-area'>Send to: <select id='sendID' name='sendID'></div>";
 				
 		$MySQL['query']="SELECT `firstname`, `lastname` FROM `users` ORDER BY `lastname`, `firstname` ASC";
 		$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
