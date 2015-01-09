@@ -96,6 +96,23 @@ function getLastName($userID){
 	return $out;
 }
 
+function getSignature($userID){
+	include("dbconnect.inc.php");
+	$MySQL['query']="SELECT `sig` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
+	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
+	if($MySQL['result']->num_rows!==0){
+		$MySQL['row']=$MySQL['result']->fetch_assoc();
+		if($MySQL['row']['sig']!==""){
+			$out="<hr /><div class='signature'>".$MySQL['row']['sig']."</div>";
+		} else {
+			$out="";
+		}
+	} else {
+		$out="Oops.";
+	}
+	return $out;
+}
+
 function getID(){
 	if(isset($_GET['id'])){$id=$_GET['id'];}else{echo "Something's gone wrong.";exit();}
 	return $id;

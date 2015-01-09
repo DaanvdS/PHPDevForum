@@ -16,33 +16,23 @@ if(isLoggedIn()){
 					<p class='username'>".getUsername($MySQL['row']["senderID"])."</p>
 					<p class='rank'>".getUserRank($MySQL['row']["senderID"])."</p>
 					<p class='avatar'>".getUserAvatar($MySQL['row']["senderID"])."</p>";
-		if(isLoggedIn()){
-			echo "
+		
+		echo "
 					<p class='postbuttons'>
 						<script>var text".$i." = '".$MySQL['connection']->real_escape_string($MySQL['row']["text"])."';</script>
 						<a class='hidden-a' onClick='quote(\"".getFirstName($MySQL['row']["senderID"])."\",text".$i.")' href='#newPost'>
 							<img src='images/quote.png'>
 						</a>";
-		}
 		
-			echo "
+		
+		echo "
 						<a class='hidden-a' href='?p=thread&action=delete&ptb=p&id=".$MySQL['row']['id']."'>
 							<img src='images/remove.png'>
 						</a>
 					</p>";
 		
-		/*if($i==0){
-			$threadtitle=$MySQL['row']["name"];
-			$postnr="First post";
-		} else {
-			$threadtitle="Re: ".$MySQL['row']["name"];
-			$postnr="Answer #".$i;
-		}
-		if(!$MySQL['row']['sig']==''){
-			$sig="<hr /><div class='signature'>".$MySQL['row']['sig']."</div>";
-		} else { 
-			$sig=""; 
-		}*/
+		$sig=getSignature($MySQL['row']["senderID"]);
+		
 		echo "
 				</td>
 				<td class='post-td'>
@@ -50,7 +40,7 @@ if(isLoggedIn()){
 						<p><b></b></p>
 						<p><b></b></p>
 						<p class='postedon'>Sent on: ".$MySQL['row']["date_created"]."
-						<hr />".$MySQL['row']["text"]."
+						<hr />".$MySQL['row']["text"].$sig."
 					</div>
 				</td>
 			</tr>
