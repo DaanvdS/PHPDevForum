@@ -113,7 +113,7 @@ include('dbdisconnect.inc.php');
 					
 					if(isLoggedIn()){
 						include('dbconnect.inc.php');
-						$MySQL['result'] = $MySQL['connection']->query("SELECT COUNT(*) AS `amountOfRows` FROM `messages` WHERE `receiverID`='".$_SESSION['forumUserID']."' AND `unread` = '1'");
+						$MySQL['result'] = $MySQL['connection']->query("SELECT COUNT(*) AS `amountOfRows` FROM `messages` WHERE `receiverID`='".$_SESSION['forumUserID']."' OR `senderID`='".$_SESSION['forumUserID']."' AND `unread` = '1'");
 						$MySQL['row']=$MySQL['result']->fetch_assoc();
 						if($MySQL['row']['amountOfRows']==0){$unreadMessages='';}else{$unreadMessages='<b>('.$MySQL['row']['amountOfRows'].')</b>';}
 						echo '<a class="hidden-a" href="?p=inbox">Inbox '.$unreadMessages.'</a>';
