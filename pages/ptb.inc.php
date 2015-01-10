@@ -142,7 +142,7 @@ function ptbChgForm($ptb, $id, $return){
 		if($ptb=='t'||$ptb=='b'){
 			echo "	<input type='text' name='data' value='".$MySQL['row'][(substr($columns[0], 1, -1))]."'>";
 		} elseif($ptb=='p'){
-			echo "	<textarea rows='10' name='data'>".$MySQL['row'][(substr($fin_columns, 1, -1))]."</textarea>";
+			echo "	<textarea rows='15' name='data'>".$MySQL['row'][(substr($fin_columns, 1, -1))]."</textarea>";
 		}
 		if($ptb=='t'){
 			if($MySQL['row'][(substr($columns[1], 1, -1))]){$sticky = ' selected';}else{$sticky='';}
