@@ -101,6 +101,16 @@ if(isLoggedIn()){
 				$i++;
 			}
 		}
+		$MySQL['query']="SELECT COUNT(*) AS `amRows` FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."'";
+		$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+		$MySQL['row']=$MySQL['result']->fetch_assoc();
+		if($MySQL['row']['amRows']>10){
+			$amPages=ceil($MySQL['row']['amRows']/10);
+			for($i=0;$i<$amPages;$i++){
+				echo "<a href='?p=index&ip=".($i+1)."'>".($i+1)."</a>&nbsp;";
+			}
+		}
+		
 		echo "
 			<form method='get' id='newPost' action=''>
 				<div class='post-area'>Send to: <select id='sendID' name='sendID'></div>";
