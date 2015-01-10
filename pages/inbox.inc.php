@@ -114,7 +114,6 @@ if(isLoggedIn()){
 				$amRows++;
 			}
 		}
-		echo $amRows;
 		if($amRows>10){
 			echo "Page: ";
 			$amPages=ceil($amRows/10);
