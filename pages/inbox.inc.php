@@ -66,7 +66,7 @@ if(isLoggedIn()){
 				
 				
 				echo "
-								<a class='hidden-a' href='?p=thread&action=delete&ptb=p&id=".$MySQL['row']['id']."'>
+								<a class='hidden-a' href='?p=inbox&action=delmessage&id=".$MySQL['row']['id']."'>
 									<img src='images/remove.png'>
 								</a>
 							</p>";
