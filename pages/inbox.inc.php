@@ -107,7 +107,7 @@ if(isLoggedIn()){
 		if($MySQL['row']['amRows']>10){
 			$amPages=ceil($MySQL['row']['amRows']/10);
 			for($i=0;$i<$amPages;$i++){
-				echo "<a href='?p=index&ip=".($i+1)."'>".($i+1)."</a>&nbsp;";
+				echo "<a href='?p=inbox&ip=".($i+1)."'>".($i+1)."</a>&nbsp;";
 			}
 		}
 		
