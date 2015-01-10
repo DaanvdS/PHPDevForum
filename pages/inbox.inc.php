@@ -19,6 +19,26 @@ if(isLoggedIn()){
 			}
 			include('dbdisconnect.inc.php');
 		}
+		if($_GET['action']=="delmessage"){
+			include('dbconnect.inc.php');
+			$MySQL['query']="SELECT `receiverID`, `senderID` FROM `messages` WHERE `id`='".$_GET['id']."'";
+			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+			if($MySQL['result']->num_rows==0){ 
+				echo "Something went wrong!"; 
+			} else {
+				$MySQL['row']=$MySQL['result']->fetch_assoc();
+				if($MySQL['row']['receiverID']==$_SESSION['forumUserID']){
+					$MySQL['query']="UPDATE `messages` SET `delbyReceiver` = '1' WHERE `id` = '".$_GET['id']."'";
+				} else {
+					$MySQL['query']="UPDATE `messages` SET `delbySender` = '1' WHERE `id` = '".$_GET['id']."'";
+				}
+				$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+				if($MySQL['connection']->affected_rows==1){
+					echo '<meta http-equiv="refresh" content="0; url=?p=inbox" />';
+				}
+			}
+			include('dbdisconnect.inc.php');
+		}
 	} else {
 		include('dbconnect.inc.php');
 		$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."' ORDER BY date_created ASC";
@@ -26,43 +46,47 @@ if(isLoggedIn()){
 		$i=0;
 		if($MySQL['result']->num_rows==0){ echo "No messages!"; }
 		while($MySQL['row']=$MySQL['result']->fetch_assoc()) {
-			echo "
-			<table class='post'>
-				<tr>
-					<td class='userbar'>
-						<p class='username'>".getUsername($MySQL['row']["senderID"])."</p>
-						<p class='rank'>".getUserRank($MySQL['row']["senderID"])."</p>
-						<p class='avatar'>".getUserAvatar($MySQL['row']["senderID"])."</p>";
-			
-			echo "
-						<p class='postbuttons'>
-							<script>var text".$i." = '".$MySQL['connection']->real_escape_string($MySQL['row']["text"])."';</script>
-							<a class='hidden-a' onClick='quote(\"".getFirstName($MySQL['row']["senderID"])."\",text".$i.", \"".$MySQL['row']["senderID"]."\")' href='#newPost'>
-								<img src='images/quote.png'>
-							</a>";
-			
-			
-			echo "
-							<a class='hidden-a' href='?p=thread&action=delete&ptb=p&id=".$MySQL['row']['id']."'>
-								<img src='images/remove.png'>
-							</a>
-						</p>";
-			
-			$sig=getSignature($MySQL['row']["senderID"]);
-			
-			echo "
-					</td>
-					<td class='post-td'>
-						<div class='post-content'>
-							<p><b></b></p>
-							<p><b></b></p>
-							<p class='postedon'>Sent on: ".$MySQL['row']["date_created"]."
-							<hr />".$MySQL['row']["text"].$sig."
-						</div>
-					</td>
-				</tr>
-			</table>";
-			$i++;
+			if(($MySQL['row']['receiverID']==$_SESSION['forumUserID'] && $MySQL['row']['delbyReceiver']==1)||($MySQL['row']['senderID']==$_SESSION['forumUserID'] && $MySQL['row']['delbySender']==1)){
+				//Do not show
+			} else {
+				echo "
+				<table class='post'>
+					<tr>
+						<td class='userbar'>
+							<p class='username'>".getUsername($MySQL['row']["senderID"])."</p>
+							<p class='rank'>".getUserRank($MySQL['row']["senderID"])."</p>
+							<p class='avatar'>".getUserAvatar($MySQL['row']["senderID"])."</p>";
+				
+				echo "
+							<p class='postbuttons'>
+								<script>var text".$i." = '".$MySQL['connection']->real_escape_string($MySQL['row']["text"])."';</script>
+								<a class='hidden-a' onClick='quote(\"".getFirstName($MySQL['row']["senderID"])."\",text".$i.", \"".$MySQL['row']["senderID"]."\")' href='#newPost'>
+									<img src='images/quote.png'>
+								</a>";
+				
+				
+				echo "
+								<a class='hidden-a' href='?p=thread&action=delete&ptb=p&id=".$MySQL['row']['id']."'>
+									<img src='images/remove.png'>
+								</a>
+							</p>";
+				
+				$sig=getSignature($MySQL['row']["senderID"]);
+				
+				echo "
+						</td>
+						<td class='post-td'>
+							<div class='post-content'>
+								<p><b></b></p>
+								<p><b></b></p>
+								<p class='postedon'>Sent on: ".$MySQL['row']["date_created"]."
+								<hr />".$MySQL['row']["text"].$sig."
+							</div>
+						</td>
+					</tr>
+				</table>";
+				$i++;
+			}
 		}
 		echo "
 			<form method='get' id='newPost' action=''>
