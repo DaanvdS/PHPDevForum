@@ -32,7 +32,7 @@ if(isLoggedIn()){
 				} elseif($MySQL['row']['senderID']==$_SESSION['forumUserID']) {
 					$MySQL['query']="UPDATE `messages` SET `delbySender` = '1' WHERE `id` = '".$_GET['id']."'";
 				}
-				echo $_SESSION['forumUserID'];
+				echo $_SESSION['forumUserID'].$MySQL['row']['senderID'];
 				echo $MySQL['query'];
 				$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 				if($MySQL['connection']->affected_rows==1){
