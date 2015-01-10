@@ -22,7 +22,7 @@ if(isLoggedIn()){
 		if($_GET['action']=="delmessage"){
 			include('dbconnect.inc.php');
 			$MySQL['query']="SELECT `receiverID`, `senderID` FROM `messages` WHERE `id`=".$_GET['id']."";
-			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+			$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			if($MySQL['result']->num_rows==0){ 
 				echo "Something went wrong!"; 
 			} else {
