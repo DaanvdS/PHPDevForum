@@ -51,7 +51,9 @@ if(isLoggedIn()){
 		$i=0;
 		if($MySQL['result']->num_rows==0){ echo "No messages!"; }
 		while($MySQL['row']=$MySQL['result']->fetch_assoc()) {
-			$MySQL['connection']->query("UPDATE `messages` SET `unread` = '0' WHERE `id` = '".$MySQL['row']['id']."'");
+			if($MySQL['row']['receiverID']==$_SESSION['forumUserID']){
+				$MySQL['connection']->query("UPDATE `messages` SET `unread` = '0' WHERE `id` = '".$MySQL['row']['id']."'");
+			}
 			if(($MySQL['row']['receiverID']==$_SESSION['forumUserID'] && $MySQL['row']['delbyReceiver']==1)||($MySQL['row']['senderID']==$_SESSION['forumUserID'] && $MySQL['row']['delbySender']==1)){
 				//Do not show
 			} else {
