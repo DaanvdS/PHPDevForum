@@ -1,9 +1,8 @@
-			<script language="javascript" type="text/javascript">
-				function quote(author,text,authorid) {
-					document.getElementById('sendID').value = authorid;​​​​​​​​​​
-					tinyMCE.activeEditor.execCommand('mceInsertContent', false, "<blockquote><span class='small'>" + author + ":</span>" + text + "</blockquote><br>");		
-				}
-			</script>
+				<script language="javascript" type="text/javascript">
+					function quote(author,text,authorid) {
+						tinyMCE.activeEditor.execCommand('mceInsertContent', false, "<blockquote><span class='small'>" + author + ":</span>" + text + "</blockquote><br>");		
+					}
+				</script>
 <?php
 //Forum, authored by Wietze Mulder and Daan van der Spek
 //Not to be copied without written permission from the owners
@@ -73,7 +72,7 @@ if(isLoggedIn()){
 				
 				$sig=getSignature($MySQL['row']["senderID"]);
 				if($MySQL['row']['senderID']==$_SESSION['forumUserID']){
-					$sendto=" Sent to ".getFirstName($MySQL['row']['receiverID'])." ".getLastName($MySQL['row']['receiverID']).",";
+					$sendto=", Sent to ".getFirstName($MySQL['row']['receiverID'])." ".getLastName($MySQL['row']['receiverID'])."";
 				} else {
 					$sendto="";
 				}
