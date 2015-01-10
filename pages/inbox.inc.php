@@ -21,16 +21,16 @@ if(isLoggedIn()){
 		}
 		if($_GET['action']=="delmessage"){
 			include('dbconnect.inc.php');
-			$MySQL['query']="SELECT `receiverID`, `senderID`, `datecreated` FROM `messages` WHERE `id`='".$_GET['id']."'";
+			$MySQL['query']="SELECT `receiverID`, `senderID`, `date_created` FROM `messages` WHERE `id`='".$_GET['id']."'";
 			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			if($MySQL['result']->num_rows==0){ 
 				echo "Something went wrong!"; 
 			} else {
 				$MySQL['row']=$MySQL['result']->fetch_assoc();
 				if($MySQL['row']['receiverID']==$_SESSION['forumUserID']){
-					$MySQL['query']="UPDATE `messages` SET `delbyReceiver` = '1', `datecreated` = '".$MySQL['row']['datecreated']."' WHERE `id` = '".$_GET['id']."'";
+					$MySQL['query']="UPDATE `messages` SET `delbyReceiver` = '1', `date_created` = '".$MySQL['row']['date_created']."' WHERE `id` = '".$_GET['id']."'";
 				} elseif($MySQL['row']['senderID']==$_SESSION['forumUserID']) {
-					$MySQL['query']="UPDATE `messages` SET `delbySender` = '1', `datecreated` = '".$MySQL['row']['datecreated']."' WHERE `id` = '".$_GET['id']."'";
+					$MySQL['query']="UPDATE `messages` SET `delbySender` = '1', `date_created` = '".$MySQL['row']['date_created']."' WHERE `id` = '".$_GET['id']."'";
 				}
 				$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 				if($MySQL['connection']->affected_rows==1){
@@ -46,7 +46,7 @@ if(isLoggedIn()){
 		} else {
 			$ip=1;
 		}
-		$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."' ORDER BY date_created ASC LIMIT ".(($ip-1)*10).", ".($ip*10)."";
+		$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."' ORDER BY date_created DESC LIMIT ".(($ip-1)*10).", ".($ip*10)."";
 		$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 		$i=0;
 		if($MySQL['result']->num_rows==0){ echo "No messages!"; }
