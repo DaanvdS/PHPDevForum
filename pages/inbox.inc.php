@@ -77,6 +77,7 @@ if(isLoggedIn()){
 		echo "
 				</select>
 				<input type='hidden' name='p' value='inbox'>
+				<input type='hidden' name='action' value='sendmessage'>
 				<div class='post-area'><textarea name='data' rows='4' cols='50'></textarea></div>
 				<input class='post-area-submit' type='submit' name='submit' value='Submit'>
 			</form>";
