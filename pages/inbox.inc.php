@@ -12,7 +12,7 @@ if(isLoggedIn()){
 	if(isset($_GET['action'])){
 		if($_GET['action']=="sendmessage"){
 			include('dbconnect.inc.php');
-			$MySQL['query']="INSERT INTO `messages` (`senderID`, `receiverID`, `text`, `date_created`) VALUES ('".$_SESSION['forumUserID']."', '".$_GET['sendID']."', '".$_GET['data']."', NOW)";
+			$MySQL['query']="INSERT INTO `messages` (`senderID`, `receiverID`, `text`) VALUES ('".$_SESSION['forumUserID']."', '".$_GET['sendID']."', '".$_GET['data']."')";
 			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			if($MySQL['connection']->affected_rows==1){
 				echo '<meta http-equiv="refresh" content="0; url=?p=inbox" />';
