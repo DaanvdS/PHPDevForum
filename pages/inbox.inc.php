@@ -56,11 +56,15 @@ if(isLoggedIn()){
 							<p class='username'>".getUsername($MySQL['row']["senderID"])."</p>
 							<p class='rank'>".getUserRank($MySQL['row']["senderID"])."</p>
 							<p class='avatar'>".getUserAvatar($MySQL['row']["senderID"])."</p>";
-				
+				if($MySQL['row']['senderID']==$_SESSION['forumUserID']){
+					$authorid=$MySQL['row']["receiverID"];
+				else {
+					$authorid=$MySQL['row']["senderID"];
+				}
 				echo "
 							<p class='postbuttons'>
 								<script>var text".$i." = '".$MySQL['connection']->real_escape_string($MySQL['row']["text"])."';</script>
-								<a class='hidden-a' onClick='quote(\"".getFirstName($MySQL['row']["senderID"])."\",text".$i.", \"".$MySQL['row']["senderID"]."\")' href='#newPost'>
+								<a class='hidden-a' onClick='quote(\"".getFirstName($MySQL['row']["senderID"])."\",text".$i.", \"".$authorid."\")' href='#newPost'>
 									<img src='images/quote.png'>
 								</a>";
 				
