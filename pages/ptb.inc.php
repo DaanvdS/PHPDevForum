@@ -176,9 +176,14 @@ function ptbAction(){
 function ptbShow($ptb, $return){
 	include('dbconnect.inc.php');
 	$ptbs=ptbSwitch($ptb);
+	if(isset($_GET['pag'])){
+				$pag=$_GET['pag'];
+			} else {
+				$pag=1;
+			}
 	if($ptb=='b'){$MySQL['query']="SELECT * FROM `".$ptbs[0]."`";}
-	if($ptb=='t'){$MySQL['query']="SELECT * FROM `".$ptbs[0]."` WHERE board_id=".$return." ORDER BY `sticky` DESC, `id` ASC";}
-	if($ptb=='p'){$MySQL['query']="SELECT `posts`.`text`, `posts`.`date_created`, `users`.`firstname`, `users`.`sig`, `posts`.`id`, `posts`.`user_id`, `threads`.`name`, `threads`.`op` FROM `posts`, `users`, `threads` WHERE `threads`.`id`= ".$return." AND `posts`.`thread_id`=".$return." AND `users`.`id` = `posts`.`user_id` ORDER BY date_created ASC";}
+	if($ptb=='t'){$MySQL['query']="SELECT * FROM `".$ptbs[0]."` WHERE board_id=".$return." ORDER BY `sticky` DESC, `id` ASC LIMIT ".(($pag-1)*10).", ".($pag*10)."";}
+	if($ptb=='p'){$MySQL['query']="SELECT `posts`.`text`, `posts`.`date_created`, `users`.`firstname`, `users`.`sig`, `posts`.`id`, `posts`.`user_id`, `threads`.`name`, `threads`.`op` FROM `posts`, `users`, `threads` WHERE `threads`.`id`= ".$return." AND `posts`.`thread_id`=".$return." AND `users`.`id` = `posts`.`user_id` ORDER BY date_created ASC LIMIT ".(($pag-1)*10).", ".($pag*10)."";}
 	$MySQL['result']= $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	switch($ptb){
 		case 'p':
@@ -234,6 +239,21 @@ function ptbShow($ptb, $return){
 						</tr>
 					</table>";
 					$i++;
+				}
+				$MySQL['query']="SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$return."";
+				$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+				$MySQL['row']=$MySQL['result']->fetch_assoc();
+				$amRows=$MySQL['row']['amRows'];
+				if($amRows>10){
+					echo "Page: ";
+					$amPages=ceil($amRows/10);
+					for($i=0;$i<$amPages;$i++){
+						if($pag==($i+1)){
+							echo "<a href='?p=inbox&pag=".($i+1)."'><b>[".($i+1)."]</b></a>&nbsp;";
+						} else {
+							echo "<a href='?p=inbox&pag=".($i+1)."'>".($i+1)."</a>&nbsp;";
+						}
+					}
 				}
 			}
 			if(isLoggedIn()){
