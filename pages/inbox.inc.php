@@ -60,7 +60,7 @@ if(isLoggedIn()){
 			if(($MySQL['row']['receiverID']==$_SESSION['forumUserID'] && $MySQL['row']['delbyReceiver']==1)||($MySQL['row']['senderID']==$_SESSION['forumUserID'] && $MySQL['row']['delbySender']==1)){
 				//Do not show
 			} else {
-				if(($l>=$j)&&($l<=$k)){
+				if(($l>=$j)&&($l<$k)){
 					echo "
 				<table class='post'>
 					<tr>
