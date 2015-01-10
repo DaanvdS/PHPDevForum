@@ -72,14 +72,18 @@ if(isLoggedIn()){
 							</p>";
 				
 				$sig=getSignature($MySQL['row']["senderID"]);
-				
+				if($MySQL['row']['senderID']==$_SESSION['forumUserID']){
+					$sendto="Sent to ".getFirstName($MySQL['row']['receiverID'])." ".getLastName($MySQL['row']['receiverID'])." ";
+				} else {
+					$sendto="";
+				}
 				echo "
 						</td>
 						<td class='post-td'>
 							<div class='post-content'>
 								<p><b></b></p>
 								<p><b></b></p>
-								<p class='postedon'>Sent on: ".$MySQL['row']["date_created"]."
+								<p class='postedon'>".$sendto."Sent on: ".$MySQL['row']["date_created"]."
 								<hr />".$MySQL['row']["text"].$sig."
 							</div>
 						</td>
