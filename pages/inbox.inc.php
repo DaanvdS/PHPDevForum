@@ -51,6 +51,7 @@ if(isLoggedIn()){
 		$i=0;
 		if($MySQL['result']->num_rows==0){ echo "No messages!"; }
 		while($MySQL['row']=$MySQL['result']->fetch_assoc()) {
+			$MySQL['connection']->query("UPDATE `messages` SET `unread` = '0' WHERE `id` = '".$MySQL['row']['id']."'");
 			if(($MySQL['row']['receiverID']==$_SESSION['forumUserID'] && $MySQL['row']['delbyReceiver']==1)||($MySQL['row']['senderID']==$_SESSION['forumUserID'] && $MySQL['row']['delbySender']==1)){
 				//Do not show
 			} else {
@@ -109,7 +110,7 @@ if(isLoggedIn()){
 			$amPages=ceil($MySQL['row']['amRows']/10);
 			for($i=0;$i<$amPages;$i++){
 				if($ip==($i+1)){
-					echo "<a href='?p=inbox&ip=".($i+1)."'><b>".($i+1)."</b></a>&nbsp;";
+					echo "<a href='?p=inbox&ip=".($i+1)."'><b>[".($i+1)."]</b></a>&nbsp;";
 				} else {
 					echo "<a href='?p=inbox&ip=".($i+1)."'>".($i+1)."</a>&nbsp;";
 				}
