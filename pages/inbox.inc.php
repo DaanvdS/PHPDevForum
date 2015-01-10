@@ -46,9 +46,12 @@ if(isLoggedIn()){
 		} else {
 			$ip=1;
 		}
-		$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."' ORDER BY date_created DESC LIMIT ".(($ip-1)*10).", ".($ip*10)."";
+		$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."' ORDER BY date_created DESC";
 		$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 		$i=0;
+		$j=(($ip-1)*10);
+		$k=($ip*10);
+		$l=0;
 		if($MySQL['result']->num_rows==0){ echo "No messages!"; }
 		while($MySQL['row']=$MySQL['result']->fetch_assoc()) {
 			if($MySQL['row']['receiverID']==$_SESSION['forumUserID']){
@@ -57,7 +60,8 @@ if(isLoggedIn()){
 			if(($MySQL['row']['receiverID']==$_SESSION['forumUserID'] && $MySQL['row']['delbyReceiver']==1)||($MySQL['row']['senderID']==$_SESSION['forumUserID'] && $MySQL['row']['delbySender']==1)){
 				//Do not show
 			} else {
-				echo "
+				if(($l>=$j)&&($l<=$k)){
+					echo "
 				<table class='post'>
 					<tr>
 						<td class='userbar'>
@@ -102,6 +106,8 @@ if(isLoggedIn()){
 					</tr>
 				</table>";
 				$i++;
+				}
+				$l++;
 			}
 		}
 		$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."'";
