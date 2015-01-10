@@ -58,7 +58,7 @@ if(isLoggedIn()){
 							<p class='avatar'>".getUserAvatar($MySQL['row']["senderID"])."</p>";
 				if($MySQL['row']['senderID']==$_SESSION['forumUserID']){
 					$authorid=$MySQL['row']["receiverID"];
-				else {
+				} else {
 					$authorid=$MySQL['row']["senderID"];
 				}
 				echo "
