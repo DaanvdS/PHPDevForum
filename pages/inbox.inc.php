@@ -21,16 +21,16 @@ if(isLoggedIn()){
 		}
 		if($_GET['action']=="delmessage"){
 			include('dbconnect.inc.php');
-			$MySQL['query']="SELECT `receiverID`, `senderID` FROM `messages` WHERE `id`='".$_GET['id']."'";
+			$MySQL['query']="SELECT `receiverID`, `senderID`, `datecreated` FROM `messages` WHERE `id`='".$_GET['id']."'";
 			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			if($MySQL['result']->num_rows==0){ 
 				echo "Something went wrong!"; 
 			} else {
 				$MySQL['row']=$MySQL['result']->fetch_assoc();
 				if($MySQL['row']['receiverID']==$_SESSION['forumUserID']){
-					$MySQL['query']="UPDATE `messages` SET `delbyReceiver` = '1' WHERE `id` = '".$_GET['id']."'";
+					$MySQL['query']="UPDATE `messages` SET `delbyReceiver` = '1', `datecreated` = '".$MySQL['row']['datecreated']."' WHERE `id` = '".$_GET['id']."'";
 				} elseif($MySQL['row']['senderID']==$_SESSION['forumUserID']) {
-					$MySQL['query']="UPDATE `messages` SET `delbySender` = '1' WHERE `id` = '".$_GET['id']."'";
+					$MySQL['query']="UPDATE `messages` SET `delbySender` = '1', `datecreated` = '".$MySQL['row']['datecreated']."' WHERE `id` = '".$_GET['id']."'";
 				}
 				$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 				if($MySQL['connection']->affected_rows==1){
