@@ -35,7 +35,7 @@ function ptbNew($ptb, $data, $return, $userID){
 			$values[0]="'".$data."'";
 			$values[1]="'".$return."'";
 			$values[2]="'".$userID."'";
-			$MySQL['query']="SELECT `name`, `op` FROM `threads` WHERE `thread_id` = '".$return."'";
+			$MySQL['query']="SELECT `name`, `op` FROM `threads` WHERE `id` = '".$return."'";
 			$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			$MySQL['row']=$MySQL['result']->fetch_assoc();
 			$op=$MySQL['row']['op'];
