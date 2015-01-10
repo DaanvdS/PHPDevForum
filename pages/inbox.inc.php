@@ -34,7 +34,7 @@ if(isLoggedIn()){
 				}
 				$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 				if($MySQL['connection']->affected_rows==1){
-					echo '<meta http-equiv="refresh" content="0; url=?p=inbox" />';
+					//echo '<meta http-equiv="refresh" content="0; url=?p=inbox" />';
 				}
 			}
 			include('dbdisconnect.inc.php');
