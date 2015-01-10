@@ -41,7 +41,12 @@ if(isLoggedIn()){
 		}
 	} else {
 		include('dbconnect.inc.php');
-		$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."' ORDER BY date_created ASC";
+		if(isset($_GET['ip'])){
+			$ip=$_GET['ip'];
+		} else {
+			$ip=1;
+		}
+		$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."' LIMIT ".(($ip-1)*10.", ".($ip*10)." ORDER BY date_created ASC";
 		$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 		$i=0;
 		if($MySQL['result']->num_rows==0){ echo "No messages!"; }
