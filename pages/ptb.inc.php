@@ -35,6 +35,13 @@ function ptbNew($ptb, $data, $return, $userID){
 			$values[0]="'".$data."'";
 			$values[1]="'".$return."'";
 			$values[2]="'".$userID."'";
+			$MySQL['query']="SELECT `name`, `op` FROM `threads` WHERE `thread_id` = '".$return."'";
+			$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+			$MySQL['row']=$MySQL['result']->fetch_assoc());
+			$op=$MySQL['row']['op'];
+			$name=$MySQL['row']['name'];
+			$username=getFirstName($userID)." ".getLastName($userID);
+			$MySQL['connection']->query("INSERT INTO `messages` (`senderID`, `receiverID`, `text`) VALUES (0, ".$MySQL['row']['op'].", '<p>Hi,</p><p>".$username." has posted a reply onto your thread \"".$name."\". Click <a href=\"?p=thread&id=".$return."\">here</a> to view it.</p>')") or die(mysqli_error($MySQL['connection']));
 			break;
 		case 't':
 			$columns[0]='`name`';
