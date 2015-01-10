@@ -65,7 +65,7 @@ if(isLoggedIn()){
 				<table class='post'>
 					<tr>
 						<td class='userbar'>
-							<p class='username'>".getUsername($MySQL['row']["senderID"])."</p>
+							<p class='username'>".getFirstName($MySQL['row']["senderID"])."</p>
 							<p class='rank'>".getUserRank($MySQL['row']["senderID"])."</p>
 							<p class='avatar'>".getUserAvatar($MySQL['row']["senderID"])."</p>";
 				if($MySQL['row']['senderID']==$_SESSION['forumUserID']){
