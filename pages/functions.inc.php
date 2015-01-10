@@ -102,7 +102,7 @@ function getSignature($userID){
 	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
 	if($MySQL['result']->num_rows!==0){
 		$MySQL['row']=$MySQL['result']->fetch_assoc();
-		if($MySQL['row']['sig']!==""){
+		if(($MySQL['row']['sig']!=="")||($MySQL['row']['sig']!==null)){
 			$out="<hr /><div class='signature'>".$MySQL['row']['sig']."</div>";
 		} else {
 			$out="";
