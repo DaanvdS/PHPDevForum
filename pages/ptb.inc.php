@@ -41,7 +41,9 @@ function ptbNew($ptb, $data, $return, $userID){
 			$op=$MySQL['row']['op'];
 			$name=$MySQL['row']['name'];
 			$username=getFirstName($userID)." ".getLastName($userID);
-			$MySQL['connection']->query("INSERT INTO `messages` (`senderID`, `receiverID`, `text`) VALUES (0, ".$MySQL['row']['op'].", '<p>Hi,</p><p>".$username." has posted a reply onto your thread \"".$name."\". Click <a href=\"?p=thread&id=".$return."\">here</a> to view it.</p>')") or die(mysqli_error($MySQL['connection']));
+			if(!$op==$userID){
+				$MySQL['connection']->query("INSERT INTO `messages` (`senderID`, `receiverID`, `text`) VALUES (0, ".$MySQL['row']['op'].", '<p>Hi,</p><p>".$username." has posted a reply onto your thread \"".$name."\". Click <a href=\"?p=thread&id=".$return."\">here</a> to view it.</p>')") or die(mysqli_error($MySQL['connection']));
+			}
 			break;
 		case 't':
 			$columns[0]='`name`';
