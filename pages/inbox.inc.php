@@ -105,10 +105,14 @@ if(isLoggedIn()){
 		$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 		$MySQL['row']=$MySQL['result']->fetch_assoc();
 		if($MySQL['row']['amRows']>10){
-			echo "Pages: ";
+			echo "Page: ";
 			$amPages=ceil($MySQL['row']['amRows']/10);
 			for($i=0;$i<$amPages;$i++){
-				echo "<a href='?p=inbox&ip=".($i+1)."'>".($i+1)."</a>&nbsp;";
+				if($ip==($i+1)){
+					echo "<a href='?p=inbox&ip=".($i+1)."'><b>".($i+1)."</b></a>&nbsp;";
+				} else {
+					echo "<a href='?p=inbox&ip=".($i+1)."'>".($i+1)."</a>&nbsp;";
+				}
 			}
 		}
 		
