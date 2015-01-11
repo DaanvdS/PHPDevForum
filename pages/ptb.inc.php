@@ -78,7 +78,7 @@ function ptbNew($ptb, $data, $return, $userID){
 	include("dbdisconnect.inc.php");
 }
 
-function ptbChgSav($ptb, $id, $data, $return){
+function ptbChgSav($ptb, $id, $data, $return, $pag){
 	include("dbconnect.inc.php");
 	for($i=0;$i<count($data);$i++){
 		$data[$i]=$MySQL['connection']->real_escape_string($data[$i]);
@@ -106,12 +106,12 @@ function ptbChgSav($ptb, $id, $data, $return){
 	
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	if($MySQL['connection']->affected_rows==1){
-		echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
+		echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'&pag='.$pag.'" />';
 	}
 	include("dbdisconnect.inc.php");
 }
 
-function ptbChgForm($ptb, $id, $return){
+function ptbChgForm($ptb, $id, $return, $pag){
 	include("dbconnect.inc.php");
 	switch($ptb){
     	case 'p':
@@ -147,6 +147,7 @@ function ptbChgForm($ptb, $id, $return){
 					<input type='hidden' name='ptb' value='".$ptb."'>
 					<input type='hidden' name='id' value='".$id."'>
 					<input type='hidden' name='return' value='".$return."'>
+					<input type='hidden' name='pag' value='".$pag."'>
 					<input type='hidden' name='p' value='".$ptbs[1]."'>";
 		if($ptb=='t'||$ptb=='b'){
 			echo "	<input type='text' name='data' value='".$MySQL['row'][(substr($columns[0], 1, -1))]."'>";
@@ -174,10 +175,10 @@ function ptbAction(){
 			break;
 		case 'save': 
 			if($_GET['ptb']=='t'){$sticky=$_GET['sticky'];}{$sticky=0;}
-			ptbChgSav($_GET['ptb'], $_GET['id'], array($_GET['data'],$sticky), $_GET['return']);
+			ptbChgSav($_GET['ptb'], $_GET['id'], array($_GET['data'],$sticky), $_GET['return'], $_GET['pag']);
 			break;
 		case 'change': 
-			ptbChgForm($_GET['ptb'], $_GET['id'], $_GET['return']);
+			ptbChgForm($_GET['ptb'], $_GET['id'], $_GET['return'], $_GET['pag']);
 			break;
 	}
 }
@@ -223,10 +224,10 @@ function ptbShow($ptb, $return){
 					}
 					if (hasRights($MySQL['row']['user_id'],$MySQL['row']['op'])) {
 						echo "
-									<a class='hidden-a' href='?p=thread&action=change&ptb=p&id=".$MySQL['row']['id']."&return=".$return."'>
+									<a class='hidden-a' href='?p=thread&action=change&ptb=p&id=".$MySQL['row']['id']."&return=".$return."&pag=".$pag."'>
 										<img src='images/change.png'>
 									</a>
-									<a class='hidden-a' href='?p=thread&action=delete&ptb=p&id=".$MySQL['row']['id']."&return=".$return."'>
+									<a class='hidden-a' href='?p=thread&action=delete&ptb=p&id=".$MySQL['row']['id']."&return=".$return."&pag=".$pag."'>
 										<img src='images/remove.png'>
 									</a>
 								</p>";
