@@ -188,12 +188,7 @@ function ptbShow($ptb, $return){
 	if(isset($_GET['pag'])){
 		$pag=$_GET['pag'];
 	} else {
-		$MySQL['query']="SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$return."";
-		$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-		$MySQL['row']=$MySQL['result']->fetch_assoc();
-		$amRows=$MySQL['row']['amRows'];
-		$amPages=ceil($amRows/10);
-		$pag=$amPages;
+		$pag=1;
 	}
 	if($ptb=='b'){$MySQL['query']="SELECT * FROM `".$ptbs[0]."`";}
 	if($ptb=='t'){$MySQL['query']="SELECT * FROM `".$ptbs[0]."` WHERE board_id=".$return." ORDER BY `sticky` DESC, `id` DESC";}
