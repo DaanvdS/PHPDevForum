@@ -185,19 +185,21 @@ function ptbAction(){
 function ptbShow($ptb, $return){
 	include('dbconnect.inc.php');
 	$ptbs=ptbSwitch($ptb);
-	if(isset($_GET['pag'])){
-		$pag=$_GET['pag'];
-	} else {
-		$MySQL['query']="SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$return."";
-		$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-		$MySQL['row']=$MySQL['result']->fetch_assoc();
-		$amRows=$MySQL['row']['amRows'];
-		$amPages=ceil($amRows/10);
-		$pag=$amPages;
-	}
 	if($ptb=='b'){$MySQL['query']="SELECT * FROM `".$ptbs[0]."`";}
 	if($ptb=='t'){$MySQL['query']="SELECT * FROM `".$ptbs[0]."` WHERE board_id=".$return." ORDER BY `sticky` DESC, `id` DESC";}
-	if($ptb=='p'){$MySQL['query']="SELECT `posts`.`text`, `posts`.`date_created`, `users`.`firstname`, `users`.`sig`, `posts`.`id`, `posts`.`user_id`, `threads`.`name`, `threads`.`op` FROM `posts`, `users`, `threads` WHERE `threads`.`id`= ".$return." AND `posts`.`thread_id`=".$return." AND `users`.`id` = `posts`.`user_id` ORDER BY date_created ASC LIMIT ".(($pag-1)*10).", ".($pag*10)."";}
+	if($ptb=='p'){
+		$MySQL['query']="SELECT `posts`.`text`, `posts`.`date_created`, `users`.`firstname`, `users`.`sig`, `posts`.`id`, `posts`.`user_id`, `threads`.`name`, `threads`.`op` FROM `posts`, `users`, `threads` WHERE `threads`.`id`= ".$return." AND `posts`.`thread_id`=".$return." AND `users`.`id` = `posts`.`user_id` ORDER BY date_created ASC LIMIT ".(($pag-1)*10).", ".($pag*10)."";
+		if(isset($_GET['pag'])){
+			$pag=$_GET['pag'];
+		} else {
+			$MySQL['query']="SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$return."";
+			$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+			$MySQL['row']=$MySQL['result']->fetch_assoc();
+			$amRows=$MySQL['row']['amRows'];
+			$amPages=ceil($amRows/10);
+			$pag=$amPages;
+		}
+	}
 	$MySQL['result']= $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	switch($ptb){
 		case 'p':
