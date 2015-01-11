@@ -188,7 +188,6 @@ function ptbShow($ptb, $return){
 	if($ptb=='b'){$MySQL['query']="SELECT * FROM `".$ptbs[0]."`";}
 	if($ptb=='t'){$MySQL['query']="SELECT * FROM `".$ptbs[0]."` WHERE board_id=".$return." ORDER BY `sticky` DESC, `id` DESC";}
 	if($ptb=='p'){
-		$MySQL['query']="SELECT `posts`.`text`, `posts`.`date_created`, `users`.`firstname`, `users`.`sig`, `posts`.`id`, `posts`.`user_id`, `threads`.`name`, `threads`.`op` FROM `posts`, `users`, `threads` WHERE `threads`.`id`= ".$return." AND `posts`.`thread_id`=".$return." AND `users`.`id` = `posts`.`user_id` ORDER BY date_created ASC LIMIT ".(($pag-1)*10).", ".($pag*10)."";
 		if(isset($_GET['pag'])){
 			$pag=$_GET['pag'];
 		} else {
@@ -199,6 +198,7 @@ function ptbShow($ptb, $return){
 			$amPages=ceil($amRows/10);
 			$pag=$amPages;
 		}
+		$MySQL['query']="SELECT `posts`.`text`, `posts`.`date_created`, `users`.`firstname`, `users`.`sig`, `posts`.`id`, `posts`.`user_id`, `threads`.`name`, `threads`.`op` FROM `posts`, `users`, `threads` WHERE `threads`.`id`= ".$return." AND `posts`.`thread_id`=".$return." AND `users`.`id` = `posts`.`user_id` ORDER BY date_created ASC LIMIT ".(($pag-1)*10).", ".($pag*10)."";
 	}
 	$MySQL['result']= $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	switch($ptb){
