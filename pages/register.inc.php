@@ -38,7 +38,7 @@ if(!isLoggedIn()){
 					<body>
 					  <p>Dear '.$_POST['forumUsername'].',</p> 
 					  <p>Thank you for signing up at the PHPDev forums.</p>
-					  <p>In order to complete your registration, please click <a href="http://m6a9.leerling.lekenlinge.nl/forum/?p=activate&c='.$code.'&u='.$MySQL['connection']->insert_id.'">this link</a> to activate your account.</p>
+					  <p>In order to complete your registration, please click <a href="http://forum.s-nl.net/?p=activate&c='.$code.'&u='.$MySQL['connection']->insert_id.'">this link</a> to activate your account.</p>
 					  <p>See you online!</p>
 					</body>
 					</html>
