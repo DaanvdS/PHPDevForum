@@ -24,7 +24,7 @@ if(!isLoggedIn()){
 			echo "<p>Username/Password not filled in!";
 		} else {
 			include("dbconnect.inc.php");
-			$MySQL['query' = "SELECT `id`, `admin` FROM `users` WHERE `username`='".$MySQL['connection']->escape_string($_POST['forumUsername'])."' AND `password`='".md5($_POST['forumPassword'])."' AND `activated` = '1' LIMIT 1";
+			$MySQL['query'] = "SELECT `id`, `admin` FROM `users` WHERE `username`='".$MySQL['connection']->escape_string($_POST['forumUsername'])."' AND `password`='".md5($_POST['forumPassword'])."' AND `activated` = '1' LIMIT 1";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			if($MySQL['result']->num_rows == 1){
 				$MySQL['row'] = $MySQL['result']->fetch_assoc();
