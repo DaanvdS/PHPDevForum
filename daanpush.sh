@@ -1,4 +1,2 @@
-#!/bin/bash          
-git add .
-git commit -m "Push from Daan"
-git push origin master
+#!/bin/bash
+./push.sh 'Wietze'
