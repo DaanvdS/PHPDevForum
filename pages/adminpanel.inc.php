@@ -48,7 +48,7 @@ if(isLoggedIn() && isAdmin()){
 			}
 		} elseif($_GET['mode'] == "gitpull"){
 			$outcome=shell_exec("sh /home/daan/public_html/forum/PHPDevForum/pull.sh");
-			echo $outcome;
+			echo "Out: ".$outcome;
 		}
 	} else {
 		//Set the direct of sorting the colomns.
