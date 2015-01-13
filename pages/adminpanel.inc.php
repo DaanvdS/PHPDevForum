@@ -49,6 +49,7 @@ if(isLoggedIn() && isAdmin()){
 		}
 	} else {
 		//Set the direct of sorting the colomns.
+		$sort = getIfIsset('sort', 'id');
 		if(isset($_POST['dir'])){
 			$dir = $_POST['dir'];
 			if($dir == "ASC")$adir = "DESC";
@@ -61,7 +62,7 @@ if(isLoggedIn() && isAdmin()){
 		//Git pull button (not yet working)
 		echo "<form id='pull' method='post'><input type='button' name='mode' value='Git pull' onlick='javascript:document.forms[\"pull\"].submit();' /></form>";
 	
-		$MySQL['query'] = "SELECT * FROM `users` ORDER BY `".getIfIsset('sort', 'id')."` ".$dir."";
+		$MySQL['query'] = "SELECT * FROM `users` ORDER BY `".$sort."` ".$dir."";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 		if($MySQL['result']->num_rows !== 0){
 			?><table style='width: 99%;'><tr>
