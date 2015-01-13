@@ -39,7 +39,7 @@ function getTitle($ptb, $id, $page){
       		$tablename='threads';
       		break;
       	case 'b':
-      		$tablename='boards','index','board');
+      		$tablename='boards');
       		break;
 		}
 		$MySQL['query'] = "SELECT `name` FROM `".$tablename."` WHERE `id` = '".$id."' LIMIT 1";
