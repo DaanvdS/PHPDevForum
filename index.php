@@ -94,7 +94,7 @@ include('dbdisconnect.inc.php');
 			<div id="header">
 				<a class="hidden-a" href="?p=index">
 					<div id="title">
-						<h1>PHPDevForum</h1>
+						<h1>Forum</h1>
 					</div>
 				</a>
 				<div id="account-info">
