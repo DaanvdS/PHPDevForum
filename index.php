@@ -6,7 +6,7 @@ session_start();
 
 include('pages/functions.inc.php');
 
-$page = getStrIfIsset('p', 'index');
+$page = getIfIsset('p', 'index');
 
 if(!isset($_SESSION['forumAdmin'])){
 	$_SESSION['forumAdmin'] = 0;
@@ -38,7 +38,7 @@ if(isLoggedIn()){
 }
 
 if(file_exists("pages/".$page.".inc.php")){
-	$title = getTitle($page, getStrIfIsset('id', ''));  // Dit doet het niet. Nee hehe. Repareren :)
+	$title = getTitle($page, getIfIsset('id', ''));  // Dit doet het niet. Nee hehe. Repareren :)
 } else {
 	$title = "Forum - 404";
 	$page = "404";

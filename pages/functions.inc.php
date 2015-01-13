@@ -10,16 +10,7 @@ function intToBool($in) {
 	return $out;
 }
 
-function getIntIfIsset($getvar, $default){
-	if(isset($_GET[$getvar])){
-		$out = $_GET[$getvar];
-	} else {
-		$out = $default;
-	}
-	return $out;
-}
-
-function getStrIfIsset($getvar, $default){
+function getIfIsset($getvar, $default){
 	if(isset($_GET[$getvar])){
 		$out = $_GET[$getvar];
 	} else {
@@ -41,7 +32,7 @@ function getTitle($page, $id){
 		}
 		$MySQL['query'] = "SELECT `name` FROM `".$tablename."` WHERE `id` = '".$id."' LIMIT 1";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-		if($MySQL['result']->num_rows == 0){
+		if($MySQL['result']->num_rows == 1){
 			$MySQL['row'] = $MySQL['result']->fetch_assoc();
 			$out = "Forum - ".$MySQL['row']['name'];
 		} else {
