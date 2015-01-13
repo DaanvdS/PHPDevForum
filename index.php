@@ -35,12 +35,7 @@ if(isLoggedIn()){
 }
 
 if(file_exists("pages/".$page.".inc.php")){
-	$title = "Forum";
-} else if ($page == "board" && isset($_GET['b'])){
-	$b = $_GET['b'];
-	if ($MySQL['connection']->query("SELECT name FROM boards WHERE name='".$b."'")->num_rows == 1) {
-		$title = "Forum - " . $b;
-	}
+	$title = getTitle($_GET['ptb'], $_GET['id'], $page);
 } else {
 	$title = "Forum - 404";
 	$page = "404";
