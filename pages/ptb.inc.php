@@ -15,7 +15,7 @@ function ptbSwitch($ptb){
 
 function ptbDelete($ptb, $id, $return){
 	include("dbconnect.inc.php");
-	$ptb=ptbSwitch($ptb);
+	$ptb = ptbSwitch($ptb);
   	$MySQL['query']="DELETE FROM `".$ptb[0]."` WHERE `id`= ".$id." LIMIT 1";	
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	if($MySQL['connection']->affected_rows==1){
