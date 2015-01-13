@@ -5,6 +5,7 @@
 <?php
 if(!isLoggedIn()){
 	if(!isset($_POST['forumPassword'])){
+		//Show the login form
 		?>
 		<form method="post" action="">
 			<input type='hidden' name='goto' value='<?php echo $_GET['goto'];?>'>
@@ -18,16 +19,17 @@ if(!isLoggedIn()){
 		</form>
 		<?php
 	} else {
-		if($_POST['forumPassword']=="" || $_POST['forumUsername']==""){
+		//Log in and set the session data
+		if($_POST['forumPassword'] =="" || $_POST['forumUsername'] ==""){
 			echo "<p>Username/Password not filled in!";
 		} else {
 			include("dbconnect.inc.php");
-			$MySQL['query']="SELECT `id`, `admin` FROM `users` WHERE `username`='".$MySQL['connection']->escape_string($_POST['forumUsername'])."' AND `password`='".md5($_POST['forumPassword'])."' AND `activated` = '1' LIMIT 1";
-			$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
-			if($MySQL['result']->num_rows==1){
-				$MySQL['row']=$MySQL['result']->fetch_assoc();
-				$_SESSION['forumUserID']=$MySQL['row']['id'];
-				if($MySQL['row']['admin']==1){$_SESSION['forumAdmin']=1;}else{$_SESSION['forumAdmin']=0;}
+			$MySQL['query' = "SELECT `id`, `admin` FROM `users` WHERE `username`='".$MySQL['connection']->escape_string($_POST['forumUsername'])."' AND `password`='".md5($_POST['forumPassword'])."' AND `activated` = '1' LIMIT 1";
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+			if($MySQL['result']->num_rows == 1){
+				$MySQL['row'] = $MySQL['result']->fetch_assoc();
+				$_SESSION['forumUserID'] = $MySQL['row']['id'];
+				$_SESSION['forumAdmin'] = $MySQL['row']['admin'];
 				echo '<meta http-equiv="refresh" content="0; url=?p='.$_POST['goto'].'&id='.$_POST['goid'].'" />';
 			} else {
 				echo "<p>Username/Password incorrect/Account was not activated!</p>";
