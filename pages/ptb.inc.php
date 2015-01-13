@@ -95,14 +95,18 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
 			break;	
 		case 't':
 			$columns[0] = '`name`';
-			$columns[0] = '`sticky`';
+			$columns[1] = '`sticky`';
 			$values[0] = "'".$data[0]."'";
-			$values[0] = "'".$data[1]."'";
+			$values[1] = "'".$data[1]."'";
 			break;			
 	}
 	
 	$ptb=ptbSwitch($ptb);
-	$fin_update=$columns[0].' = '.$values[0];
+	if(count($colums) == 1){
+		$fin_update=$columns[0].' = '.$values[0];
+	} else {
+		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1];
+	}
   	$MySQL['query']="UPDATE `".$ptb[0]."` SET ".$fin_update." WHERE `id` = ".$id;
 	echo $MySQL['query'];
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
