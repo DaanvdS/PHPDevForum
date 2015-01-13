@@ -343,5 +343,6 @@ function ptbPageLinks($ptb){
 				}
 			}
 			break;
+	}
 }
 ?>
