@@ -107,7 +107,7 @@ include('dbdisconnect.inc.php');
 					if(isLoggedIn()){
 						include('dbconnect.inc.php');
 						$MySQL['result'] = $MySQL['connection']->query("SELECT COUNT(*) AS `amountOfRows` FROM `messages` WHERE `receiverID`='".$_SESSION['forumUserID']."' AND `unread` = '1'");
-						$MySQL['row']=$MySQL['result']->fetch_assoc();
+						$MySQL['row'] = $MySQL['result']->fetch_assoc();
 						if($MySQL['row']['amountOfRows']==0){$unreadMessages='';}else{$unreadMessages='<b>('.$MySQL['row']['amountOfRows'].')</b>';}
 						echo '<a class="hidden-a" href="?p=inbox">Inbox '.$unreadMessages.'</a>';
 						echo '<a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a>';
@@ -124,8 +124,10 @@ include('dbdisconnect.inc.php');
 			
 			</div>
 			<div id="content">
-				<?php include("pages/breadcrumb.inc.php"); ?>
-				<?php include("pages/".$page.".inc.php"); ?>
+				<?php //Include content
+					include("pages/breadcrumb.inc.php");
+					include("pages/".$page.".inc.php"); 
+				?>
 			</div>
 		</div>
 	</body>

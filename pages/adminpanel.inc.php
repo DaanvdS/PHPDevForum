@@ -6,40 +6,36 @@
 if(isLoggedIn() && isAdmin()){
 	include("dbconnect.inc.php");
 	if(isset($_GET['mode'])){
-		if($_GET['mode']=="deluser"){
-			$MySQL['query']="DELETE FROM `users` WHERE `id`= ".$_GET['id']." LIMIT 1";
-			$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
+		if($_GET['mode'] == "deluser"){
+			$MySQL['query'] = "DELETE FROM `users` WHERE `id`= ".$_GET['id']." LIMIT 1";
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			
 			if($MySQL['connection']->affected_rows==1){
 				echo '<script>alert("Deleted succesfully");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
 			} else {
 				echo "Something went wrong: <a href='?p=adminpanel'>Return</a>";
 			}
-		} elseif($_GET['mode']=="setactivate"){
-			$MySQL['query']="UPDATE `users` SET `activated` = '".toggleInt($_GET['current'])."', `activationcode` = '0' WHERE `id` = '".$_GET['id']."'";
-			$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
+		} elseif($_GET['mode'] == "setactivate"){
+			$MySQL['query'] = "UPDATE `users` SET `activated` = '".toggleInt($_GET['current'])."', `activationcode` = '0' WHERE `id` = '".$_GET['id']."'";
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
-		} elseif($_GET['mode']=="setadmin"){
-			$MySQL['query']="UPDATE `users` SET `admin` = '".toggleInt($_GET['current'])."' WHERE `id` = '".$_GET['id']."'";
-			$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
+		} elseif($_GET['mode'] == "setadmin"){
+			$MySQL['query'] = "UPDATE `users` SET `admin` = '".toggleInt($_GET['current'])."' WHERE `id` = '".$_GET['id']."'";
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
-		} elseif($_GET['mode']=="changeuser"){
-			$MySQL['query']="UPDATE `users` SET `firstname` = '".$_GET['forumFirstName']."', `lastname` = '".$_GET['forumLastName']."' WHERE `id` = '".$_GET['forumID']."'";
-			$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
+		} elseif($_GET['mode'] == "changeuser"){
+			$MySQL['query'] = "UPDATE `users` SET `firstname` = '".$_GET['forumFirstName']."', `lastname` = '".$_GET['forumLastName']."' WHERE `id` = '".$_GET['forumID']."'";
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
 		}
 
 	} else {
-		if(isset($_POST['sort'])){
-			$sort = $_POST['sort'];
-		} else {
-			$sort = "id";
-		}
+		$sort = getIfIsset('sort', 'id');
 		
 		if(isset($_POST['dir'])){
 			$dir = $_POST['dir'];
-			if($dir=="ASC"){$adir = "DESC";}
-			elseif($dir=="DESC"){$adir = "ASC";}
+			if($dir == "ASC")$adir = "DESC";
+			if($dir == "DESC")$adir = "ASC";
 		} else {
 			$dir = "ASC";
 			$adir = "DESC";
@@ -47,9 +43,9 @@ if(isLoggedIn() && isAdmin()){
 	
 		echo "<form id='pull' method='post'><input type='button' name='mode' value='Git pull' onlick='javascript:document.forms[\"pull\"].submit();' /></form>";
 	
-		$MySQL['query']="SELECT * FROM `users` ORDER BY `".$sort."` ".$dir."";
-		$MySQL['result']= $MySQL['connection']->query($MySQL['query']);
-		if($MySQL['result']->num_rows!==0){
+		$MySQL['query'] = "SELECT * FROM `users` ORDER BY `".$sort."` ".$dir."";
+		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+		if($MySQL['result']->num_rows !== 0){
 			?><table style='width: 99%;'><tr>
 				<th><form id='id' method='post'><input type='hidden' name='dir' value='<?php if($sort=="id"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='sort' value='id'></form><a href='javascript:document.forms["id"].submit();'><?php if($sort=="id"){ echo "<b>"; } ?>ID<?php if($sort=="id"){ echo "</b>"; } ?></a></th>
 				<th><form id='firstname' method='post'><input type='hidden' name='dir' value='<?php if($sort=="firstname"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='sort' value='firstname'></form><a href='javascript:document.forms["firstname"].submit();'><?php if($sort=="firstname"){ echo "<b>"; } ?>First name<?php if($sort=="firstname"){ echo "</b>"; } ?></a></th>
@@ -62,7 +58,7 @@ if(isLoggedIn() && isAdmin()){
 				</tr>
 			<?php
 			while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
-				if(!$MySQL['row']['id']==0){
+				if(!$MySQL['row']['id'] == 0){
 					echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='mode' value='changeuser'><input type='hidden' name='forumID' value='".$MySQL['row']['id']."'>
 								<td class='right'>".$MySQL['row']['id']."</td>
 								<td><input class='up' type='text' name='forumFirstName' value='".$MySQL['row']['firstname']."'></td>
