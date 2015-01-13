@@ -139,6 +139,7 @@ if(isLoggedIn()){
 	}
 }
 function inboxPageLinks($ip){
+	include('dbconnect.inc.php');
 	$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."'";
 	$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	$amRows=0;
@@ -161,5 +162,6 @@ function inboxPageLinks($ip){
 		}
 		echo "</p>";
 	}
+	include('dbdisconnect.inc.php');
 }
 ?>
