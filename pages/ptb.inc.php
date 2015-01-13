@@ -325,6 +325,7 @@ function ptbShow($ptb, $return){
 	include('dbdisconnect.inc.php');
 }
 function ptbPageLinks($ptb, $return){
+	include('dbconnect.inc.php');
 	switch($ptb){
 		case 'p':
 			$MySQL['query']="SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$return."";
@@ -344,5 +345,6 @@ function ptbPageLinks($ptb, $return){
 			}
 			break;
 	}
+	include('dbdisconnect.inc.php');
 }
 ?>
