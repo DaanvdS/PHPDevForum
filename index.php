@@ -39,7 +39,6 @@ if(isLoggedIn()){
 
 if(file_exists("pages/".$page.".inc.php")){
 	$title = getTitle($page, $_GET['id']);  // Dit doet het niet. Nee hehe. Repareren :)
-//	$title = "Forum";
 } else {
 	$title = "Forum - 404";
 	$page = "404";
