@@ -15,16 +15,17 @@ if(!isLoggedIn()){
 		</form>
 		<?php
 	} else {
-		if($_POST['forumEmailaddress']=="" || $_POST['forumUsername']==""){
+		if($_POST['forumEmailaddress'] == "" || $_POST['forumUsername'] == ""){
 			echo "<p>Username/Emailaddress not filled in!";
 		} else {
 			include("dbconnect.inc.php");
-			$MySQL['result']= $MySQL['connection']->query("SELECT `id` FROM `users` WHERE `username`='".$_POST['forumUsername']."' AND `emailaddress`='".$_POST['forumEmailaddress']."' LIMIT 1");
-			if($MySQL['result']->num_rows==1){
+			$MySQL['query'] = "SELECT `id` FROM `users` WHERE `username`='".$_POST['forumUsername']."' AND `emailaddress`='".$_POST['forumEmailaddress']."' LIMIT 1"
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+			if($MySQL['result']->num_rows == 1){
 				$code = rand();
-				$MySQL['query']="UPDATE `users` SET `password` = '".md5($code)."' WHERE `username` = '".$_POST['forumUsername']."'";
-				$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
-				if($MySQL['connection']->affected_rows==1){
+				$MySQL['query'] = "UPDATE `users` SET `password` = '".md5($code)."' WHERE `username` = '".$_POST['forumUsername']."'";
+				$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+				if($MySQL['connection']->affected_rows == 1){
 					echo 'A new password had been sent to your emailaddress.';
 					$message = '
 					<html>
