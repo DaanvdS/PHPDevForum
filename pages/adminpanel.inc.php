@@ -49,7 +49,7 @@ if(isLoggedIn() && isAdmin()){
 		}
 	} else {
 		//Set the direct of sorting the colomns.
-		$sort = getIfIsset('sort', 'id');
+		$sort = getIfIssetPost('sort', 'id');
 		if(isset($_POST['dir'])){
 			$dir = $_POST['dir'];
 			if($dir == "ASC")$adir = "DESC";

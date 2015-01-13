@@ -10,9 +10,18 @@ function intToBool($in) {
 	return $out;
 }
 
-function getIfIsset($getvar, $default){
+function getIfIssetGet($getvar, $default){
 	if(isset($_GET[$getvar])){
 		$out = $_GET[$getvar];
+	} else {
+		$out = $default;
+	}
+	return $out;
+}
+
+function getIfIssetPost($postvar, $default){
+	if(isset($_POST[$postvar])){
+		$out = $_POST[$postvar];
 	} else {
 		$out = $default;
 	}
