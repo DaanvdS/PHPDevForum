@@ -8,8 +8,8 @@ if(!isLoggedIn()){
 		//Show the login form
 		?>
 		<form method="post" action="">
-			<input type='hidden' name='goto' value='<?php echo $_GET['goto'];?>'>
-			<input type='hidden' name='goid' value='<?php echo $_GET['goid'];?>'>
+			<input type='hidden' name='goto' value='<?php echo getIfIssetGet('goto', '');?>'>
+			<input type='hidden' name='goid' value='<?php echo getIfIssetGet('goid', '');?>'>
 			<table border="1">
 				<tr><td>Username</td><td><input type="text" name="forumUsername" value="" autofocus></td></tr>
 				<tr><td>Password</td><td><input type="password" name="forumPassword" value=""></td></tr>
