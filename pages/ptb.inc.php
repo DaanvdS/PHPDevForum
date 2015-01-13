@@ -102,7 +102,7 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
 	}
 	
 	$ptb=ptbSwitch($ptb);
-	if(count($colums) == 1){
+	if(count($columns) == 1){
 		$fin_update=$columns[0].' = '.$values[0];
 	} else {
 		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1];
@@ -183,7 +183,7 @@ function ptbAction(){
 			ptbNew(getIfIssetGet('ptb', ''), getIfIssetGet('data', ''), getIfIssetGet('return', ''), $_SESSION['forumUserID']);
 			break;
 		case 'save': 
-			if($_GET['ptb']=='t'){$sticky=$_GET['sticky'];}{$sticky=0;}
+			if($_GET['ptb']=='t'){$sticky=$_GET['sticky'];}else{$sticky=0;}
 			ptbChgSav(getIfIssetGet('ptb', ''), getIfIssetGet('id', ''), array(getIfIssetGet('data', ''),$sticky), getIfIssetGet('return', ''), getIfIssetGet('pag', ''));
 			break;
 		case 'change': 
