@@ -6,11 +6,7 @@ session_start();
 
 include('pages/functions.inc.php');
 
-if(isset($_GET['p'])){
-	$page = $_GET['p'];
-} else {
-	$page = "index";
-}
+$page = getStrIfIsset("page");
 
 if(!isset($_SESSION['forumAdmin'])){
 	$_SESSION['forumAdmin'] = 0;

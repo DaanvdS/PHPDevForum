@@ -1,24 +1,42 @@
 <?php
 function intToBool($in) {
-	if($in == 0) {
-		$out="False";
+	if($in  ==  0) {
+		$out = "False";
 	} else {
+		$out = "True";
 	}
-		$out="True";
+	return $out;
+}
+
+function getIntIfIsset($getvar){
+	if(isset($_GET[$getvar])){
+		$out = $_GET[$getvar];
+	} else {
+		$out = 0;
+	}
+	return $out;
+}
+
+function getStrIfIsset($in,$getvar){
+	if(isset($_GET[$getvar])){
+		$out = $_GET[$getvar];
+	} else {
+		$out = "";
+	}
 	return $out;
 }
 
 function toggleInt($in){
-	if($in == 0) {
-		$out=1;
+	if($in  ==  0) {
+		$out = 1;
 	} else {
-		$out=0;
+		$out = 0;
 	}
 	return $out;
 }
 
 function isLoggedIn(){
-	if(isset($_SESSION['forumUserID']) && $_SESSION['forumUserID']!==""){
+	if(isset($_SESSION['forumUserID']) && $_SESSION['forumUserID']! == ""){
 		return true;
 	} else {
 		return false;
@@ -61,7 +79,7 @@ function getUsername($userID){
 	include("dbconnect.inc.php");
 	$MySQL['query']="SELECT `username` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
 	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows!==0){
+	if($MySQL['result']->num_rows! == 0){
 		$MySQL['row']=$MySQL['result']->fetch_assoc();
 		$out=$MySQL['row']['username'];
 	} else {
@@ -72,22 +90,22 @@ function getUsername($userID){
 
 function getFirstName($userID){
 	include("dbconnect.inc.php");
-	$MySQL['query']="SELECT `firstname` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
-	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows!==0){
-		$MySQL['row']=$MySQL['result']->fetch_assoc();
-		$out=$MySQL['row']['firstname'];
+	$MySQL['query'] = "SELECT `firstname` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+	if($MySQL['result']->num_rows! == 0){
+		$MySQL['row'] = $MySQL['result']->fetch_assoc();
+		$out = $MySQL['row']['firstname'];
 	} else {
-		$out="Something went wrong.";
+		$out = "Something went wrong.";
 	}
 	return $out;
 }
 
 function getLastName($userID){
 	include("dbconnect.inc.php");
-	$MySQL['query']="SELECT `lastname` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
-	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows!==0){
+	$MySQL['query'] = "SELECT `lastname` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+	if($MySQL['result']->num_rows! == 0){
 		$MySQL['row']=$MySQL['result']->fetch_assoc();
 		$out=$MySQL['row']['lastname'];
 	} else {
@@ -100,9 +118,9 @@ function getSignature($userID){
 	include("dbconnect.inc.php");
 	$MySQL['query']="SELECT `sig` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
 	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows!==0){
+	if($MySQL['result']->num_rows! == 0){
 		$MySQL['row']=$MySQL['result']->fetch_assoc();
-		if(($MySQL['row']['sig']!=="")&&($MySQL['row']['sig']!==null)){
+		if(($MySQL['row']['sig']! == "")&&($MySQL['row']['sig']! == null)){
 			$out="<hr /><div class='signature'>".$MySQL['row']['sig']."</div>";
 		} else {
 			$out="";
@@ -122,7 +140,7 @@ function retrieveAvatars($userID){
 	include("dbconnect.inc.php");
 	$MySQL['query']="SELECT `username`, `avatar` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
 	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows!==0){
+	if($MySQL['result']->num_rows! == 0){
 		$MySQL['row']=$MySQL['result']->fetch_assoc();
 		$userName=$MySQL['row']['username'];
 		$currentAvatar=$MySQL['row']['avatar'];
@@ -135,7 +153,7 @@ function retrieveAvatars($userID){
 	
 	$out="<table>";
 	while($MySQL['row']=$MySQL['result']->fetch_assoc()){
-		if($MySQL['row']['id']=="1"){
+		if($MySQL['row']['id'] == "1"){
 			$imagePath=$userName;
 			$upload="<form method='post' enctype='multipart/form-data'>
 						<input type='hidden' name='mode' value='uploadavatar'>
@@ -150,7 +168,7 @@ function retrieveAvatars($userID){
 			$imagePath="notfound";
 			$out.="
 			<tr>
-				<td"; if($MySQL['row']['id']==$currentAvatar)$out.=" class='selected'"; $out.=">";
+				<td"; if($MySQL['row']['id'] == $currentAvatar)$out.=" class='selected'"; $out.=">";
 			$out.="
 					".$upload."
 					<img height='100px' src='images/avatars/".$imagePath.".img' title='".$MySQL['row']['description']."'>
@@ -159,7 +177,7 @@ function retrieveAvatars($userID){
 		} else {
 			$out.="
 			<tr>
-				<td"; if($MySQL['row']['id']==$currentAvatar)$out.=" class='selected'"; $out.=">";
+				<td"; if($MySQL['row']['id'] == $currentAvatar)$out.=" class='selected'"; $out.=">";
 			$out.="
 					".$upload."<a href='?p=userpanel&mode=setavatar&avatar=".$MySQL['row']['id']."'>
 						<img height='100px' src='images/avatars/".$imagePath.".img' title='".$MySQL['row']['description']."'>
@@ -177,10 +195,10 @@ function getUserAvatar($userID){
 	include("dbconnect.inc.php");
 	$MySQL['query']="SELECT `avatars`.`id`, `avatars`.`description`, `users`.`username` FROM `avatars`, `users` WHERE `users`.`id` = '".$userID."' AND `avatars`.`id` = `users`.`avatar` LIMIT 1";
 	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows==1){
+	if($MySQL['result']->num_rows == 1){
 		$MySQL['row']=$MySQL['result']->fetch_assoc();
 		$userName=$MySQL['row']['username'];
-		if($MySQL['row']['id']=="1"){$imagePath=$userName;}else{$imagePath=$MySQL['row']['id'];}
+		if($MySQL['row']['id'] == "1"){$imagePath=$userName;}else{$imagePath=$MySQL['row']['id'];}
 		$out="<img src='images/avatars/".$imagePath.".img' title='".$MySQL['row']['description']."'>";
 	}
 	return $out;
@@ -191,14 +209,14 @@ function getUserRank($userID){
 	include("dbconnect.inc.php");
 	$MySQL['query']="SELECT COUNT(*) AS `amountofPosts` FROM `posts` WHERE `user_id` = '".$userID."'";
 	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows!==0){
+	if($MySQL['result']->num_rows! == 0){
 		$MySQL['row']=$MySQL['result']->fetch_assoc();
 		$amposts=$MySQL['row']['amountofPosts'];
 		if($amposts<=10)$out="Newbie";
 		if($amposts>10&&$amposts<=20)$out="Junior";
 		if($amposts>20)$out="Hero";
 		$MySQL['result']=$MySQL['connection']->query("SELECT `admin` FROM `users` WHERE `id` = '".$userID."' AND `admin` = 1");
-		if($MySQL['result']->num_rows==1){
+		if($MySQL['result']->num_rows == 1){
 			$out="Administrator";
 		}
 	} else {
