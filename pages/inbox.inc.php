@@ -53,6 +53,7 @@ if(isLoggedIn()){
 		$k=($ip*10);
 		$l=0;
 		if($MySQL['result']->num_rows==0){ echo "No messages!"; }
+		inboxPageLinks($pag);
 		while($MySQL['row']=$MySQL['result']->fetch_assoc()) {
 			if($MySQL['row']['receiverID']==$_SESSION['forumUserID']){
 				$MySQL['connection']->query("UPDATE `messages` SET `unread` = '0' WHERE `id` = '".$MySQL['row']['id']."'");
@@ -113,27 +114,7 @@ if(isLoggedIn()){
 				$l++;
 			}
 		}
-		$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."'";
-		$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-		$amRows=0;
-		while($MySQL['row']=$MySQL['result']->fetch_assoc()){
-			if(($MySQL['row']['receiverID']==$_SESSION['forumUserID'] && $MySQL['row']['delbyReceiver']==1)||($MySQL['row']['senderID']==$_SESSION['forumUserID'] && $MySQL['row']['delbySender']==1)){
-				//Do not show
-			} else {
-				$amRows++;
-			}
-		}
-		if($amRows>10){
-			echo "Page: ";
-			$amPages=ceil($amRows/10);
-			for($i=0;$i<$amPages;$i++){
-				if($ip==($i+1)){
-					echo "<a href='?p=inbox&ip=".($i+1)."'><b>[".($i+1)."]</b></a>&nbsp;";
-				} else {
-					echo "<a href='?p=inbox&ip=".($i+1)."'>".($i+1)."</a>&nbsp;";
-				}
-			}
-		}
+		inboxPageLinks($pag);
 		
 		echo "
 			<form method='get' id='newPost' action=''>
@@ -155,6 +136,30 @@ if(isLoggedIn()){
 				<input class='post-area-submit' type='submit' name='submit' value='Submit'>
 			</form>";
 		include('dbdisconnect.inc.php');
+	}
+}
+function inboxPageLinks($pag){
+	$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."'";
+	$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+	$amRows=0;
+	while($MySQL['row']=$MySQL['result']->fetch_assoc()){
+		if(($MySQL['row']['receiverID']==$_SESSION['forumUserID'] && $MySQL['row']['delbyReceiver']==1)||($MySQL['row']['senderID']==$_SESSION['forumUserID'] && $MySQL['row']['delbySender']==1)){
+			//Do not show
+		} else {
+			$amRows++;
+		}
+	}
+	if($amRows>10){
+		echo "<p class='pagination'>Page: ";
+		$amPages=ceil($amRows/10);
+		for($i=0;$i<$amPages;$i++){
+			if($ip==($i+1)){
+				echo "<a href='?p=inbox&ip=".($i+1)."'><b>[".($i+1)."]</b></a>&nbsp;";
+			} else {
+				echo "<a href='?p=inbox&ip=".($i+1)."'>".($i+1)."</a>&nbsp;";
+			}
+		}
+		echo "</p>";
 	}
 }
 ?>

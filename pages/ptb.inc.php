@@ -333,7 +333,7 @@ function ptbPageLinks($ptb, $return, $pag){
 			$MySQL['row']=$MySQL['result']->fetch_assoc();
 			$amRows=$MySQL['row']['amRows'];
 			if($amRows>10){
-				echo "Page: ";
+				echo "<p class='pagination'>Page: ";
 				$amPages=ceil($amRows/10);
 				for($i=0;$i<$amPages;$i++){
 					if($pag==($i+1)){
@@ -342,6 +342,7 @@ function ptbPageLinks($ptb, $return, $pag){
 						echo "<a href='?p=thread&id=".$return."&pag=".($i+1)."'>".($i+1)."</a>&nbsp;";
 					}
 				}
+				echo "</p>";
 			}
 			break;
 	}
