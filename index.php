@@ -6,7 +6,7 @@ session_start();
 
 include('pages/functions.inc.php');
 
-$page = getIfIsset('p', 'index');
+$page = getIfIssetGet('p', 'index');
 
 if(!isset($_SESSION['forumAdmin'])){
 	$_SESSION['forumAdmin'] = 0;
@@ -39,7 +39,7 @@ if(isLoggedIn()){
 
 //If page file exists then get title
 if(file_exists("pages/".$page.".inc.php")){
-	$title = getTitle($page, getIfIsset('id', ''));  // Dit doet het niet. Nee hehe. Repareren :)
+	$title = getTitle($page, getIfIssetGet('id', ''));  // Dit doet het niet. Nee hehe. Repareren :)
 } else {
 	$title = "Forum - 404";
 	$page = "404";
@@ -113,7 +113,7 @@ include('dbdisconnect.inc.php');
 						echo '<a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a>';
 						echo '<a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a>';
 					} else {
-						echo '<a class="hidden-a" href="?p=login&goto='.$page.'&goid='.getIfIsset('id', '').'">Log in</a>'; 
+						echo '<a class="hidden-a" href="?p=login&goto='.$page.'&goid='.getIfIssetGet('id', '').'">Log in</a>'; 
 					}
 					
 					if(!isLoggedIn()){ 
