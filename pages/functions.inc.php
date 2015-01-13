@@ -43,12 +43,12 @@ function getTitle($page, $id){
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 		if($MySQL['result']->num_rows == 0){
 			$MySQL['row'] = $MySQL['result']->fetch_assoc();
-			$out = "Forum ".$MySQL['row']['name'];
+			$out = "Forum - ".$MySQL['row']['name'];
 		} else {
-			$out = "Unknown";
+			$out = "Forum - Unknown";
 		}
 	} else {
-		$out = "Forum ".ucfirst($page);
+		$out = "Forum - ".ucfirst($page);
 	}
 	return $out;
 }
