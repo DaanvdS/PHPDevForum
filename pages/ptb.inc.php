@@ -207,6 +207,7 @@ function ptbShow($ptb, $return){
 		case 'p':
 			$i=0;
 			if($MySQL['result']->num_rows > 0){
+				ptbPageLinks($ptb);
 				while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
 					echo "
 					<table class='post'>
