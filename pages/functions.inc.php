@@ -31,7 +31,8 @@ function getStrIfIsset($in,$getvar){
 function getTitle($ptb, $id, $page){
 	include("dbconnect.inc.php");
 	if(isset($ptb)){
-		$MySQL['query'] = "SELECT `name` FROM `".ptbSwitch($ptb)[0]."` WHERE `id` = '".$id."' LIMIT 1";
+		$tablename=ptbSwitch($ptb);
+		$MySQL['query'] = "SELECT `name` FROM `".$tablename[0]."` WHERE `id` = '".$id."' LIMIT 1";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 		if($MySQL['result']->num_rows! == 0){
 			$MySQL['row'] = $MySQL['result']->fetch_assoc();
