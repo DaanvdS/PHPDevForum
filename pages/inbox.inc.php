@@ -73,23 +73,22 @@ if(isLoggedIn()){
 				} else {
 					$authorid=$MySQL['row']["senderID"];
 				}
-				
+				echo "
+						<p class='postbuttons'>";
 				if(!$authorid==0){
-					echo "
-							<p class='postbuttons'>
+						echo "
+							
 								<script>var text".$i." = '".$MySQL['connection']->real_escape_string($MySQL['row']["text"])."';</script>
 								<a class='hidden-a' onClick='quote(\"".getFirstName($MySQL['row']["senderID"])."\",text".$i.", \"".$authorid."\")' href='#newPost'>
 									<img src='images/quote.png'>
 								</a>";
-				
-				
-					echo "
-								<a class='hidden-a' href='?p=inbox&action=delmessage&id=".$MySQL['row']['id']."'>
-									<img src='images/remove.png'>
-								</a>
-							</p>";
 				}
 				
+				echo "
+							<a class='hidden-a' href='?p=inbox&action=delmessage&id=".$MySQL['row']['id']."'>
+								<img src='images/remove.png'>
+							</a>
+						</p>";
 				
 				$sig=getSignature($MySQL['row']["senderID"]);
 				if($MySQL['row']['senderID']==$_SESSION['forumUserID']){
