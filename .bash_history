@@ -198,3 +198,10 @@ ls
 ls -l
 cd ..
 exit
+ls -l
+./daanpush.sh
+git add -A
+git commit
+git push origin master
+ls -l
+exit
