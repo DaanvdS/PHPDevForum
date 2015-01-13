@@ -47,7 +47,7 @@ if(isLoggedIn() && isAdmin()){
 				echo "Something went wrong: <a href='?p=adminpanel'>Return</a>";
 			}
 		} elseif($_GET['mode'] == "gitpull"){
-			$outcome=shell_exec("echo 'phpdev' | /bin/su - forum -c './pull.sh' 2>&1");
+			$outcome=shell_exec("/bin/su - forum -c './pull.sh' 2>&1");
 			echo "Out: ".$outcome;
 		}
 	} else {
