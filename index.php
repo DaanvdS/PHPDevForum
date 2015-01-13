@@ -37,6 +37,7 @@ if(isLoggedIn()){
 	}
 }
 
+//If page file exists then get title
 if(file_exists("pages/".$page.".inc.php")){
 	$title = getTitle($page, getIfIsset('id', ''));  // Dit doet het niet. Nee hehe. Repareren :)
 } else {
@@ -98,6 +99,7 @@ include('dbdisconnect.inc.php');
 				</a>
 				<div id="account-info">
 					<?php 
+					//Show links to user/admin-panels based on rights 
 					if(isAdmin()){
 						echo '<a class="hidden-a" href="?p=adminpanel">Admin panel</a>'; 
 					}
@@ -108,13 +110,10 @@ include('dbdisconnect.inc.php');
 						$MySQL['row']=$MySQL['result']->fetch_assoc();
 						if($MySQL['row']['amountOfRows']==0){$unreadMessages='';}else{$unreadMessages='<b>('.$MySQL['row']['amountOfRows'].')</b>';}
 						echo '<a class="hidden-a" href="?p=inbox">Inbox '.$unreadMessages.'</a>';
-						$MySQL['result'] = $MySQL['connection']->query("SELECT `firstname`, `lastname` FROM `users` WHERE `id`='".$_SESSION['forumUserID']."' LIMIT 1");
-						$MySQL['row']=$MySQL['result']->fetch_assoc();
-						echo '<a class="hidden-a" href="?p=userpanel">'.$MySQL['row']['firstname'].' '.$MySQL['row']['lastname'].'</a>';
+						echo '<a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a>';
 						echo '<a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a>';
 					} else {
-						if(isset($_GET['id'])){$id=$_GET['id'];}else{$id='';}
-						echo '<a class="hidden-a" href="?p=login&goto='.$page.'&goid='.$id.'">Log in</a>'; 
+						echo '<a class="hidden-a" href="?p=login&goto='.$page.'&goid='.getIfIsset('id', '').'">Log in</a>'; 
 					}
 					
 					if(!isLoggedIn()){ 
@@ -126,7 +125,7 @@ include('dbdisconnect.inc.php');
 			</div>
 			<div id="content">
 				<?php include("pages/breadcrumb.inc.php"); ?>
-				<?php if($page!=="404"){include("pages/".$page.".inc.php");}else{echo "404 - Page not found";} ?>
+				<?php include("pages/".$page.".inc.php"); ?>
 			</div>
 		</div>
 	</body>
