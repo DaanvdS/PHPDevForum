@@ -207,7 +207,7 @@ function ptbShow($ptb, $return){
 		case 'p':
 			$i=0;
 			if($MySQL['result']->num_rows > 0){
-				ptbPageLinks($ptb);
+				ptbPageLinks($ptb,$return);
 				while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
 					echo "
 					<table class='post'>
@@ -259,7 +259,7 @@ function ptbShow($ptb, $return){
 					</table>";
 					$i++;
 				}
-				ptbPageLinks($ptb);
+				ptbPageLinks($ptb,$return);
 			}
 			if(isLoggedIn()){
 			echo "
@@ -324,7 +324,7 @@ function ptbShow($ptb, $return){
 	}
 	include('dbdisconnect.inc.php');
 }
-function ptbPageLinks($ptb){
+function ptbPageLinks($ptb, $return){
 	switch($ptb){
 		case 'p':
 			$MySQL['query']="SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$return."";
