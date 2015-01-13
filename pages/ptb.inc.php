@@ -43,7 +43,7 @@ function ptbNew($ptb, $data, $return, $userID){
 			$username = getFirstName($userID)." ".getLastName($userID);
 			if(!$op == $userID){
 				$MySQL['query'] = "INSERT INTO `messages` (`senderID`, `receiverID`, `text`) VALUES (0, ".$MySQL['row']['op'].", '<p>Hi,</p><p>".$username." has posted a reply onto your thread \"".$name."\". Click <a href=\"?p=thread&id=".$return."\">here</a> to view it.</p>')";
-				$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']);
+				$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			}
 			break;
 		case 't':
