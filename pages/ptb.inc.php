@@ -173,7 +173,7 @@ function ptbAction(){
 	//return is the id 
 	switch($_GET['action']){
 		case 'delete':
-			ptbDelete(getIfIssetGet('ptb', '')), getIfIssetGet('id', ''), getIfIssetGet('return', ''));
+			ptbDelete(getIfIssetGet('ptb', ''), getIfIssetGet('id', ''), getIfIssetGet('return', ''));
 			break;
 		case 'new': 
 			ptbNew(getIfIssetGet('ptb', ''), getIfIssetGet('data', ''), getIfIssetGet('return', ''), $_SESSION['forumUserID']);
