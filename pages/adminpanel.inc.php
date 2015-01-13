@@ -6,6 +6,7 @@
 if(isLoggedIn() && isAdmin()){
 	include("dbconnect.inc.php");
 	if(isset($_GET['mode'])){
+		//Saving the changes the admin has made
 		if($_GET['mode'] == "deluser"){
 			$MySQL['query'] = "DELETE FROM `users` WHERE `id`= ".$_GET['id']." LIMIT 1";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
@@ -19,19 +20,35 @@ if(isLoggedIn() && isAdmin()){
 			$MySQL['query'] = "UPDATE `users` SET `activated` = '".toggleInt($_GET['current'])."', `activationcode` = '0' WHERE `id` = '".$_GET['id']."'";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
+			
+			if($MySQL['connection']->affected_rows==1){
+				echo '<script>alert("Activated succesfully");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
+			} else {
+				echo "Something went wrong: <a href='?p=adminpanel'>Return</a>";
+			}
 		} elseif($_GET['mode'] == "setadmin"){
 			$MySQL['query'] = "UPDATE `users` SET `admin` = '".toggleInt($_GET['current'])."' WHERE `id` = '".$_GET['id']."'";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
+			
+			if($MySQL['connection']->affected_rows==1){
+				echo '<script>alert("Made admin succesfully");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
+			} else {
+				echo "Something went wrong: <a href='?p=adminpanel'>Return</a>";
+			}
 		} elseif($_GET['mode'] == "changeuser"){
 			$MySQL['query'] = "UPDATE `users` SET `firstname` = '".$_GET['forumFirstName']."', `lastname` = '".$_GET['forumLastName']."' WHERE `id` = '".$_GET['forumID']."'";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
+			
+			if($MySQL['connection']->affected_rows==1){
+				echo '<script>alert("Saved succesfully");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
+			} else {
+				echo "Something went wrong: <a href='?p=adminpanel'>Return</a>";
+			}
 		}
-
 	} else {
-		$sort = getIfIsset('sort', 'id');
-		
+		//Set the direct of sorting the colomns.
 		if(isset($_POST['dir'])){
 			$dir = $_POST['dir'];
 			if($dir == "ASC")$adir = "DESC";
@@ -40,10 +57,11 @@ if(isLoggedIn() && isAdmin()){
 			$dir = "ASC";
 			$adir = "DESC";
 		}
-	
+		
+		//Git pull button (not yet working)
 		echo "<form id='pull' method='post'><input type='button' name='mode' value='Git pull' onlick='javascript:document.forms[\"pull\"].submit();' /></form>";
 	
-		$MySQL['query'] = "SELECT * FROM `users` ORDER BY `".$sort."` ".$dir."";
+		$MySQL['query'] = "SELECT * FROM `users` ORDER BY `".getIfIsset('sort', 'id')."` ".$dir."";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 		if($MySQL['result']->num_rows !== 0){
 			?><table style='width: 99%;'><tr>
