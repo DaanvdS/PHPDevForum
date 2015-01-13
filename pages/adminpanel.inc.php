@@ -60,16 +60,18 @@ if(isLoggedIn() && isAdmin()){
 				</tr>
 			<?php
 			while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
-				echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='mode' value='changeuser'><input type='hidden' name='forumID' value='".$MySQL['row']['id']."'>
-							<td class='right'>".$MySQL['row']['id']."</td>
-							<td><input class='up' type='text' name='forumFirstName' value='".$MySQL['row']['firstname']."'></td>
-							<td><input class='up' type='text' name='forumLastName' value='".$MySQL['row']['lastname']."'></td>
-							<td>".$MySQL['row']['username']."</td>
-							<td id='adminavatar'>".getUserAvatar($MySQL['row']['id'])."</td>
-							<td><a class='up' href='?p=adminpanel&mode=setactivate&id=".$MySQL['row']['id']."&current=".$MySQL['row']['activated']."'>".intToBool($MySQL['row']['activated'])."</a></td>
-							<td><a class='up' href='?p=adminpanel&mode=setadmin&id=".$MySQL['row']['id']."&current=".$MySQL['row']['admin']."'>".intToBool($MySQL['row']['admin'])."</a></td>
-							<td><a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a>&nbsp;<a href='?p=adminpanel&mode=deluser&id=".$MySQL['row']['id']."'><img src='images/remove.png'></a></td>
-						</form></tr>";
+				if(!$MySQL['row']['id']==0){
+					echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='mode' value='changeuser'><input type='hidden' name='forumID' value='".$MySQL['row']['id']."'>
+								<td class='right'>".$MySQL['row']['id']."</td>
+								<td><input class='up' type='text' name='forumFirstName' value='".$MySQL['row']['firstname']."'></td>
+								<td><input class='up' type='text' name='forumLastName' value='".$MySQL['row']['lastname']."'></td>
+								<td>".$MySQL['row']['username']."</td>
+								<td id='adminavatar'>".getUserAvatar($MySQL['row']['id'])."</td>
+								<td><a class='up' href='?p=adminpanel&mode=setactivate&id=".$MySQL['row']['id']."&current=".$MySQL['row']['activated']."'>".intToBool($MySQL['row']['activated'])."</a></td>
+								<td><a class='up' href='?p=adminpanel&mode=setadmin&id=".$MySQL['row']['id']."&current=".$MySQL['row']['admin']."'>".intToBool($MySQL['row']['admin'])."</a></td>
+								<td><a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a>&nbsp;<a href='?p=adminpanel&mode=deluser&id=".$MySQL['row']['id']."'><img src='images/remove.png'></a></td>
+							</form></tr>";
+				}
 			}
 			echo "</table>";
 		} else {
