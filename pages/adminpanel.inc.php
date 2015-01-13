@@ -45,6 +45,8 @@ if(isLoggedIn() && isAdmin()){
 			$adir = "DESC";
 		}
 	
+		<form id='pull' method='post'><input type="button" value="Git pull" onlick='javascript:document.forms["pull"].submit();' /></form>
+	
 		$MySQL['query']="SELECT * FROM `users` ORDER BY `".$sort."` ".$dir."";
 		$MySQL['result']= $MySQL['connection']->query($MySQL['query']);
 		if($MySQL['result']->num_rows!==0){
