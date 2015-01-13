@@ -10,7 +10,7 @@ function intToBool($in) {
 	return $out;
 }
 
-function getIntIfIsset($getvar){
+function getIntIfIsset($getvar, $default){
 	if(isset($_GET[$getvar])){
 		$out = $_GET[$getvar];
 	} else {
@@ -19,7 +19,7 @@ function getIntIfIsset($getvar){
 	return $out;
 }
 
-function getStrIfIsset($getvar){
+function getStrIfIsset($getvar, $default){
 	if(isset($_GET[$getvar])){
 		$out = $_GET[$getvar];
 	} else {
