@@ -104,7 +104,7 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
 	$ptb=ptbSwitch($ptb);
 	$fin_update=$columns[0].' = '.$values[0];
   	$MySQL['query']="UPDATE `".$ptb[0]."` SET ".$fin_update." WHERE `id` = ".$id;
-	
+	echo $MySQL['query'];
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	if($MySQL['connection']->affected_rows == 1){
 		echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'&pag='.$pag.'" />';

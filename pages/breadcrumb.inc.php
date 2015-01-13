@@ -11,6 +11,8 @@ if(!isset($_GET['p'])){
 		$MySQL['row']=$MySQL['result']->fetch_assoc();
 		$boardName=$MySQL['row']['name'];
 		$out="<div id='breadcrumb'><p><a class='hidden-a' href='?p=index'>PHPDev Forums</a> > <a class='hidden-a' href='?p=board&id=".$_GET['id']."'>".$boardName."</a></p></div>";
+	} else {
+		$out="Unknown";
 	}
 } elseif($_GET['p']=='thread') {
 	//Get threadname and display it
@@ -23,6 +25,8 @@ if(!isset($_GET['p'])){
 		$boardName=$MySQL['row']['boardname'];
 		$threadName=$MySQL['row']['threadname'];
 		$out="<div id='breadcrumb'><p><a class='hidden-a' href='?p=index'>PHPDev Forums</a> > <a class='hidden-a' href='?p=board&id=".$boardID."'>".$boardName."</a> > <a class='hidden-a' href='?p=thread&id=".$id."'>".$threadName."</a></p></div>";
+	} else {
+		$out="Unknown";
 	}
 } else {
 	//Display the other pages that there are, and make the first letter a capital
