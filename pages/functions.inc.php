@@ -19,7 +19,7 @@ function getIntIfIsset($getvar){
 	return $out;
 }
 
-function getStrIfIsset($in,$getvar){
+function getStrIfIsset($getvar){
 	if(isset($_GET[$getvar])){
 		$out = $_GET[$getvar];
 	} else {
@@ -31,8 +31,18 @@ function getStrIfIsset($in,$getvar){
 function getTitle($ptb, $id, $page){
 	include("dbconnect.inc.php");
 	if(isset($ptb)){
-		$tablename=ptbSwitch($ptb);
-		$MySQL['query'] = "SELECT `name` FROM `".$tablename[0]."` WHERE `id` = '".$id."' LIMIT 1";
+		switch($ptb){
+    	case 'p':
+      		$tablename='posts';
+    		break;
+      	case 't':
+      		$tablename='threads';
+      		break;
+      	case 'b':
+      		$tablename='boards','index','board');
+      		break;
+		}
+		$MySQL['query'] = "SELECT `name` FROM `".$tablename."` WHERE `id` = '".$id."' LIMIT 1";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 		if($MySQL['result']->num_rows == 0){
 			$MySQL['row'] = $MySQL['result']->fetch_assoc();
