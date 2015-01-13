@@ -65,6 +65,7 @@ if(isLoggedIn() && isAdmin()){
 		$MySQL['query'] = "SELECT * FROM `users` ORDER BY `".$sort."` ".$dir."";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 		if($MySQL['result']->num_rows !== 0){
+			//Displaying the adminpanel table and data
 			?><table style='width: 99%;'><tr>
 				<th><form id='id' method='post'><input type='hidden' name='dir' value='<?php if($sort=="id"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='sort' value='id'></form><a href='javascript:document.forms["id"].submit();'><?php if($sort=="id"){ echo "<b>"; } ?>ID<?php if($sort=="id"){ echo "</b>"; } ?></a></th>
 				<th><form id='firstname' method='post'><input type='hidden' name='dir' value='<?php if($sort=="firstname"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='sort' value='firstname'></form><a href='javascript:document.forms["firstname"].submit();'><?php if($sort=="firstname"){ echo "<b>"; } ?>First name<?php if($sort=="firstname"){ echo "</b>"; } ?></a></th>

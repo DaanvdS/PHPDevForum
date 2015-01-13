@@ -17,8 +17,7 @@ if(isset($_GET['c']) && isset($_GET['u'])) {
 	} else {
 		echo "<p>Account not found or it has already been activated.</p>";
 	}
-}
-else {
+} else {
 	echo "<p>Not all the information required was specified.</p>"; 
 }
 ?>

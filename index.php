@@ -109,7 +109,7 @@ include('dbdisconnect.inc.php');
 						$MySQL['result'] = $MySQL['connection']->query("SELECT COUNT(*) AS `amountOfRows` FROM `messages` WHERE `receiverID`='".$_SESSION['forumUserID']."' AND `unread` = '1'");
 						$MySQL['row'] = $MySQL['result']->fetch_assoc();
 						if($MySQL['row']['amountOfRows']==0){$unreadMessages='';}else{$unreadMessages='<b>('.$MySQL['row']['amountOfRows'].')</b>';}
-						echo '<a class="hidden-a" href="?p=inbox">Inbox '.$unreadMessages.'</a>';
+						echo '<a class="hidden-a" href="?p=mailbox">mailbox '.$unreadMessages.'</a>';
 						echo '<a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a>';
 						echo '<a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a>';
 					} else {
