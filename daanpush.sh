@@ -1,2 +1,2 @@
 #!/bin/bash
-./push.sh 'Wietze'
+./push.sh 'Daan'
