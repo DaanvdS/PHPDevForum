@@ -46,6 +46,9 @@ if(isLoggedIn() && isAdmin()){
 			} else {
 				echo "Something went wrong: <a href='?p=adminpanel'>Return</a>";
 			}
+		} elseif($_GET['mode'] == "gitpull"){
+			$outcome=shell_exec("sh /home/daan/public_html/forum/PHPDevForum/pull.sh");
+			echo $outcome;
 		}
 	} else {
 		//Set the direct of sorting the colomns.
