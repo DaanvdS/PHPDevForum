@@ -7,7 +7,6 @@ session_start();
 include('pages/functions.inc.php');
 
 $page = getStrIfIsset('p', "index");
-echo $page;
 
 if(!isset($_SESSION['forumAdmin'])){
 	$_SESSION['forumAdmin'] = 0;
