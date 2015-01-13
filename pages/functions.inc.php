@@ -50,6 +50,7 @@ function getTitle($page, $id){
 	} else {
 		$out = "Forum ".ucfirst($page);
 	}
+	return $out;
 }
 
 function toggleInt($in){
