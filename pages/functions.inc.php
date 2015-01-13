@@ -30,15 +30,12 @@ function getStrIfIsset($getvar, $default){
 
 function getTitle($page, $id){
 	include("dbconnect.inc.php");
-	if($page=='thread' || $page=='board' || $page=='index'){
+	if($page=='thread' || $page=='board'){
 		switch($page){
 	    	case 'thread':
-	      		$tablename='posts';
+	      		$tablename='threads';
 	    		break;
 	      	case 'board':
-	      		$tablename='threads';
-	      		break;
-	      	case 'index':
 	      		$tablename='boards';
 	      		break;
 		}
