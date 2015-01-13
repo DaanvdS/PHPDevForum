@@ -180,10 +180,10 @@ function ptbAction(){
 			break;
 		case 'save': 
 			if($_GET['ptb']=='t'){$sticky=$_GET['sticky'];}{$sticky=0;}
-			ptbChgSav($_GET['ptb'], $_GET['id'], array($_GET['data'],$sticky), $_GET['return'], $_GET['pag']);
+			ptbChgSav(getIfIssetGet('ptb', ''), getIfIssetGet('id', ''), array(getIfIssetGet('data', ''),$sticky), getIfIssetGet('return', ''), getIfIssetGet('pag', ''));
 			break;
 		case 'change': 
-			ptbChgForm($_GET['ptb'], $_GET['id'], $_GET['return'], $_GET['pag']);
+			ptbChgForm(getIfIssetGet('ptb', ''), getIfIssetGet('id', ''), getIfIssetGet('return', ''), getIfIssetGet('pag', ''));
 			break;
 	}
 }
