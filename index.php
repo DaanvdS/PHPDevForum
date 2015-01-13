@@ -7,6 +7,7 @@ session_start();
 include('pages/functions.inc.php');
 
 $page = getStrIfIsset("page");
+if($page == "notset")$page = "index";
 
 if(!isset($_SESSION['forumAdmin'])){
 	$_SESSION['forumAdmin'] = 0;
@@ -14,21 +15,17 @@ if(!isset($_SESSION['forumAdmin'])){
 
 include('dbconnect.inc.php');
 if(isLoggedIn()){
-	$MySQL['query']="SELECT `activated`, `admin` FROM `users` WHERE `id` = '".$_SESSION['forumUserID']."' LIMIT 1";
-	$MySQL['result']= $MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows==1){
-		$MySQL['row']=$MySQL['result']->fetch_assoc();
-		if($MySQL['row']['activated']==0){
+	$MySQL['query'] = "SELECT `activated`, `admin` FROM `users` WHERE `id` = '".$_SESSION['forumUserID']."' LIMIT 1";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+	if($MySQL['result']->num_rows == 1){
+		$MySQL['row'] = $MySQL['result']->fetch_assoc();
+		if($MySQL['row']['activated'] == 0){
 			session_unset(); 
 			session_destroy();
 			echo '<script>alert("Woops! Your account has not been activated!");</script><meta http-equiv="refresh" content="0; url=?p=login" /></script>';
 			exit();
 		}
-		if($MySQL['row']['admin']==0){
-			$_SESSION['forumAdmin']=0;
-		} elseif($MySQL['row']['admin']==1){
-			$_SESSION['forumAdmin']=1;
-		}
+		$_SESSION['forumAdmin'] = $MySQL['row']['admin'];
 	} else {
 		session_unset(); 
 		session_destroy();

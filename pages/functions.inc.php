@@ -1,4 +1,6 @@
 <?php
+include("ptb.inc.php");
+
 function intToBool($in) {
 	if($in  ==  0) {
 		$out = "False";
@@ -21,9 +23,23 @@ function getStrIfIsset($in,$getvar){
 	if(isset($_GET[$getvar])){
 		$out = $_GET[$getvar];
 	} else {
-		$out = "";
+		$out = "notset";
 	}
 	return $out;
+}
+
+function getTitle($ptb, $id, $page){
+	include("dbconnect.inc.php");
+	if(isset($ptb)){
+		$MySQL['query'] = "SELECT `name` FROM `".ptbSwitch($ptb)[0]."` WHERE `id` = '".$id."' LIMIT 1";
+		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+		if($MySQL['result']->num_rows! == 0){
+			$MySQL['row'] = $MySQL['result']->fetch_assoc();
+			$out = "Forum ".$MySQL['row']['name'];
+		}
+	} else {
+		$out = "Forum ".ucfirst($page);
+	}
 }
 
 function toggleInt($in){
@@ -60,7 +76,7 @@ function isAdmin(){
 }
 
 function hasRights($id,$op){
-	if(isLoggedIn() && (isOwner($id) || isAdmin() || isOP($op))) {
+	if(isLoggedIn() && (isOwner($id) || isAdmin() || isOP($op))){
 		return true;
 	} else {
 		return false;
@@ -68,7 +84,7 @@ function hasRights($id,$op){
 }
 
 function isOP($op){
-	if ($_SESSION['forumUserID'] == $op) {
+	if($_SESSION['forumUserID'] == $op){
 		return true;
 	} else {
 		return false;
@@ -77,13 +93,13 @@ function isOP($op){
 
 function getUsername($userID){
 	include("dbconnect.inc.php");
-	$MySQL['query']="SELECT `username` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
-	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
+	$MySQL['query'] = "SELECT `username` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 	if($MySQL['result']->num_rows! == 0){
-		$MySQL['row']=$MySQL['result']->fetch_assoc();
-		$out=$MySQL['row']['username'];
+		$MySQL['row'] = $MySQL['result']->fetch_assoc();
+		$out = $MySQL['row']['username'];
 	} else {
-		$out="Something went wrong.";
+		$out = "Something went wrong.";
 	}
 	return $out;
 }
@@ -106,79 +122,84 @@ function getLastName($userID){
 	$MySQL['query'] = "SELECT `lastname` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 	if($MySQL['result']->num_rows! == 0){
-		$MySQL['row']=$MySQL['result']->fetch_assoc();
-		$out=$MySQL['row']['lastname'];
+		$MySQL['row'] = $MySQL['result']->fetch_assoc();
+		$out = $MySQL['row']['lastname'];
 	} else {
-		$out="Something went wrong.";
+		$out = "Something went wrong.";
 	}
 	return $out;
 }
 
 function getSignature($userID){
 	include("dbconnect.inc.php");
-	$MySQL['query']="SELECT `sig` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
-	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
+	$MySQL['query'] = "SELECT `sig` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 	if($MySQL['result']->num_rows! == 0){
-		$MySQL['row']=$MySQL['result']->fetch_assoc();
+		$MySQL['row'] = $MySQL['result']->fetch_assoc();
 		if(($MySQL['row']['sig']! == "")&&($MySQL['row']['sig']! == null)){
-			$out="<hr /><div class='signature'>".$MySQL['row']['sig']."</div>";
+			$out = "<hr /><div class='signature'>".$MySQL['row']['sig']."</div>";
 		} else {
-			$out="";
+			$out = "";
 		}
 	} else {
-		$out="Oops.";
+		$out = "Oops.";
 	}
 	return $out;
 }
 
 function getID(){
-	if(isset($_GET['id'])){$id=$_GET['id'];}else{echo "Something's gone wrong.";exit();}
+	if(isset($_GET['id'])){
+		$id = $_GET['id'];
+	} else {
+		echo "Something's gone wrong.";exit();
+	}
 	return $id;
 }
 
 function retrieveAvatars($userID){
 	include("dbconnect.inc.php");
-	$MySQL['query']="SELECT `username`, `avatar` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
-	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
+	$MySQL['query'] = "SELECT `username`, `avatar` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 	if($MySQL['result']->num_rows! == 0){
-		$MySQL['row']=$MySQL['result']->fetch_assoc();
-		$userName=$MySQL['row']['username'];
-		$currentAvatar=$MySQL['row']['avatar'];
+		$MySQL['row'] = $MySQL['result']->fetch_assoc();
+		$userName = $MySQL['row']['username'];
+		$currentAvatar = $MySQL['row']['avatar'];
 	} else {
 		echo "User doesn't exist.";
 	}
 	
-	$MySQL['query']="SELECT * FROM `avatars`";
-	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
+	$MySQL['query'] = "SELECT * FROM `avatars`";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 	
 	$out="<table>";
-	while($MySQL['row']=$MySQL['result']->fetch_assoc()){
+	while($MySQL['row'] = $MySQL['result']->fetch_assoc()){
 		if($MySQL['row']['id'] == "1"){
-			$imagePath=$userName;
-			$upload="<form method='post' enctype='multipart/form-data'>
+			$imagePath = $userName;
+			$upload =
+					"<form method='post' enctype='multipart/form-data'>
 						<input type='hidden' name='mode' value='uploadavatar'>
 						<input type='file' name='avatarimg' accept='image/*'><br>
 						<input type='submit' name='avatarsubmit' value='Upload'>
 					</form><br>";
 		} else {
-			$imagePath=$MySQL['row']['id'];
-			$upload="";
+			$imagePath = $MySQL['row']['id'];
+			$upload = "";
 		}
 		if(!file_exists("images/avatars/".$imagePath.".img")){
-			$imagePath="notfound";
-			$out.="
+			$imagePath = "notfound";
+			$out.= "
 			<tr>
 				<td"; if($MySQL['row']['id'] == $currentAvatar)$out.=" class='selected'"; $out.=">";
-			$out.="
+			$out.= "
 					".$upload."
 					<img height='100px' src='images/avatars/".$imagePath.".img' title='".$MySQL['row']['description']."'>
 				</td>
 			</tr>";
 		} else {
-			$out.="
+			$out.= "
 			<tr>
 				<td"; if($MySQL['row']['id'] == $currentAvatar)$out.=" class='selected'"; $out.=">";
-			$out.="
+			$out.= "
 					".$upload."<a href='?p=userpanel&mode=setavatar&avatar=".$MySQL['row']['id']."'>
 						<img height='100px' src='images/avatars/".$imagePath.".img' title='".$MySQL['row']['description']."'>
 					</a>
@@ -186,20 +207,24 @@ function retrieveAvatars($userID){
 			</tr>";
 		}
 	}
-	$out.="</table>";
+	$out.= "</table>";
 	return $out;
 	include("dbdisconnect.inc.php");
 }
 
 function getUserAvatar($userID){
 	include("dbconnect.inc.php");
-	$MySQL['query']="SELECT `avatars`.`id`, `avatars`.`description`, `users`.`username` FROM `avatars`, `users` WHERE `users`.`id` = '".$userID."' AND `avatars`.`id` = `users`.`avatar` LIMIT 1";
-	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
+	$MySQL['query'] = "SELECT `avatars`.`id`, `avatars`.`description`, `users`.`username` FROM `avatars`, `users` WHERE `users`.`id` = '".$userID."' AND `avatars`.`id` = `users`.`avatar` LIMIT 1";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 	if($MySQL['result']->num_rows == 1){
-		$MySQL['row']=$MySQL['result']->fetch_assoc();
-		$userName=$MySQL['row']['username'];
-		if($MySQL['row']['id'] == "1"){$imagePath=$userName;}else{$imagePath=$MySQL['row']['id'];}
-		$out="<img src='images/avatars/".$imagePath.".img' title='".$MySQL['row']['description']."'>";
+		$MySQL['row'] = $MySQL['result']->fetch_assoc();
+		$userName = $MySQL['row']['username'];
+		if($MySQL['row']['id'] == "1"){
+			$imagePath=$userName;
+		} else {
+			$imagePath=$MySQL['row']['id'];
+		}
+		$out = "<img src='images/avatars/".$imagePath.".img' title='".$MySQL['row']['description']."'>";
 	}
 	return $out;
 	include("dbdisconnect.inc.php");
@@ -207,10 +232,10 @@ function getUserAvatar($userID){
 
 function getUserRank($userID){
 	include("dbconnect.inc.php");
-	$MySQL['query']="SELECT COUNT(*) AS `amountofPosts` FROM `posts` WHERE `user_id` = '".$userID."'";
-	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
+	$MySQL['query'] = "SELECT COUNT(*) AS `amountofPosts` FROM `posts` WHERE `user_id` = '".$userID."'";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 	if($MySQL['result']->num_rows! == 0){
-		$MySQL['row']=$MySQL['result']->fetch_assoc();
+		$MySQL['row'] = $MySQL['result']->fetch_assoc();
 		$amposts=$MySQL['row']['amountofPosts'];
 		if($amposts<=10)$out="Newbie";
 		if($amposts>10&&$amposts<=20)$out="Junior";
