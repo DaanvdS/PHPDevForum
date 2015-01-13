@@ -10,7 +10,7 @@ function ptbSwitch($ptb){
       	case 'b':
       		return array ('boards','index','board');
       		break;
-    }
+	}
 }
 
 function ptbDelete($ptb, $id, $return){
