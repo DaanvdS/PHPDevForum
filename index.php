@@ -14,18 +14,22 @@ if(!isset($_SESSION['forumAdmin'])){
 
 include('dbconnect.inc.php');
 if(isLoggedIn()){
+	//Check whether the logged in account is still activated.
 	$MySQL['query'] = "SELECT `activated`, `admin` FROM `users` WHERE `id` = '".$_SESSION['forumUserID']."' LIMIT 1";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 	if($MySQL['result']->num_rows == 1){
 		$MySQL['row'] = $MySQL['result']->fetch_assoc();
 		if($MySQL['row']['activated'] == 0){
+			//Log out if the account has been disabled
 			session_unset(); 
 			session_destroy();
 			echo '<script>alert("Woops! Your account has not been activated!");</script><meta http-equiv="refresh" content="0; url=?p=login" /></script>';
 			exit();
 		}
+		//(Re)set the admin variable
 		$_SESSION['forumAdmin'] = $MySQL['row']['admin'];
 	} else {
+		//Log out if the account has been deleted
 		session_unset(); 
 		session_destroy();
 		echo '<script>alert("Woops! Your account has not been found!");</script><meta http-equiv="refresh" content="0; url=?p=login" /></script>';
@@ -34,8 +38,8 @@ if(isLoggedIn()){
 }
 
 if(file_exists("pages/".$page.".inc.php")){
-//	$title = getTitle($_GET['p'], $_GET['id'], $page);   Dit doet het niet.
-	$title = "Forum";
+	$title = getTitle($_GET['p'], $_GET['id'], $page);  // Dit doet het niet. Nee hehe. Repareren :)
+//	$title = "Forum";
 } else {
 	$title = "Forum - 404";
 	$page = "404";
