@@ -4,7 +4,6 @@
 	}
 </script>
 <?php
-
 	$id=getID();
 	if(isset($_GET['action'])){
 		ptbAction();
