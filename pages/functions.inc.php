@@ -206,5 +206,4 @@ function getUserRank($userID){
 	}
 	return $out;
 }
-
 ?>
