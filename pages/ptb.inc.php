@@ -207,7 +207,7 @@ function ptbShow($ptb, $return){
 		case 'p':
 			$i=0;
 			if($MySQL['result']->num_rows > 0){
-				ptbPageLinks($ptb,$return);
+				ptbPageLinks($ptb,$return, $pag);
 				while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
 					echo "
 					<table class='post'>
@@ -259,7 +259,7 @@ function ptbShow($ptb, $return){
 					</table>";
 					$i++;
 				}
-				ptbPageLinks($ptb,$return);
+				ptbPageLinks($ptb,$return, $pag);
 			}
 			if(isLoggedIn()){
 			echo "
@@ -324,7 +324,7 @@ function ptbShow($ptb, $return){
 	}
 	include('dbdisconnect.inc.php');
 }
-function ptbPageLinks($ptb, $return){
+function ptbPageLinks($ptb, $return, $pag){
 	include('dbconnect.inc.php');
 	switch($ptb){
 		case 'p':
