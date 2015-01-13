@@ -73,7 +73,9 @@ if(isLoggedIn()){
 				} else {
 					$authorid=$MySQL['row']["senderID"];
 				}
-				echo "
+				
+				if($authorid!==0){
+					echo "
 							<p class='postbuttons'>
 								<script>var text".$i." = '".$MySQL['connection']->real_escape_string($MySQL['row']["text"])."';</script>
 								<a class='hidden-a' onClick='quote(\"".getFirstName($MySQL['row']["senderID"])."\",text".$i.", \"".$authorid."\")' href='#newPost'>
@@ -81,11 +83,13 @@ if(isLoggedIn()){
 								</a>";
 				
 				
-				echo "
+					echo "
 								<a class='hidden-a' href='?p=inbox&action=delmessage&id=".$MySQL['row']['id']."'>
 									<img src='images/remove.png'>
 								</a>
 							</p>";
+				}
+				
 				
 				$sig=getSignature($MySQL['row']["senderID"]);
 				if($MySQL['row']['senderID']==$_SESSION['forumUserID']){
@@ -139,7 +143,9 @@ if(isLoggedIn()){
 		$MySQL['query']="SELECT `id`, `firstname`, `lastname` FROM `users` ORDER BY `lastname`, `firstname` ASC";
 		$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 		while($MySQL['row']=$MySQL['result']->fetch_assoc()) {
-			echo "<option value='".$MySQL['row']['id']."'>".$MySQL['row']['firstname']." ".$MySQL['row']['lastname']."</option>";
+			if($MySQL['row']['id']!==0){
+				echo "<option value='".$MySQL['row']['id']."'>".$MySQL['row']['firstname']." ".$MySQL['row']['lastname']."</option>";
+			}
 		}
 		
 		echo "
