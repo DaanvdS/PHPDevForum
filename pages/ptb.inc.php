@@ -108,7 +108,6 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
 		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1];
 	}
   	$MySQL['query']="UPDATE `".$ptb[0]."` SET ".$fin_update." WHERE `id` = ".$id;
-	echo $MySQL['query'];
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	if($MySQL['connection']->affected_rows == 1){
 		echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'&pag='.$pag.'" />';
@@ -142,7 +141,6 @@ function ptbChgForm($ptb, $id, $return, $pag){
 	}
 
 	$MySQL['query'] = "SELECT ".$fin_columns." FROM `".$ptbs[0]."` WHERE `id` = ".$id." LIMIT 1";
-  	
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 	if($MySQL['result']->num_rows !== 0){
 		$MySQL['row'] = $MySQL['result']->fetch_assoc();	
