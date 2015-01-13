@@ -55,7 +55,7 @@ function toggleInt($in){
 }
 
 function isLoggedIn(){
-	if(isset($_SESSION['forumUserID']) && $_SESSION['forumUserID']! == ""){
+	if(isset($_SESSION['forumUserID']) && $_SESSION['forumUserID'] !== ""){
 		return true;
 	} else {
 		return false;
@@ -98,7 +98,7 @@ function getUsername($userID){
 	include("dbconnect.inc.php");
 	$MySQL['query'] = "SELECT `username` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows! == 0){
+	if($MySQL['result']->num_rows !== 0){
 		$MySQL['row'] = $MySQL['result']->fetch_assoc();
 		$out = $MySQL['row']['username'];
 	} else {
@@ -111,7 +111,7 @@ function getFirstName($userID){
 	include("dbconnect.inc.php");
 	$MySQL['query'] = "SELECT `firstname` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows! == 0){
+	if($MySQL['result']->num_rows !== 0){
 		$MySQL['row'] = $MySQL['result']->fetch_assoc();
 		$out = $MySQL['row']['firstname'];
 	} else {
@@ -124,7 +124,7 @@ function getLastName($userID){
 	include("dbconnect.inc.php");
 	$MySQL['query'] = "SELECT `lastname` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows! == 0){
+	if($MySQL['result']->num_rows !== 0){
 		$MySQL['row'] = $MySQL['result']->fetch_assoc();
 		$out = $MySQL['row']['lastname'];
 	} else {
@@ -137,9 +137,9 @@ function getSignature($userID){
 	include("dbconnect.inc.php");
 	$MySQL['query'] = "SELECT `sig` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows! == 0){
+	if($MySQL['result']->num_rows !== 0){
 		$MySQL['row'] = $MySQL['result']->fetch_assoc();
-		if(($MySQL['row']['sig']! == "")&&($MySQL['row']['sig']! == null)){
+		if(($MySQL['row']['sig'] !== "")&&($MySQL['row']['sig'] !== null)){
 			$out = "<hr /><div class='signature'>".$MySQL['row']['sig']."</div>";
 		} else {
 			$out = "";
@@ -163,7 +163,7 @@ function retrieveAvatars($userID){
 	include("dbconnect.inc.php");
 	$MySQL['query'] = "SELECT `username`, `avatar` FROM `users` WHERE `id` = '".$userID."' LIMIT 1";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows! == 0){
+	if($MySQL['result']->num_rows !== 0){
 		$MySQL['row'] = $MySQL['result']->fetch_assoc();
 		$userName = $MySQL['row']['username'];
 		$currentAvatar = $MySQL['row']['avatar'];
@@ -237,7 +237,7 @@ function getUserRank($userID){
 	include("dbconnect.inc.php");
 	$MySQL['query'] = "SELECT COUNT(*) AS `amountofPosts` FROM `posts` WHERE `user_id` = '".$userID."'";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows! == 0){
+	if($MySQL['result']->num_rows !== 0){
 		$MySQL['row'] = $MySQL['result']->fetch_assoc();
 		$amposts=$MySQL['row']['amountofPosts'];
 		if($amposts<=10)$out="Newbie";
