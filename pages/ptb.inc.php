@@ -197,6 +197,7 @@ function ptbShow($ptb, $return){
 			$MySQL['row']=$MySQL['result']->fetch_assoc();
 			$amRows=$MySQL['row']['amRows'];
 			$amPages=ceil($amRows/10);
+			if($amPages==0){$amPages=1;}
 			$pag=$amPages;
 		}
 		$MySQL['query']="SELECT `posts`.`text`, `posts`.`date_created`, `users`.`firstname`, `users`.`sig`, `posts`.`id`, `posts`.`user_id`, `threads`.`name`, `threads`.`op` FROM `posts`, `users`, `threads` WHERE `threads`.`id`= ".$return." AND `posts`.`thread_id`=".$return." AND `users`.`id` = `posts`.`user_id` ORDER BY date_created ASC LIMIT ".(($pag-1)*10).", ".($pag*10)."";
