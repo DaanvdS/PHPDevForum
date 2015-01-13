@@ -1,12 +1,12 @@
 #!/bin/bash          
 date=$(date +"%d %b %Y %X")
 user=$1
-echo 'pull'
+echo 'Pulling'
 git pull -q  
-echo 'add'
+echo 'Adding all changes'
 git add .
-echo 'commit'
+echo 'Commiting the changes'
 git commit -q -m "Push from $user ($date)"
-echo 'push'
+echo 'Pushing to GitHub.com'
 git push -q origin master
-echo 'done'
+echo 'Done!'
