@@ -32,15 +32,15 @@ function getTitle($ptb, $id, $page){
 	include("dbconnect.inc.php");
 	if(isset($ptb)){
 		switch($ptb){
-    	case 'p':
-      		$tablename='posts';
-    		break;
-      	case 't':
-      		$tablename='threads';
-      		break;
-      	case 'b':
-      		$tablename='boards';
-      		break;
+	    	case 'p':
+	      		$tablename='posts';
+	    		break;
+	      	case 't':
+	      		$tablename='threads';
+	      		break;
+	      	case 'b':
+	      		$tablename='boards';
+	      		break;
 		}
 		$MySQL['query'] = "SELECT `name` FROM `".$tablename."` WHERE `id` = '".$id."' LIMIT 1";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
@@ -51,7 +51,7 @@ function getTitle($ptb, $id, $page){
 			$out = "Unknown";
 		}
 	} else {
-		$out = "Forum ".ucfirst($page);
+	$out = "Forum ".ucfirst($page);
 	}
 }
 
