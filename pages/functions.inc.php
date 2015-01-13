@@ -28,17 +28,17 @@ function getStrIfIsset($getvar, $default){
 	return $out;
 }
 
-function getTitle($ptb, $id, $page){
+function getTitle($page, $id){
 	include("dbconnect.inc.php");
-	if(isset($ptb)){
+	if(isset($page)){
 		switch($ptb){
-	    	case 'p':
+	    	case 'thread':
 	      		$tablename='posts';
 	    		break;
-	      	case 't':
+	      	case 'board':
 	      		$tablename='threads';
 	      		break;
-	      	case 'b':
+	      	case 'index':
 	      		$tablename='boards';
 	      		break;
 		}
