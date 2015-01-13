@@ -14,7 +14,7 @@ function getIntIfIsset($getvar, $default){
 	if(isset($_GET[$getvar])){
 		$out = $_GET[$getvar];
 	} else {
-		$out = 0;
+		$out = $default;
 	}
 	return $out;
 }
@@ -23,7 +23,7 @@ function getStrIfIsset($getvar, $default){
 	if(isset($_GET[$getvar])){
 		$out = $_GET[$getvar];
 	} else {
-		$out = "notset";
+		$out = $default;
 	}
 	return $out;
 }
