@@ -199,6 +199,9 @@ function ptbShow($ptb, $return){
 			$amPages=ceil($amRows/10);
 			if($amPages==0){$amPages=1;}
 			$pag=$amPages;
+			if($amRows == 0){
+				echo "<p>Nothing here yet.</p>"
+			}
 		}
 		$MySQL['query']="SELECT `posts`.`text`, `posts`.`date_created`, `users`.`firstname`, `users`.`sig`, `posts`.`id`, `posts`.`user_id`, `threads`.`name`, `threads`.`op` FROM `posts`, `users`, `threads` WHERE `threads`.`id`= ".$return." AND `posts`.`thread_id`=".$return." AND `users`.`id` = `posts`.`user_id` ORDER BY date_created ASC LIMIT ".(($pag-1)*10).", ".($pag*10)."";
 	}
