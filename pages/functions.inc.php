@@ -30,8 +30,8 @@ function getStrIfIsset($getvar, $default){
 
 function getTitle($page, $id){
 	include("dbconnect.inc.php");
-	if(isset($page)){
-		switch($ptb){
+	if($page=='thread' || $page=='board' || $page=='index'){
+		switch($page){
 	    	case 'thread':
 	      		$tablename='posts';
 	    		break;
@@ -51,7 +51,7 @@ function getTitle($page, $id){
 			$out = "Unknown";
 		}
 	} else {
-	$out = "Forum ".ucfirst($page);
+		$out = "Forum ".ucfirst($page);
 	}
 }
 
