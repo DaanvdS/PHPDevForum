@@ -60,7 +60,7 @@ if(isLoggedIn() && isAdmin()){
 		}
 		
 		//Git pull button (not yet working)
-		echo "<form id='pull' method='post'><input type='button' name='mode' value='Git pull' onlick='javascript:document.forms[\"pull\"].submit();' /></form>";
+		echo "<form id='get' method='post'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='mode' value='gitpull'><input type='button' value='Git pull' /></form>";
 	
 		$MySQL['query'] = "SELECT * FROM `users` ORDER BY `".$sort."` ".$dir."";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
