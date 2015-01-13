@@ -173,10 +173,10 @@ function ptbAction(){
 	//return is the id 
 	switch($_GET['action']){
 		case 'delete':
-			ptbDelete($_GET['ptb'], $_GET['id'], $_GET['return']);
+			ptbDelete(getIfIssetGet('ptb', '')), getIfIssetGet('id', ''), getIfIssetGet('return', ''));
 			break;
 		case 'new': 
-			ptbNew($_GET['ptb'], $_GET['data'], $_GET['return'], $_SESSION['forumUserID']);
+			ptbNew(getIfIssetGet('ptb', ''), getIfIssetGet('data', ''), getIfIssetGet('return', ''), $_SESSION['forumUserID']);
 			break;
 		case 'save': 
 			if($_GET['ptb']=='t'){$sticky=$_GET['sticky'];}{$sticky=0;}
