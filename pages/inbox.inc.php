@@ -53,7 +53,7 @@ if(isLoggedIn()){
 		$k=($ip*10);
 		$l=0;
 		if($MySQL['result']->num_rows==0){ echo "No messages!"; }
-		inboxPageLinks($pag);
+		inboxPageLinks($ip);
 		while($MySQL['row']=$MySQL['result']->fetch_assoc()) {
 			if($MySQL['row']['receiverID']==$_SESSION['forumUserID']){
 				$MySQL['connection']->query("UPDATE `messages` SET `unread` = '0' WHERE `id` = '".$MySQL['row']['id']."'");
@@ -114,7 +114,7 @@ if(isLoggedIn()){
 				$l++;
 			}
 		}
-		inboxPageLinks($pag);
+		inboxPageLinks($ip);
 		
 		echo "
 			<form method='get' id='newPost' action=''>
@@ -138,7 +138,7 @@ if(isLoggedIn()){
 		include('dbdisconnect.inc.php');
 	}
 }
-function inboxPageLinks($pag){
+function inboxPageLinks($ip){
 	$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."'";
 	$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	$amRows=0;
