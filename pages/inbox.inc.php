@@ -74,7 +74,7 @@ if(isLoggedIn()){
 					$authorid=$MySQL['row']["senderID"];
 				}
 				
-				if($authorid!==0){
+				if(!$authorid==0){
 					echo "
 							<p class='postbuttons'>
 								<script>var text".$i." = '".$MySQL['connection']->real_escape_string($MySQL['row']["text"])."';</script>
@@ -143,7 +143,7 @@ if(isLoggedIn()){
 		$MySQL['query']="SELECT `id`, `firstname`, `lastname` FROM `users` ORDER BY `lastname`, `firstname` ASC";
 		$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 		while($MySQL['row']=$MySQL['result']->fetch_assoc()) {
-			if($MySQL['row']['id']!==0){
+			if(!$MySQL['row']['id']==0){
 				echo "<option value='".$MySQL['row']['id']."'>".$MySQL['row']['firstname']." ".$MySQL['row']['lastname']."</option>";
 			}
 		}
