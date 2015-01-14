@@ -10,6 +10,7 @@
 
 if(isLoggedIn()){
 	if(isset($_GET['action'])){
+		logAction();
 		if($_GET['action']=="sendmessage"){
 			include('dbconnect.inc.php');
 			$MySQL['query']="INSERT INTO `messages` (`senderID`, `receiverID`, `text`) VALUES ('".$_SESSION['forumUserID']."', '".$_GET['sendID']."', '".$_GET['data']."')";
