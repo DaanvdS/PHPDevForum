@@ -83,6 +83,10 @@ function adminShowGroupPanel(){
 			$MySQL['query'] = "UPDATE `usergroups` SET `name` = '".$_GET['name']."' WHERE `id` = '".$_GET['id']."'";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			redirectIfDone($MySQL['connection'], "Changed succesfully", "adminpanel&section=groupmanagement");
+		} elseif($_GET['mode'] == "new"){
+			$MySQL['query'] = "INSERT INTO `usergroups` (`name`) VALUES (".getIfIssetGet('name', '').")";
+			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+			redirectIfDone($MySQL['connection'], "Added succesfully", "adminpanel&section=groupmanagement");
 		}
 	} else {
 		//Set the direct of sorting the colomns.
@@ -116,6 +120,16 @@ function adminShowGroupPanel(){
 				}
 			}
 			echo "</table>";
+			echo "
+					<div class='newPtb'>
+						<form method='get'>
+							<input type='hidden' name='action' value='new'>
+							<input type='hidden' name='section' value='groupmanagement'>
+							<input type='hidden' name='p' value='adminpanel'>
+							<input type='text' name='data' value='New'>
+							<input type='submit' name='submit' value='Make'>
+						</form>
+					</div>";
 		} else {
 			echo "<p>No groups found.</p>";
 		}
