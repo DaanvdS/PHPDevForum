@@ -87,6 +87,40 @@ function adminShowGroupPanel(){
 			$MySQL['query'] = "INSERT INTO `usergroups` (`name`) VALUES ('".getIfIssetGet('name', '')."')";
 			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			redirectIfDone($MySQL['connection'], "Added succesfully", "adminpanel&section=groupmanagement");
+		} elseif($_GET['action'] == "assignUsersSave"){
+			$MySQL['query'] = "SELECT * FROM `users` WHERE `id` = '".$_GET['id']."' LIMIT 1";
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+			if($MySQL['result']->num_rows !== 0){
+				$MySQL['row'] = $MySQL['result']->fetch_assoc();
+				$groups=explode(",",$MySQL['row']['groupid']);
+				$groupsexpl=explode(",",$groupsexpl);
+			}
+			if($_GET['assign']==1){
+				$i=0;
+				while($i < count($groupsexpl)){
+					if($groupsexpl[$i] == $_GET['id']){
+						//It's already in!
+						$alreadyin==true;
+					}
+					$i++;
+				}
+				if(!$alreadyin){
+					$groups.=",".$_GET['id'];
+				}
+			} else {
+				$i=0;
+				while($i < count($groupsexpl)){
+					if($groupsexpl[$i] == $_GET['id']){
+						//It's already in!
+						$groupsexpl[$i] = "";
+					}
+					$i++;
+				}
+				$groups=implode(",", $groupsexpl);
+			}
+			$MySQL['query'] = "UPDATE `users` SET `groupid` = '".$groups."' WHERE `id` = '".$_GET['id']."'";
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+			redirectIfDone($MySQL['connection'], "Assigned succesfully", "adminpanel&section=groupmanagement&action=assignUsersFrm&id=".$_GET['groupid']);
 		} elseif($_GET['action'] == "assignUsersFrm"){
 			//Set the direct of sorting the colomns.
 			$sort = getIfIssetPost('sort', 'id');
@@ -121,7 +155,7 @@ function adminShowGroupPanel(){
 						$i++;
 					}
 					if(!$MySQL['row']['id'] == 0){
-						echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='action' value='assignUsersSave'><input type='hidden' name='id' value='".$MySQL['row']['id']."'>
+						echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='action' value='assignUsersSave'><input type='hidden' name='groupid' value='".$_GET['id']."'><input type='hidden' name='id' value='".$MySQL['row']['id']."'>
 								<td class='right'>".$MySQL['row']['id']."</td>
 								<td><p>".$MySQL['row']['firstname']."</p></td>
 								<td><p>".$MySQL['row']['lastname']."</p></td>
