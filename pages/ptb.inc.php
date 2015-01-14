@@ -324,14 +324,16 @@ function ptbShow($ptb, $return){
 			
 			if(isLoggedIn() && (isAdmin() || $ptb == 't')) {
 				echo "
-					<form method='get'>
-						<input type='hidden' name='action' value='new'>
-						<input type='hidden' name='ptb' value='".$ptb."'>
-						<input type='hidden' name='return' value='".$return."'>
-						<input type='hidden' name='p' value='index'>
-						<input type='text' name='data' value='New'>
-						<input type='submit' name='submit' value='Make'>
-					</form>";
+					<div class='newPtb'>
+						<form method='get'>
+							<input type='hidden' name='action' value='new'>
+							<input type='hidden' name='ptb' value='".$ptb."'>
+							<input type='hidden' name='return' value='".$return."'>
+							<input type='hidden' name='p' value='index'>
+							<input type='text' name='data' value='New'>
+							<input type='submit' name='submit' value='Make'>
+						</form>
+					</div>";
 			}
 			break;
 	}
