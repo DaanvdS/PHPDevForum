@@ -84,7 +84,7 @@ function adminShowGroupPanel(){
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			redirectIfDone($MySQL['connection'], "Changed succesfully", "adminpanel&section=groupmanagement");
 		} elseif($_GET['action'] == "new"){
-			$MySQL['query'] = "INSERT INTO `usergroups` (`name`) VALUES (".getIfIssetGet('name', '').")";
+			$MySQL['query'] = "INSERT INTO `usergroups` (`name`) VALUES ('".getIfIssetGet('name', '')."')";
 			echo $MySQL['query'];
 			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			redirectIfDone($MySQL['connection'], "Added succesfully", "adminpanel&section=groupmanagement");
