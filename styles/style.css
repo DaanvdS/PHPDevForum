@@ -23,6 +23,10 @@ body
 {
 	color:inherit;
 }
+a, a:visited
+{
+	color:inherit;
+}
 .right
 {
 	text-align: right;
