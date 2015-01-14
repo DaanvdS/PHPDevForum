@@ -32,10 +32,7 @@ function adminShowUserPanel(){
 			$dir = "ASC";
 			$adir = "DESC";
 		}
-		
-		//Git pull button (not yet working)
-		
-	
+
 		$MySQL['query'] = "SELECT * FROM `users` ORDER BY `".$sort."` ".$dir."";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 		if($MySQL['result']->num_rows !== 0){
@@ -68,6 +65,59 @@ function adminShowUserPanel(){
 			echo "</table>";
 		} else {
 			echo "<p>No users found.</p>";
+		}
+	}
+	include("dbdisconnect.inc.php");
+}
+
+function adminShowGroupPanel(){
+	include("dbconnect.inc.php");
+	if(isset($_GET['mode'])){
+		logAction();
+		//Saving the changes the admin has made
+		if($_GET['mode'] == "delgroup"){
+			$MySQL['query'] = "DELETE FROM `usergroups` WHERE `id`= ".$_GET['id']." LIMIT 1";
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+			redirectIfDone($MySQL['connection'], "Deleted succesfully", "adminpanel&section=groupmanagement");
+		} elseif($_GET['mode'] == "changegroup"){
+			$MySQL['query'] = "UPDATE `usergroups` SET `name` = '".$_GET['name']."' WHERE `id` = '".$_GET['id']."'";
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+			redirectIfDone($MySQL['connection'], "Changed succesfully", "adminpanel&section=groupmanagement");
+		}
+	} else {
+		//Set the direct of sorting the colomns.
+		$sort = getIfIssetPost('sort', 'id');
+		if(isset($_POST['dir'])){
+			$dir = $_POST['dir'];
+			if($dir == "ASC")$adir = "DESC";
+			if($dir == "DESC")$adir = "ASC";
+		} else {
+			$dir = "ASC";
+			$adir = "DESC";
+		}		
+	
+		$MySQL['query'] = "SELECT * FROM `usergroups` ORDER BY `".$sort."` ".$dir."";
+		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+		if($MySQL['result']->num_rows !== 0){
+			//Displaying the adminpanel table and data
+			?><table style='width: 99%;'><tr>
+				<th><form id='id' method='post'><input type='hidden' name='dir' value='<?php if($sort=="id"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='sort' value='id'></form><a href='javascript:document.forms["id"].submit();'><?php if($sort=="id"){ echo "<b>"; } ?>ID<?php if($sort=="id"){ echo "</b>"; } ?></a></th>
+				<th><form id='name' method='post'><input type='hidden' name='dir' value='<?php if($sort=="name"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='sort' value='name'></form><a href='javascript:document.forms["name"].submit();'><?php if($sort=="name"){ echo "<b>"; } ?>Name<?php if($sort=="name"){ echo "</b>"; } ?></a></th>
+				<th></th>
+				</tr>
+			<?php
+			while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
+				if(!$MySQL['row']['id'] == 0){
+					echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='usermanagement'><input type='hidden' name='mode' value='changeuser'><input type='hidden' name='id' value='".$MySQL['row']['id']."'>
+								<td class='right'>".$MySQL['row']['id']."</td>
+								<td><input class='up' type='text' name='name' value='".$MySQL['row']['name']."'></td>
+								<td><a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a>&nbsp;<a href='?p=adminpanel&section=usermanagement&mode=deluser&id=".$MySQL['row']['id']."'><img src='images/remove.png'></a></td>
+							</form></tr>";
+				}
+			}
+			echo "</table>";
+		} else {
+			echo "<p>No groups found.</p>";
 		}
 	}
 	include("dbdisconnect.inc.php");
