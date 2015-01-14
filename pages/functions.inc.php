@@ -278,4 +278,12 @@ function logAction(){
 	$MySQL['query'] = "INSERT INTO `logging` (`userID`, `ip`, `page`, `action`, `changedID`) VALUES ('".$userID."', '".$ip."', '".$page."', '".$action."', '".$id."')";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 }
+
+function redirectIfDone($conn, $text, $page){
+	if($conn->affected_rows==1){
+		echo '<script>alert("'.$text.'");</script><meta http-equiv="refresh" content="0; url=?p='.$page.'" />';
+	} else {
+		echo "Something went wrong: <a href='?p=".$page."'>Return</a>";
+	}
+}
 ?>

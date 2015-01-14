@@ -11,42 +11,19 @@ if(isLoggedIn() && isAdmin()){
 		if($_GET['mode'] == "deluser"){
 			$MySQL['query'] = "DELETE FROM `users` WHERE `id`= ".$_GET['id']." LIMIT 1";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-			
-			if($MySQL['connection']->affected_rows==1){
-				echo '<script>alert("Deleted succesfully");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
-			} else {
-				echo "Something went wrong: <a href='?p=adminpanel'>Return</a>";
-			}
+			redirectIfDone($MySQL['connection'], "Deleted succesfully", "adminpanel");
 		} elseif($_GET['mode'] == "setactivate"){
 			$MySQL['query'] = "UPDATE `users` SET `activated` = '".toggleInt($_GET['current'])."', `activationcode` = '0' WHERE `id` = '".$_GET['id']."'";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-			echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
-			
-			if($MySQL['connection']->affected_rows==1){
-				echo '<script>alert("Activated succesfully");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
-			} else {
-				echo "Something went wrong: <a href='?p=adminpanel'>Return</a>";
-			}
+			redirectIfDone($MySQL['connection'], "(De-)Activated succesfully", "adminpanel");
 		} elseif($_GET['mode'] == "setadmin"){
 			$MySQL['query'] = "UPDATE `users` SET `admin` = '".toggleInt($_GET['current'])."' WHERE `id` = '".$_GET['id']."'";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-			echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
-			
-			if($MySQL['connection']->affected_rows==1){
-				echo '<script>alert("Made admin succesfully");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
-			} else {
-				echo "Something went wrong: <a href='?p=adminpanel'>Return</a>";
-			}
+			redirectIfDone($MySQL['connection'], "Admin-ed succesfully", "adminpanel");
 		} elseif($_GET['mode'] == "changeuser"){
 			$MySQL['query'] = "UPDATE `users` SET `firstname` = '".$_GET['forumFirstName']."', `lastname` = '".$_GET['forumLastName']."' WHERE `id` = '".$_GET['id']."'";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-			echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
-			
-			if($MySQL['connection']->affected_rows==1){
-				echo '<script>alert("Saved succesfully");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
-			} else {
-				echo "Something went wrong: <a href='?p=adminpanel'>Return</a>";
-			}
+			redirectIfDone($MySQL['connection'], "Changed succesfully", "adminpanel");
 		} elseif($_GET['mode'] == "gitpull"){
 			$outcome=shell_exec("sh /home/daan/public_html/forum/PHPDevForum/pull.sh 2>&1");
 			echo '<script>alert("Git: '.$MySQL['connection']->escape_string($outcome).'");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
