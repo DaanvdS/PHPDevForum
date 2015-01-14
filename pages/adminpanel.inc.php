@@ -10,8 +10,10 @@ if(isLoggedIn() && isAdmin()){
     	case '': echo "<p>Section: <a href='?p=adminpanel&section=usermanagement'>User management</a></p>"; break;
 		case 'usermanagement': adminShowUserPanel(); break;
 		case 'pull': 
+			include("dbconnect.inc.php");
 			$outcome=shell_exec("sh /home/daan/public_html/forum/PHPDevForum/pull.sh 2>&1");
 			echo '<script>alert("Git: '.$MySQL['connection']->escape_string($outcome).'");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
+			include("dbdisconnect.inc.php");
 			break;
 	}
 } else {
