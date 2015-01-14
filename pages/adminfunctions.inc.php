@@ -95,7 +95,7 @@ function adminShowGroupPanel(){
 				$groups=$MySQL['row']['groupid'];
 				$groupsexpl=explode(",",$groups);
 			}
-			if($_GET['assign']==1){
+			if(isset($_GET['assign'])){
 				$i=0;
 				while($i < count($groupsexpl)){
 					if($groupsexpl[$i] == $_GET['id']){
