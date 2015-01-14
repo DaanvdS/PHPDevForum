@@ -274,16 +274,14 @@ function ptbShow($ptb, $return){
 				echo "<p>Nothing here yet.</p>";
 			}
 			if(isLoggedIn()){
-			echo "	<div class='newPtb'>
-						<form method='get' id='newPost' action=''>
-							<input type='hidden' name='action' value='new'>
-							<input type='hidden' name='ptb' value='p'>
-							<input type='hidden' name='return' value='".$return."'>
-							<input type='hidden' name='p' value='index'>
-							<div class='post-area'><textarea name='data' rows='4' cols='50'></textarea></div>
-							<input class='post-area-submit' type='submit' name='submit' value='Submit'>
-						</form>
-					</div>";
+			echo "	<form method='get' id='newPost' action=''>
+						<input type='hidden' name='action' value='new'>
+						<input type='hidden' name='ptb' value='p'>
+						<input type='hidden' name='return' value='".$return."'>
+						<input type='hidden' name='p' value='index'>
+						<div class='post-area'><textarea name='data' rows='4' cols='50'></textarea></div>
+						<input class='post-area-submit' type='submit' name='submit' value='Submit'>
+					</form>";
 			}
 			break;
 		case 't' || 'b':
