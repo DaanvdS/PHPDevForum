@@ -53,7 +53,7 @@ function adminShowUserPanel(){
 			<?php
 			while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
 				if(!$MySQL['row']['id'] == 0){
-					echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='usermanagement'><input type='hidden' name='mode' value='changeuser'><input type='hidden' name='idid' value='".$MySQL['row']['id']."'>
+					echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='usermanagement'><input type='hidden' name='mode' value='changeuser'><input type='hidden' name='id' value='".$MySQL['row']['id']."'>
 								<td class='right'>".$MySQL['row']['id']."</td>
 								<td><input class='up' type='text' name='forumFirstName' value='".$MySQL['row']['firstname']."'></td>
 								<td><input class='up' type='text' name='forumLastName' value='".$MySQL['row']['lastname']."'></td>
