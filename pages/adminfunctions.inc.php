@@ -89,11 +89,12 @@ function adminShowGroupPanel(){
 			redirectIfDone($MySQL['connection'], "Added succesfully", "adminpanel&section=groupmanagement");
 		} elseif($_GET['action'] == "assignUsersSave"){
 			$MySQL['query'] = "SELECT * FROM `users` WHERE `id` = '".$_GET['id']."' LIMIT 1";
+			echo $MySQL['query'];
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			if($MySQL['result']->num_rows !== 0){
 				$MySQL['row'] = $MySQL['result']->fetch_assoc();
 				$groups=$MySQL['row']['groupid'];
-				echo $groups;
+				echo "Ja:".$groups;
 				$groupsexpl=explode(",",$groups);
 			}
 			if(isset($_GET['assign'])){
