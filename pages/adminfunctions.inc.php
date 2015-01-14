@@ -120,7 +120,10 @@ function adminShowGroupPanel(){
 				}
 			}
 			echo "</table>";
-			echo "
+		} else {
+			echo "<p>No groups found.</p>";
+		}
+		echo "
 					<div class='newPtb'>
 						<form method='get'>
 							<input type='hidden' name='action' value='new'>
@@ -130,9 +133,6 @@ function adminShowGroupPanel(){
 							<input type='submit' name='submit' value='Make'>
 						</form>
 					</div>";
-		} else {
-			echo "<p>No groups found.</p>";
-		}
 	}
 	include("dbdisconnect.inc.php");
 }
