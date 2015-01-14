@@ -5,6 +5,7 @@
 <?php
 logAction();
 if(isLoggedIn() && isAdmin()){
+	include("pages/adminfunctions.inc.php");
 	switch(getIfIssetGet('section', '')){
     	case '': echo "<p>Section: <a href='?p=adminpanel&section=usermanagement'>User management</a></p>"; break;
 		case 'usermanagement': adminShowUserPanel(); break;
