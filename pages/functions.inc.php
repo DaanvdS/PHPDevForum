@@ -264,6 +264,7 @@ function getUserRank($userID){
 function logAction(){
 	$userID=$_SESSION['forumUserID'];
 	$page=getIfIssetGet('p', '');
+	$id=getIfIssetGet('id', '0');
 	$action=getIfIssetGet('action', '');
 	if($action==""){$action=getIfIssetGet('mode', '');}
 	if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -274,7 +275,7 @@ function logAction(){
 		$ip = $_SERVER['REMOTE_ADDR'];
 	}
 	include("dbconnect.inc.php");
-	$MySQL['query'] = "INSERT INTO `logging` (`userID`, `ip`, `page`, `action`) VALUES ('".$userID."', '".$ip."', '".$page."', '".$action."')";
+	$MySQL['query'] = "INSERT INTO `logging` (`userID`, `ip`, `page`, `action`, `changedID`) VALUES ('".$userID."', '".$ip."', '".$page."', '".$action."', '".$id."')";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 }
 ?>
