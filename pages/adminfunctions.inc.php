@@ -123,7 +123,7 @@ function adminShowGroupPanel(){
 			$MySQL['query'] = "UPDATE `users` SET `groupid` = '".$groups."' WHERE `id` = '".$_GET['id']."'";
 			echo $MySQL['query'];
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-			redirectIfDone($MySQL['connection'], "Assigned succesfully", "adminpanel&section=groupmanagement&action=assignUsersFrm&id=".$_GET['groupid']);
+			echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel&section=groupmanagement&action=assignUsersFrm&id='.$_GET["groupid"].'&name='.$_GET["name"]).'">';
 		} elseif($_GET['action'] == "assignUsersFrm"){
 			//Set the direct of sorting the colomns.
 			$sort = getIfIssetPost('sort', 'id');
