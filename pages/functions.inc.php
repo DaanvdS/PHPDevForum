@@ -260,4 +260,21 @@ function getUserRank($userID){
 	}
 	return $out;
 }
+
+function logAction(){
+	$userID=$_SESSION['forumUserID'];
+	$page=getIfIssetGet('p', '');
+	$action=getIfIssetGet('action', '');
+	if($action==""){$action=getIfIssetGet('mode', '');}
+	if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+		$ip = $_SERVER['HTTP_CLIENT_IP'];
+	} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+	} else {
+		$ip = $_SERVER['REMOTE_ADDR'];
+	}
+	include("dbconnect.inc.php");
+	$MySQL['query'] = "INSERT INTO `logging` (`userID`, `ip`, `page`, `action`) VALUES ('".$userID."', '".$ip."', '".$page."', '".$action."')";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+}
 ?>

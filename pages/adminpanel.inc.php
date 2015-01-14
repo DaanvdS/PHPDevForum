@@ -47,6 +47,7 @@ if(isLoggedIn() && isAdmin()){
 				echo "Something went wrong: <a href='?p=adminpanel'>Return</a>";
 			}
 		} elseif($_GET['mode'] == "gitpull"){
+			logAction();
 			$outcome=shell_exec("sh /home/daan/public_html/forum/PHPDevForum/pull.sh 2>&1");
 			echo '<script>alert("Git: '.$MySQL['connection']->escape_string($outcome).'");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
 		}
