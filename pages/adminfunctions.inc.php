@@ -37,7 +37,7 @@ function adminShowUserPanel(){
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 		if($MySQL['result']->num_rows !== 0){
 			//Displaying the adminpanel table and data
-			?><table style='width: 99%;'><tr>
+			?><h1>User management</h1><table style='width: 99%;'><tr>
 				<th><form id='id' method='post'><input type='hidden' name='dir' value='<?php if($sort=="id"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='section' value='usermanagement'><input type='hidden' name='sort' value='id'></form><a href='javascript:document.forms["id"].submit();'><?php if($sort=="id"){ echo "<b>"; } ?>ID<?php if($sort=="id"){ echo "</b>"; } ?></a></th>
 				<th><form id='firstname' method='post'><input type='hidden' name='dir' value='<?php if($sort=="firstname"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='section' value='usermanagement'><input type='hidden' name='sort' value='firstname'></form><a href='javascript:document.forms["firstname"].submit();'><?php if($sort=="firstname"){ echo "<b>"; } ?>First name<?php if($sort=="firstname"){ echo "</b>"; } ?></a></th>
 				<th><form id='lastname' method='post'><input type='hidden' name='dir' value='<?php if($sort=="lastname"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='section' value='usermanagement'><input type='hidden' name='sort' value='lastname'></form><a href='javascript:document.forms["lastname"].submit();'><?php if($sort=="lastname"){ echo "<b>"; } ?>Last name<?php if($sort=="lastname"){ echo "</b>"; } ?></a></th>
@@ -104,9 +104,9 @@ function adminShowGroupPanel(){
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 		if($MySQL['result']->num_rows !== 0){
 			//Displaying the adminpanel table and data
-			?><table style='width: 99%;'><tr>
+			?><h1>Group management</h1><table style='width: 99%;'><tr>
 				<th><form id='id' method='post'><input type='hidden' name='dir' value='<?php if($sort=="id"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='sort' value='id'></form><a href='javascript:document.forms["id"].submit();'><?php if($sort=="id"){ echo "<b>"; } ?>ID<?php if($sort=="id"){ echo "</b>"; } ?></a></th>
-				<th><form id='name' method='post'><input type='hidden' name='dir' value='<?php if($sort=="name"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='sort' value='name'></form><a href='javascript:document.forms["name"].submit();'><?php if($sort=="name"){ echo "<b>"; } ?>Name<?php if($sort=="name"){ echo "</b>"; } ?></a></th>
+				<th><form id='name' method='post'><input type='hidden' name='dir' value='<?php if($sort=="name"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='sort' value='name'></form><a href='javascript:document.forms["name"].submit();'><?php if($sort=="name"){ echo "<b>"; } ?>Name<?php if($sort=="name"){ echo "</b>"; } ?></a></th><th></th>
 				<th></th>
 				</tr>
 			<?php
@@ -114,6 +114,7 @@ function adminShowGroupPanel(){
 				if(!$MySQL['row']['id'] == 0){
 					echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='action' value='changegroup'><input type='hidden' name='id' value='".$MySQL['row']['id']."'>
 								<td class='right'>".$MySQL['row']['id']."</td>
+								<td><a href='?p=adminpanel&section=groupmanagement&action=assignUsersFrm&id=".$MySQL['row']['id']."'>Assign users</a></td>
 								<td><input class='up' type='text' name='name' value='".$MySQL['row']['name']."'></td>
 								<td><a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a>&nbsp;<a href='?p=adminpanel&section=usermanagement&action=deluser&id=".$MySQL['row']['id']."'><img src='images/remove.png'></a></td>
 							</form></tr>";
