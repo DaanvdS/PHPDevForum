@@ -1,22 +1,22 @@
 <?php
 function adminShowUserPanel(){
 	include("dbconnect.inc.php");
-	if(isset($_GET['mode'])){
+	if(isset($_GET['action'])){
 		logAction();
 		//Saving the changes the admin has made
-		if($_GET['mode'] == "deluser"){
+		if($_GET['action'] == "deluser"){
 			$MySQL['query'] = "DELETE FROM `users` WHERE `id`= ".$_GET['id']." LIMIT 1";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			redirectIfDone($MySQL['connection'], "Deleted succesfully", "adminpanel&section=usermanagement");
-		} elseif($_GET['mode'] == "setactivate"){
+		} elseif($_GET['action'] == "setactivate"){
 			$MySQL['query'] = "UPDATE `users` SET `activated` = '".toggleInt($_GET['current'])."', `activationcode` = '0' WHERE `id` = '".$_GET['id']."'";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			redirectIfDone($MySQL['connection'], "(De-)Activated succesfully", "adminpanel&section=usermanagement");
-		} elseif($_GET['mode'] == "setadmin"){
+		} elseif($_GET['action'] == "setadmin"){
 			$MySQL['query'] = "UPDATE `users` SET `admin` = '".toggleInt($_GET['current'])."' WHERE `id` = '".$_GET['id']."'";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			redirectIfDone($MySQL['connection'], "Admin-ed succesfully", "adminpanel&section=usermanagement");
-		} elseif($_GET['mode'] == "changeuser"){
+		} elseif($_GET['action'] == "changeuser"){
 			$MySQL['query'] = "UPDATE `users` SET `firstname` = '".$_GET['forumFirstName']."', `lastname` = '".$_GET['forumLastName']."' WHERE `id` = '".$_GET['id']."'";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			redirectIfDone($MySQL['connection'], "Changed succesfully", "adminpanel&section=usermanagement");
@@ -50,15 +50,15 @@ function adminShowUserPanel(){
 			<?php
 			while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
 				if(!$MySQL['row']['id'] == 0){
-					echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='usermanagement'><input type='hidden' name='mode' value='changeuser'><input type='hidden' name='id' value='".$MySQL['row']['id']."'>
+					echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='usermanagement'><input type='hidden' name='action' value='changeuser'><input type='hidden' name='id' value='".$MySQL['row']['id']."'>
 								<td class='right'>".$MySQL['row']['id']."</td>
 								<td><input class='up' type='text' name='forumFirstName' value='".$MySQL['row']['firstname']."'></td>
 								<td><input class='up' type='text' name='forumLastName' value='".$MySQL['row']['lastname']."'></td>
 								<td>".$MySQL['row']['username']."</td>
 								<td id='adminavatar'>".getUserAvatar($MySQL['row']['id'])."</td>
-								<td><a class='up' href='?p=adminpanel&section=usermanagement&mode=setactivate&id=".$MySQL['row']['id']."&current=".$MySQL['row']['activated']."'>".intToBool($MySQL['row']['activated'])."</a></td>
-								<td><a class='up' href='?p=adminpanel&section=usermanagement&mode=setadmin&id=".$MySQL['row']['id']."&current=".$MySQL['row']['admin']."'>".intToBool($MySQL['row']['admin'])."</a></td>
-								<td><a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a>&nbsp;<a href='?p=adminpanel&section=usermanagement&mode=deluser&id=".$MySQL['row']['id']."'><img src='images/remove.png'></a></td>
+								<td><a class='up' href='?p=adminpanel&section=usermanagement&action=setactivate&id=".$MySQL['row']['id']."&current=".$MySQL['row']['activated']."'>".intToBool($MySQL['row']['activated'])."</a></td>
+								<td><a class='up' href='?p=adminpanel&section=usermanagement&action=setadmin&id=".$MySQL['row']['id']."&current=".$MySQL['row']['admin']."'>".intToBool($MySQL['row']['admin'])."</a></td>
+								<td><a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a>&nbsp;<a href='?p=adminpanel&section=usermanagement&action=deluser&id=".$MySQL['row']['id']."'><img src='images/remove.png'></a></td>
 							</form></tr>";
 				}
 			}
@@ -72,18 +72,18 @@ function adminShowUserPanel(){
 
 function adminShowGroupPanel(){
 	include("dbconnect.inc.php");
-	if(isset($_GET['mode'])){
+	if(isset($_GET['action'])){
 		logAction();
 		//Saving the changes the admin has made
-		if($_GET['mode'] == "delgroup"){
+		if($_GET['action'] == "delgroup"){
 			$MySQL['query'] = "DELETE FROM `usergroups` WHERE `id`= ".$_GET['id']." LIMIT 1";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			redirectIfDone($MySQL['connection'], "Deleted succesfully", "adminpanel&section=groupmanagement");
-		} elseif($_GET['mode'] == "changegroup"){
+		} elseif($_GET['action'] == "changegroup"){
 			$MySQL['query'] = "UPDATE `usergroups` SET `name` = '".$_GET['name']."' WHERE `id` = '".$_GET['id']."'";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			redirectIfDone($MySQL['connection'], "Changed succesfully", "adminpanel&section=groupmanagement");
-		} elseif($_GET['mode'] == "new"){
+		} elseif($_GET['action'] == "new"){
 			$MySQL['query'] = "INSERT INTO `usergroups` (`name`) VALUES (".getIfIssetGet('name', '').")";
 			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			redirectIfDone($MySQL['connection'], "Added succesfully", "adminpanel&section=groupmanagement");
@@ -112,10 +112,10 @@ function adminShowGroupPanel(){
 			<?php
 			while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
 				if(!$MySQL['row']['id'] == 0){
-					echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='usermanagement'><input type='hidden' name='mode' value='changeuser'><input type='hidden' name='id' value='".$MySQL['row']['id']."'>
+					echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='usermanagement'><input type='hidden' name='action' value='changeuser'><input type='hidden' name='id' value='".$MySQL['row']['id']."'>
 								<td class='right'>".$MySQL['row']['id']."</td>
 								<td><input class='up' type='text' name='name' value='".$MySQL['row']['name']."'></td>
-								<td><a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a>&nbsp;<a href='?p=adminpanel&section=usermanagement&mode=deluser&id=".$MySQL['row']['id']."'><img src='images/remove.png'></a></td>
+								<td><a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a>&nbsp;<a href='?p=adminpanel&section=usermanagement&action=deluser&id=".$MySQL['row']['id']."'><img src='images/remove.png'></a></td>
 							</form></tr>";
 				}
 			}
