@@ -9,6 +9,7 @@ if(isLoggedIn() && isAdmin()){
 	switch(getIfIssetGet('section', '')){
     	case '': echo "<p>Section: <a href='?p=adminpanel&section=usermanagement'>User management</a> <a href='?p=adminpanel&section=groupmanagement'>Group management</a> <a href='?p=adminpanel&section=pull'>Git pull</a></p>"; break;
 		case 'usermanagement': adminShowUserPanel(); break;
+		case 'groupmanagement': adminShowGroupPanel(); break;
 		case 'pull': 
 			include("dbconnect.inc.php");
 			$outcome=shell_exec("sh /home/daan/public_html/forum/PHPDevForum/pull.sh 2>&1");
