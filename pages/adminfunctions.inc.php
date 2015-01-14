@@ -119,10 +119,9 @@ function adminShowGroupPanel(){
 				}
 				$groups=implode(",", $groupsexpl);
 			}
-			echo "$groupsexpl";
-			echo print_r($groupsexpl);
-			echo "<br>$groups".$groups;
+			echo $groups;
 			$MySQL['query'] = "UPDATE `users` SET `groupid` = '".$groups."' WHERE `id` = '".$_GET['id']."'";
+			echo $MySQL['query'];
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			redirectIfDone($MySQL['connection'], "Assigned succesfully", "adminpanel&section=groupmanagement&action=assignUsersFrm&id=".$_GET['groupid']);
 		} elseif($_GET['action'] == "assignUsersFrm"){
