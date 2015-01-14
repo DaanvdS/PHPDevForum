@@ -92,7 +92,7 @@ function adminShowGroupPanel(){
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			if($MySQL['result']->num_rows !== 0){
 				$MySQL['row'] = $MySQL['result']->fetch_assoc();
-				$groups=explode(",",$MySQL['row']['groupid']);
+				$groups=$MySQL['row']['groupid'];
 				$groupsexpl=explode(",",$groups);
 			}
 			if($_GET['assign']==1){
