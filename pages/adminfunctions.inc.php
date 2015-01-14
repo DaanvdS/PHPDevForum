@@ -112,13 +112,21 @@ function adminShowGroupPanel(){
 					</tr>
 				<?php
 				while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
+					$groups=explode(",",$MySQL['row']['groupid']);
+					$i=0;
+					while($i < count($groups)){
+						if($groups[$i] == $_GET['id']){
+							$assigned = ' checked';
+						}
+						$i++;
+					}
 					if(!$MySQL['row']['id'] == 0){
 						echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='action' value='assignUsersSave'><input type='hidden' name='id' value='".$MySQL['row']['id']."'>
 								<td class='right'>".$MySQL['row']['id']."</td>
 								<td><p>".$MySQL['row']['firstname']."</p></td>
 								<td><p>".$MySQL['row']['lastname']."</p></td>
 								<td>".$MySQL['row']['username']."</td>
-								<td><input type='checkbox' name='assign' value='1'>&nbsp;<a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a></td>
+								<td><input type='checkbox' name='assign' value='1'".$assigned.">&nbsp;<a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a></td>
 							</form></tr>";
 					}
 				}
