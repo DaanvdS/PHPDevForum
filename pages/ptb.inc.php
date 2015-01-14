@@ -175,12 +175,15 @@ function ptbAction(){
 	//return is the id 
 	switch($_GET['action']){
 		case 'delete':
+			logAction();
 			ptbDelete(getIfIssetGet('ptb', ''), getIfIssetGet('id', ''), getIfIssetGet('return', ''));
 			break;
 		case 'new': 
+			logAction();
 			ptbNew(getIfIssetGet('ptb', ''), getIfIssetGet('data', ''), getIfIssetGet('return', ''), $_SESSION['forumUserID']);
 			break;
 		case 'save': 
+			logAction();
 			if($_GET['ptb']=='t'){$sticky=$_GET['sticky'];}else{$sticky=0;}
 			ptbChgSav(getIfIssetGet('ptb', ''), getIfIssetGet('id', ''), array(getIfIssetGet('data', ''),$sticky), getIfIssetGet('return', ''), getIfIssetGet('pag', ''));
 			break;
