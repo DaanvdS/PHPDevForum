@@ -7,7 +7,7 @@ logAction();
 if(isLoggedIn() && isAdmin()){
 	include("pages/adminfunctions.inc.php");
 	switch(getIfIssetGet('section', '')){
-    	case '': echo "<p>Section: <a href='?p=adminpanel&section=usermanagement'>User management</a></p>"; break;
+    	case '': echo "<p>Section: <a href='?p=adminpanel&section=usermanagement'>User management</a> <a href='?p=adminpanel&section=pull'>Git pull</a></p>"; break;
 		case 'usermanagement': adminShowUserPanel(); break;
 		case 'pull': 
 			include("dbconnect.inc.php");
