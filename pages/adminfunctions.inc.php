@@ -112,7 +112,6 @@ function adminShowGroupPanel(){
 				while($i < count($groupsexpl)){
 					if($groupsexpl[$i] == $_GET['id']){
 						//It's in!
-						echo "Hi";
 						$groupsexpl[$i] = "";
 					}
 					$i++;
@@ -149,6 +148,7 @@ function adminShowGroupPanel(){
 					</tr>
 				<?php
 				while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
+					$assigned = '';
 					$groups=explode(",",$MySQL['row']['groupid']);
 					$i=0;
 					while($i < count($groups)){
