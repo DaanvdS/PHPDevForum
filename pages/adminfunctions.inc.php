@@ -20,9 +20,6 @@ function adminShowUserPanel(){
 			$MySQL['query'] = "UPDATE `users` SET `firstname` = '".$_GET['forumFirstName']."', `lastname` = '".$_GET['forumLastName']."' WHERE `id` = '".$_GET['id']."'";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			redirectIfDone($MySQL['connection'], "Changed succesfully", "adminpanel");
-		} elseif($_GET['mode'] == "gitpull"){
-			$outcome=shell_exec("sh /home/daan/public_html/forum/PHPDevForum/pull.sh 2>&1");
-			echo '<script>alert("Git: '.$MySQL['connection']->escape_string($outcome).'");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
 		}
 	} else {
 		//Set the direct of sorting the colomns.
@@ -37,7 +34,7 @@ function adminShowUserPanel(){
 		}
 		
 		//Git pull button (not yet working)
-		echo "<form id='gitpull' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='mode' value='gitpull'><input type='submit' value='Git pull' /></form>";
+		
 	
 		$MySQL['query'] = "SELECT * FROM `users` ORDER BY `".$sort."` ".$dir."";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
