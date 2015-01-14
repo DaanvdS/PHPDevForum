@@ -38,7 +38,7 @@ if(isLoggedIn() && isAdmin()){
 				echo "Something went wrong: <a href='?p=adminpanel'>Return</a>";
 			}
 		} elseif($_GET['mode'] == "changeuser"){
-			$MySQL['query'] = "UPDATE `users` SET `firstname` = '".$_GET['forumFirstName']."', `lastname` = '".$_GET['forumLastName']."' WHERE `id` = '".$_GET['forumID']."'";
+			$MySQL['query'] = "UPDATE `users` SET `firstname` = '".$_GET['forumFirstName']."', `lastname` = '".$_GET['forumLastName']."' WHERE `id` = '".$_GET['id']."'";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
 			
@@ -83,7 +83,7 @@ if(isLoggedIn() && isAdmin()){
 			<?php
 			while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
 				if(!$MySQL['row']['id'] == 0){
-					echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='mode' value='changeuser'><input type='hidden' name='forumID' value='".$MySQL['row']['id']."'>
+					echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='mode' value='changeuser'><input type='hidden' name='idid' value='".$MySQL['row']['id']."'>
 								<td class='right'>".$MySQL['row']['id']."</td>
 								<td><input class='up' type='text' name='forumFirstName' value='".$MySQL['row']['firstname']."'></td>
 								<td><input class='up' type='text' name='forumLastName' value='".$MySQL['row']['lastname']."'></td>
