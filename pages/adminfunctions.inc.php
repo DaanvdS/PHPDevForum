@@ -108,16 +108,19 @@ function adminShowGroupPanel(){
 					$groups.=",".$_GET['id'];
 				}
 			} else {
+				echo "Hello";
 				$i=0;
 				while($i < count($groupsexpl)){
 					if($groupsexpl[$i] == $_GET['id']){
-						//It's already in!
+						//It's in!
+						echo "Hi";
 						$groupsexpl[$i] = "";
 					}
 					$i++;
 				}
 				$groups=implode(",", $groupsexpl);
 			}
+			echo $_GET['assign'];
 			echo $groups;
 			$MySQL['query'] = "UPDATE `users` SET `groupid` = '".$groups."' WHERE `id` = '".$_GET['id']."'";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
