@@ -82,7 +82,7 @@ if(isLoggedIn()){
 							
 								<script>var text".$i." = '".$MySQL['connection']->real_escape_string($MySQL['row']["text"])."';</script>
 								<a class='hidden-a' onClick='quote(\"".getFirstName($MySQL['row']["senderID"])."\",text".$i.", \"".$authorid."\")' href='#newPost'>
-									<img src='images/quote.png'>
+									<img src='images/reply.png'>
 								</a>";
 				}
 				
