@@ -130,7 +130,7 @@ function adminShowGroupPanel(){
 							<input type='hidden' name='action' value='new'>
 							<input type='hidden' name='section' value='groupmanagement'>
 							<input type='hidden' name='p' value='adminpanel'>
-							<input type='text' name='data' value='New'>
+							<input type='text' name='name' value='New'>
 							<input type='submit' name='submit' value='Make'>
 						</form>
 					</div>";
