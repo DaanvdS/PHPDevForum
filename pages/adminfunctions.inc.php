@@ -114,8 +114,8 @@ function adminShowGroupPanel(){
 				if(!$MySQL['row']['id'] == 0){
 					echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='action' value='changegroup'><input type='hidden' name='id' value='".$MySQL['row']['id']."'>
 								<td class='right'>".$MySQL['row']['id']."</td>
-								<td><a href='?p=adminpanel&section=groupmanagement&action=assignUsersFrm&id=".$MySQL['row']['id']."'>Assign users</a></td>
 								<td><input class='up' type='text' name='name' value='".$MySQL['row']['name']."'></td>
+								<td><a href='?p=adminpanel&section=groupmanagement&action=assignUsersFrm&id=".$MySQL['row']['id']."'>Assign users</a></td>
 								<td><a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a>&nbsp;<a href='?p=adminpanel&section=usermanagement&action=deluser&id=".$MySQL['row']['id']."'><img src='images/remove.png'></a></td>
 							</form></tr>";
 				}
