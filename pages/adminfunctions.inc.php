@@ -88,44 +88,15 @@ function adminShowGroupPanel(){
 			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			redirectIfDone($MySQL['connection'], "Added succesfully", "adminpanel&section=groupmanagement");
 		} elseif($_GET['action'] == "assignUsersSave"){
-			$MySQL['query'] = "SELECT * FROM `users` WHERE `id` = '".$_GET['id']."' LIMIT 1";
+			$MySQL['query'] = "SELECT * FROM `usersInGroups` WHERE `userID` = '".$_GET['id']."' AND `groupID` = '".$_GET['groupid']."' LIMIT 1";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-			if($MySQL['result']->num_rows !== 0){
-				$MySQL['row'] = $MySQL['result']->fetch_assoc();
-				$groups=$MySQL['row']['groupid'];
-				$groupsexpl=explode(",",$groups);
-			}
-			if(isset($_GET['assign'])){
-				$i=0;
-				$alreadyin=false;
-				while($i < count($groupsexpl)){
-					if($groupsexpl[$i] == $_GET['groupid']){
-						//It's already in!
-						$alreadyin=true;
-					}
-					$i++;
-				}
-				if(!$alreadyin){
-					if($groups == ''){
-						$groups=$_GET['groupid'];
-					} else {
-						$groups.=",".$_GET['groupid'];
-					}
-				}
+			if(!$MySQL['result']->num_rows == getIfIssetGet('assign', '0')){
+				$MySQL['query'] = "INSERT INTO `usersInGroups` (`userID`, `groupID`) VALUES ('".$_GET['id']."', '".$_GET['groupid']."');";
+				$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+				redirectIfDone($MySQL['connection'], "(De-)assigned succesfully", "adminpanel&section=groupmanagement");
 			} else {
-				$i=0;
-				while($i < count($groupsexpl)){
-					if($groupsexpl[$i] == $_GET['groupid']){
-						//It's in!
-						$groupsexpl[$i] = "";
-					}
-					$i++;
-				}
-				$groups=implode(",", $groupsexpl);
-			}
-			$MySQL['query'] = "UPDATE `users` SET `groupid` = '".$groups."' WHERE `id` = '".$_GET['id']."'";
-			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-			echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel&section=groupmanagement&action=assignUsersFrm&id='.$_GET["groupid"].'&name='.$_GET["name"].'">';
+				echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel&section=groupmanagement&action=assignUsersFrm&id='.$_GET["groupid"].'&name='.$_GET["name"].'">';
+			}			
 		} elseif($_GET['action'] == "assignUsersFrm"){
 			//Set the direct of sorting the colomns.
 			$sort = getIfIssetPost('sort', 'id');
