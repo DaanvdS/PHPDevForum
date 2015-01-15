@@ -95,7 +95,7 @@ function adminShowGroupPanel(){
 			echo "Assign checkbox: ".getIfIssetGet('assign', '0')."<br>";
 			if(!$MySQL['result']->num_rows == getIfIssetGet('assign', '0')){
 				if(getIfIssetGet('assign', '0') == 0){
-					$MySQL['query'] = "DELETE FROM `usersInGroups` WHERE `userID` = '".$_GET['id']."' AND `groupID` '".$_GET['groupid']."'";
+					$MySQL['query'] = "DELETE FROM `usersInGroups` WHERE `userID` = ".$_GET['id']." AND `groupID` = ".$_GET['groupid']."";
 				} elseif(getIfIssetGet('assign', '0') == 1){
 					$MySQL['query'] = "INSERT INTO `usersInGroups` (`userID`, `groupID`) VALUES ('".$_GET['id']."', '".$_GET['groupid']."')";
 				}
