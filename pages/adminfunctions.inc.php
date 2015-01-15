@@ -143,7 +143,7 @@ function adminShowGroupPanel(){
 							</tr>";
 					}
 				}
-				echo "</form></table>";
+				echo "<tr><td colspan='5'><input type='submit' value='Save'></td></tr></form></table>";
 			} else {
 				echo "<p>No groups found.</p>";
 			}
