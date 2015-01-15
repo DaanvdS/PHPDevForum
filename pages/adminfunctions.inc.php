@@ -125,7 +125,7 @@ function adminShowGroupPanel(){
 					$assigned = '';
 					$MySQL['query2'] = "SELECT * FROM `usersInGroups` WHERE `userID` = '".$MySQL['row']['id']."' AND `groupID` = '".$_GET['id']."' LIMIT 1";
 					$MySQL['result2'] = $MySQL['connection']->query($MySQL['query2']);
-					if($MySQL['result2']->num_rows == 1)
+					if($MySQL['result2']->num_rows == 1){
 						$assigned = ' checked';
 					}
 					if(!$MySQL['row']['id'] == 0){
