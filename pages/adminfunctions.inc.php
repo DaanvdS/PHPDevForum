@@ -90,12 +90,16 @@ function adminShowGroupPanel(){
 		} elseif($_GET['action'] == "assignUsersSave"){
 			$MySQL['query'] = "SELECT * FROM `usersInGroups` WHERE `userID` = '".$_GET['id']."' AND `groupID` = '".$_GET['groupid']."' LIMIT 1";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-			echo "Select query:".$MySQL['query'];
-			echo "Num rows: ".$MySQL['result']->num_rows;
-			echo "Assign checkbox: ".getIfIssetGet('assign', '0');
+			echo "Select query:".$MySQL['query']."<br>";
+			echo "Num rows: ".$MySQL['result']->num_rows."<br>";
+			echo "Assign checkbox: ".getIfIssetGet('assign', '0')."<br>";
 			if(!$MySQL['result']->num_rows == getIfIssetGet('assign', '0')){
-				$MySQL['query'] = "INSERT INTO `usersInGroups` (`userID`, `groupID`) VALUES ('".$_GET['id']."', '".$_GET['groupid']."');";
-				echo "Insert query: ".$MySQL['query'];
+				if(getIfIssetGet('assign', '0') == 0){
+					$MySQL['query'] = "DELETE FROM `usersInGroups` WHERE `userID` = '".$_GET['id']."' AND `groupID` '".$_GET['groupid']."'";
+				} elseif(getIfIssetGet('assign', '0') == 1){
+					$MySQL['query'] = "INSERT INTO `usersInGroups` (`userID`, `groupID`) VALUES ('".$_GET['id']."', '".$_GET['groupid']."')";
+				}
+				echo "Exec query: ".$MySQL['query']."<br>";
 				$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 				redirectIfDone($MySQL['connection'], "(De-)assigned succesfully", "adminpanel&section=groupmanagement");
 			} else {
