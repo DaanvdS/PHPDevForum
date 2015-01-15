@@ -1,15 +1,12 @@
 <?php
 //forum Informatica, authored by Wietze Mulder and Daan van der Spek
 //Not to be copied without written permission from the owners
-?>
-<?php
 if(isLoggedIn() && isAdmin()){
 	include("dbconnect.inc.php");
 	if(isset($_GET['mode'])){
 		if($_GET['mode']=="deluser"){
 			$MySQL['query']="DELETE FROM `users` WHERE `id`= ".$_GET['id']." LIMIT 1";
 			$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
-			
 			if($MySQL['connection']->affected_rows==1){
 				echo '<script>alert("Deleted succesfully");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
 			} else {
@@ -28,8 +25,8 @@ if(isLoggedIn() && isAdmin()){
 			$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
 			echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
 		}
-
 	} else {
+		
 		if(isset($_POST['sort'])){
 			$sort = $_POST['sort'];
 		} else {
