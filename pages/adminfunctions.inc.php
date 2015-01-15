@@ -139,8 +139,9 @@ function adminShowGroupPanel(){
 								<td><p>".$MySQL['row']['firstname']."</p></td>
 								<td><p>".$MySQL['row']['lastname']."</p></td>
 								<td>".$MySQL['row']['username']."</td>
-								<td><input type='hidden' name='id".$i."' value='".$MySQL['row']['id']."'><input type='checkbox' name='assign".$i."' value='1'".$assigned.">&nbsp;<a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a></td>
+								<td><input type='hidden' name='id".$i."' value='".$MySQL['row']['id']."'><input type='checkbox' name='assign".$i."' value='1'".$assigned."></td>
 							</tr>";
+						//&nbsp;<a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a>
 					}
 				}
 				echo "<tr><td colspan='5'><input type='submit' value='Save'></td></tr></form></table>";
