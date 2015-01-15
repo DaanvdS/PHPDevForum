@@ -1,7 +1,7 @@
 <?php
 //forum Informatica, authored by Wietze Mulder and Daan van der Spek
 //Not to be copied without written permission from the owners
-<<<<<<< HEAD
+
 if(isLoggedIn() && isAdmin()){
 	include("dbconnect.inc.php");
 	if(isset($_GET['mode'])){
