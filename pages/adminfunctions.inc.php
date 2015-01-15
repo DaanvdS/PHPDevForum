@@ -123,8 +123,9 @@ function adminShowGroupPanel(){
 					<th><form id='lastname' method='post'><input type='hidden' name='dir' value='<?php if($sort=="lastname"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='action' value='assignUsersFrm'><input type='hidden' name='sort' value='lastname'></form><a href='javascript:document.forms["lastname"].submit();'><?php if($sort=="lastname"){ echo "<b>"; } ?>Last name<?php if($sort=="lastname"){ echo "</b>"; } ?></a></th>
 					<th><form id='username' method='post'><input type='hidden' name='dir' value='<?php if($sort=="username"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='action' value='assignUsersFrm'><input type='hidden' name='sort' value='username'></form><a href='javascript:document.forms["username"].submit();'><?php if($sort=="username"){ echo "<b>"; } ?>Username<?php if($sort=="username"){ echo "</b>"; } ?></a></th>
 					<th></th>
-					</tr>
+					</tr><form id='change' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='action' value='assignUsersSave'><input type='hidden' name='groupid' value='<?php echo $_GET['id']; ?>'><input type='hidden' name='name' value='<?php echo $_GET['name']; ?>'>
 				<?php
+				$i=0;
 				while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
 					$assigned = '';
 					$MySQL['query2'] = "SELECT * FROM `usersInGroups` WHERE `userID` = '".$MySQL['row']['id']."' AND `groupID` = '".$_GET['id']."' LIMIT 1";
@@ -133,16 +134,16 @@ function adminShowGroupPanel(){
 						$assigned = ' checked';
 					}
 					if(!$MySQL['row']['id'] == 0){
-						echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='action' value='assignUsersSave'><input type='hidden' name='groupid' value='".$_GET['id']."'><input type='hidden' name='name' value='".$_GET['name']."'><input type='hidden' name='id' value='".$MySQL['row']['id']."'>
+						echo "	<tr>
 								<td class='right'>".$MySQL['row']['id']."</td>
 								<td><p>".$MySQL['row']['firstname']."</p></td>
 								<td><p>".$MySQL['row']['lastname']."</p></td>
 								<td>".$MySQL['row']['username']."</td>
-								<td><input type='checkbox' name='assign' value='1'".$assigned.">&nbsp;<a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a></td>
-							</form></tr>";
+								<td><input type='hidden' name='id".$i."' value='".$MySQL['row']['id']."'><input type='checkbox' name='assign".$i."' value='1'".$assigned.">&nbsp;<a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a></td>
+							</tr>";
 					}
 				}
-				echo "</table>";
+				echo "</form></table>";
 			} else {
 				echo "<p>No groups found.</p>";
 			}
