@@ -123,13 +123,10 @@ function adminShowGroupPanel(){
 				<?php
 				while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
 					$assigned = '';
-					$groups=explode(",",$MySQL['row']['groupid']);
-					$i=0;
-					while($i < count($groups)){
-						if($groups[$i] == $_GET['id']){
-							$assigned = ' checked';
-						}
-						$i++;
+					$MySQL['query2'] = "SELECT * FROM `usersInGroups` WHERE `userID` = '".$MySQL['row']['id']."' AND `groupID` = '".$_GET['id']."' LIMIT 1";
+					$MySQL['result2'] = $MySQL['connection']->query($MySQL['query2']);
+					if($MySQL['result2']->num_rows == 1)
+						$assigned = ' checked';
 					}
 					if(!$MySQL['row']['id'] == 0){
 						echo "	<tr><form id='change".$MySQL['row']['id']."' method='get'><input type='hidden' name='p' value='adminpanel'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='action' value='assignUsersSave'><input type='hidden' name='groupid' value='".$_GET['id']."'><input type='hidden' name='name' value='".$_GET['name']."'><input type='hidden' name='id' value='".$MySQL['row']['id']."'>
