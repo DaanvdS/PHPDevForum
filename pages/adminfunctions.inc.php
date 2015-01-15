@@ -152,6 +152,7 @@ function adminShowGroupPanel(){
 							</tr>";
 						//&nbsp;<a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a>
 					}
+					$i++;
 				}
 				echo "<tr><td colspan='5'><input type='hidden' name='i' value='".$i."'><input type='submit' value='Save'></td></tr></form></table>";
 			} else {
