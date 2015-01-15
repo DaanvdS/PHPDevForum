@@ -96,6 +96,7 @@ function adminShowGroupPanel(){
 				} elseif(getIfIssetGet('assign', '0') == 1){
 					$MySQL['query'] = "INSERT INTO `usersInGroups` (`userID`, `groupID`) VALUES ('".$_GET['id']."', '".$_GET['groupid']."')";
 				}
+				echo $MySQL['query'];
 				$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 				redirectIfDone($MySQL['connection'], "(De-)assigned succesfully", "adminpanel&section=groupmanagement&action=assignUsersFrm&id=".$_GET['groupid']."&name=".$_GET['name']);
 			} else {
