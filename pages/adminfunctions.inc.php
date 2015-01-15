@@ -109,7 +109,7 @@ function adminShowGroupPanel(){
 				}	
 				$i++;
 			}
-			//if($j == $_GET['i'])echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel&section=groupmanagement&action=assignUsersFrm&id='.$_GET["groupid"].'&name='.$_GET["name"].'">';
+			if($j == $_GET['i'])echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel&section=groupmanagement&action=assignUsersFrm&id='.$_GET["groupid"].'&name='.$_GET["name"].'">';
 		} elseif($_GET['action'] == "assignUsersFrm"){
 			//Set the direct of sorting the colomns.
 			$sort = getIfIssetPost('sort', 'id');
