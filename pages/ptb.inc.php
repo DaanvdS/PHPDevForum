@@ -124,12 +124,14 @@ function ptbChgForm($ptb, $id, $return, $pag){
 		case 't':
 			$columns[0] = '`name`';
 			$columns[1] = '`sticky`';
+			$columns[1] = '`moveto`';
 			break;
 		case 'b':
 			$columns[0] = '`name`';
 			break;
 	}
 	$ptbs = ptbSwitch($ptb);
+	
 	$i = 0;
 	while($i < count($columns)){
 		if($i == 0){
@@ -158,12 +160,19 @@ function ptbChgForm($ptb, $id, $return, $pag){
 			echo "	<textarea rows='15' name='data'>".$MySQL['row'][(substr($fin_columns, 1, -1))]."</textarea>";
 		}
 		if($ptb == 't'){
+			$MySQL['result2'] = $MySQL['connection']->query("SELECT * FROM boards");
+			echo "<select name='moveto'>";
+			while($MySQL['row2'] = $MySQL['result2']->fetch_assoc()) { 
+				echo "<option value='' />";
+			}
+			echo "</select>"
+		
 			if($MySQL['row'][(substr($columns[1], 1, -1))]){
 				$sticky = ' selected';
 			} else {
 				$sticky = '';
 			}
-			echo "	<label for='sticky'>Sticky: </label><select name='sticky'><option".$sticky." value='0'>False</option><option".$sticky." value='1'>True</option>";
+			echo "<label for='sticky'>Sticky: </label><select name='sticky'><option".$sticky." value='0'>False</option><option".$sticky." value='1'>True</option>";
 		}
 		echo "	<input class='post-area-submit' type='submit' name='save' value='Save'></form>";
 	}
@@ -219,9 +228,10 @@ function ptbShow($ptb, $return){
 			if($MySQL['result']->num_rows > 0){
 				ptbPageLinks($ptb,$return, $pag);
 				while($MySQL['row'] = $MySQL['result']->fetch_assoc()) { 
-				    // Show Profile
+				    // Count the posts
 					$MySQL['result2'] = $MySQL['connection']->query("SELECT COUNT(*) AS postcount FROM posts WHERE posts.user_id=".$MySQL['row']["user_id"]);
 					$MySQL['row2'] = $MySQL['result2']->fetch_assoc();
+					// Show Profile information
 					echo "
 					<table class='post'>
 						<tr>
