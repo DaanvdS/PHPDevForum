@@ -90,13 +90,17 @@ function adminShowGroupPanel(){
 		} elseif($_GET['action'] == "assignUsersSave"){
 			$MySQL['query'] = "SELECT * FROM `usersInGroups` WHERE `userID` = '".$_GET['id']."' AND `groupID` = '".$_GET['groupid']."' LIMIT 1";
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+			echo "Select query:".$MySQL['query'];
+			echo "Num rows: ".$MySQL['result']->num_rows;
+			echo "Assign checkbox: ".getIfIssetGet('assign', '0');
 			if(!$MySQL['result']->num_rows == getIfIssetGet('assign', '0')){
 				$MySQL['query'] = "INSERT INTO `usersInGroups` (`userID`, `groupID`) VALUES ('".$_GET['id']."', '".$_GET['groupid']."');";
-				echo $MySQL['query'];
+				echo "Insert query: ".$MySQL['query'];
 				$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 				redirectIfDone($MySQL['connection'], "(De-)assigned succesfully", "adminpanel&section=groupmanagement");
 			} else {
-				echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel&section=groupmanagement&action=assignUsersFrm&id='.$_GET["groupid"].'&name='.$_GET["name"].'">';
+				echo "Hij zit er al in.";
+				//echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel&section=groupmanagement&action=assignUsersFrm&id='.$_GET["groupid"].'&name='.$_GET["name"].'">';
 			}			
 		} elseif($_GET['action'] == "assignUsersFrm"){
 			//Set the direct of sorting the colomns.
