@@ -151,8 +151,8 @@ function adminShowGroupPanel(){
 								<td><input type='hidden' name='id".$i."' value='".$MySQL['row']['id']."'><input type='checkbox' name='assign".$i."' value='1'".$assigned."></td>
 							</tr>";
 						//&nbsp;<a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a>
+						$i++;
 					}
-					$i++;
 				}
 				echo "<tr><td colspan='5'><input type='hidden' name='i' value='".$i."'><input type='submit' value='Save'></td></tr></form></table>";
 			} else {
