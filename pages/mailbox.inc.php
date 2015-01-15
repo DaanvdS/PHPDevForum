@@ -10,12 +10,13 @@
 
 if(isLoggedIn()){
 	if(isset($_GET['action'])){
+		logAction();
 		if($_GET['action']=="sendmessage"){
 			include('dbconnect.inc.php');
 			$MySQL['query']="INSERT INTO `messages` (`senderID`, `receiverID`, `text`) VALUES ('".$_SESSION['forumUserID']."', '".$_GET['sendID']."', '".$_GET['data']."')";
 			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			if($MySQL['connection']->affected_rows==1){
-				echo '<meta http-equiv="refresh" content="0; url=?p=inbox" />';
+				echo '<meta http-equiv="refresh" content="0; url=?p=mailbox" />';
 			}
 			include('dbdisconnect.inc.php');
 		}
@@ -34,7 +35,7 @@ if(isLoggedIn()){
 				}
 				$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 				if($MySQL['connection']->affected_rows==1){
-					echo '<meta http-equiv="refresh" content="0; url=?p=inbox" />';
+					echo '<meta http-equiv="refresh" content="0; url=?p=mailbox" />';
 				}
 			}
 			include('dbdisconnect.inc.php');
@@ -53,7 +54,7 @@ if(isLoggedIn()){
 		$k=($ip*10);
 		$l=0;
 		if($MySQL['result']->num_rows==0){ echo "No messages!"; }
-		inboxPageLinks($ip);
+		mailboxPageLinks($ip);
 		while($MySQL['row']=$MySQL['result']->fetch_assoc()) {
 			if($MySQL['row']['receiverID']==$_SESSION['forumUserID']){
 				$MySQL['connection']->query("UPDATE `messages` SET `unread` = '0' WHERE `id` = '".$MySQL['row']['id']."'");
@@ -81,12 +82,12 @@ if(isLoggedIn()){
 							
 								<script>var text".$i." = '".$MySQL['connection']->real_escape_string($MySQL['row']["text"])."';</script>
 								<a class='hidden-a' onClick='quote(\"".getFirstName($MySQL['row']["senderID"])."\",text".$i.", \"".$authorid."\")' href='#newPost'>
-									<img src='images/quote.png'>
+									<img src='images/reply.png'>
 								</a>";
 				}
 				
 				echo "
-							<a class='hidden-a' href='?p=inbox&action=delmessage&id=".$MySQL['row']['id']."'>
+							<a class='hidden-a' href='?p=mailbox&action=delmessage&id=".$MySQL['row']['id']."'>
 								<img src='images/remove.png'>
 							</a>
 						</p>";
@@ -114,7 +115,7 @@ if(isLoggedIn()){
 				$l++;
 			}
 		}
-		inboxPageLinks($ip);
+		mailboxPageLinks($ip);
 		
 		echo "
 			<form method='get' id='newPost' action=''>
@@ -130,7 +131,7 @@ if(isLoggedIn()){
 		
 		echo "
 				</select>
-				<input type='hidden' name='p' value='inbox'>
+				<input type='hidden' name='p' value='mailbox'>
 				<input type='hidden' name='action' value='sendmessage'>
 				<div class='post-area'><textarea name='data' rows='4' cols='50'></textarea></div>
 				<input class='post-area-submit' type='submit' name='submit' value='Submit'>
@@ -138,7 +139,7 @@ if(isLoggedIn()){
 		include('dbdisconnect.inc.php');
 	}
 }
-function inboxPageLinks($ip){
+function mailboxPageLinks($ip){
 	include('dbconnect.inc.php');
 	$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."'";
 	$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
@@ -155,9 +156,9 @@ function inboxPageLinks($ip){
 		$amPages=ceil($amRows/10);
 		for($i=0;$i<$amPages;$i++){
 			if($ip==($i+1)){
-				echo "<a href='?p=inbox&ip=".($i+1)."'><b>[".($i+1)."]</b></a>&nbsp;";
+				echo "<a href='?p=mailbox&ip=".($i+1)."'><b>[".($i+1)."]</b></a>&nbsp;";
 			} else {
-				echo "<a href='?p=inbox&ip=".($i+1)."'>".($i+1)."</a>&nbsp;";
+				echo "<a href='?p=mailbox&ip=".($i+1)."'>".($i+1)."</a>&nbsp;";
 			}
 		}
 		echo "</p>";

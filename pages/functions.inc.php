@@ -10,49 +10,47 @@ function intToBool($in) {
 	return $out;
 }
 
-function getIntIfIsset($getvar){
+function getIfIssetGet($getvar, $default){
 	if(isset($_GET[$getvar])){
 		$out = $_GET[$getvar];
 	} else {
-		$out = 0;
+		$out = $default;
 	}
 	return $out;
 }
 
-function getStrIfIsset($getvar){
-	if(isset($_GET[$getvar])){
-		$out = $_GET[$getvar];
+function getIfIssetPost($postvar, $default){
+	if(isset($_POST[$postvar])){
+		$out = $_POST[$postvar];
 	} else {
-		$out = "notset";
+		$out = $default;
 	}
 	return $out;
 }
 
-function getTitle($ptb, $id, $page){
+function getTitle($page, $id){
 	include("dbconnect.inc.php");
-	if(isset($ptb)){
-		switch($ptb){
-    	case 'p':
-      		$tablename='posts';
-    		break;
-      	case 't':
-      		$tablename='threads';
-      		break;
-      	case 'b':
-      		$tablename='boards');
-      		break;
+	if($page=='thread' || $page=='board'){
+		switch($page){
+	    	case 'thread':
+	      		$tablename='threads';
+	    		break;
+	      	case 'board':
+	      		$tablename='boards';
+	      		break;
 		}
 		$MySQL['query'] = "SELECT `name` FROM `".$tablename."` WHERE `id` = '".$id."' LIMIT 1";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-		if($MySQL['result']->num_rows == 0){
+		if($MySQL['result']->num_rows == 1){
 			$MySQL['row'] = $MySQL['result']->fetch_assoc();
-			$out = "Forum ".$MySQL['row']['name'];
+			$out = "Forum - ".$MySQL['row']['name'];
 		} else {
-			$out = "Unknown";
+			$out = "Forum - Unknown";
 		}
 	} else {
-		$out = "Forum ".ucfirst($page);
+		$out = "Forum - ".ucfirst($page);
 	}
+	return $out;
 }
 
 function toggleInt($in){
@@ -261,5 +259,31 @@ function getUserRank($userID){
 		$out="Something went wrong.";
 	}
 	return $out;
+}
+
+function logAction(){
+	$userID=$_SESSION['forumUserID'];
+	$page=getIfIssetGet('p', '');
+	$id=getIfIssetGet('id', '0');
+	$action=getIfIssetGet('action', '');
+	if($action==""){$action=getIfIssetGet('mode', '');}
+	if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+		$ip = $_SERVER['HTTP_CLIENT_IP'];
+	} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+	} else {
+		$ip = $_SERVER['REMOTE_ADDR'];
+	}
+	include("dbconnect.inc.php");
+	$MySQL['query'] = "INSERT INTO `logging` (`userID`, `ip`, `page`, `action`, `changedID`) VALUES ('".$userID."', '".$ip."', '".$page."', '".$action."', '".$id."')";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+}
+
+function redirectIfDone($conn, $text, $page){
+	if($conn->affected_rows==1){
+		echo '<script>alert("'.$text.'");</script><meta http-equiv="refresh" content="0; url=?p='.$page.'" />';
+	} else {
+		echo "Something went wrong: <a href='?p=".$page."'>Return</a>";
+	}
 }
 ?>

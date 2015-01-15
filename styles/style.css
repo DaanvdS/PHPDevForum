@@ -23,6 +23,10 @@ body
 {
 	color:inherit;
 }
+a, a:visited
+{
+	color: Maroon;
+}
 .right
 {
 	text-align: right;
@@ -64,7 +68,7 @@ body
 	position: absolute;
 	top: 50px;
 	left: 0px;
-	min-height:400px;
+	/*min-height:400px;*/
 	width: 100%;
 	background-color: #C3C3C3;
 	-webkit-border-bottom-right-radius: 10px;
@@ -108,4 +112,9 @@ body
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+}
+.pagination {
+	font-size: small;
+	margin-left: 20px;
+	text-decoration: none;
 }

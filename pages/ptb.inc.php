@@ -10,15 +10,15 @@ function ptbSwitch($ptb){
       	case 'b':
       		return array ('boards','index','board');
       		break;
-    }
+	}
 }
 
 function ptbDelete($ptb, $id, $return){
 	include("dbconnect.inc.php");
-	$ptb=ptbSwitch($ptb);
-  	$MySQL['query']="DELETE FROM `".$ptb[0]."` WHERE `id`= ".$id." LIMIT 1";	
+	$ptb = ptbSwitch($ptb);
+  	$MySQL['query'] = "DELETE FROM `".$ptb[0]."` WHERE `id`= ".$id." LIMIT 1";	
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-	if($MySQL['connection']->affected_rows==1){
+	if($MySQL['connection']->affected_rows == 1){
 		echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
 	}
 	include("dbdisconnect.inc.php");
@@ -29,50 +29,51 @@ function ptbNew($ptb, $data, $return, $userID){
 	$data=$MySQL['connection']->real_escape_string($data);
 	switch($ptb){
     	case 'p':
-			$columns[0]='`text`';
-			$columns[1]='`thread_id`';
-			$columns[2]='`user_id`';
-			$values[0]="'".$data."'";
-			$values[1]="'".$return."'";
-			$values[2]="'".$userID."'";
-			$MySQL['query']="SELECT `name`, `op` FROM `threads` WHERE `id` = '".$return."'";
-			$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-			$MySQL['row']=$MySQL['result']->fetch_assoc();
-			$op=$MySQL['row']['op'];
-			$name=$MySQL['row']['name'];
-			$username=getFirstName($userID)." ".getLastName($userID);
-			if(!$op==$userID){
-				$MySQL['connection']->query("INSERT INTO `messages` (`senderID`, `receiverID`, `text`) VALUES (0, ".$MySQL['row']['op'].", '<p>Hi,</p><p>".$username." has posted a reply onto your thread \"".$name."\". Click <a href=\"?p=thread&id=".$return."\">here</a> to view it.</p>')") or die(mysqli_error($MySQL['connection']));
+			$columns[0] = '`text`';
+			$columns[1] = '`thread_id`';
+			$columns[2] = '`user_id`';
+			$values[0] = "'".$data."'";
+			$values[1] = "'".$return."'";
+			$values[2] = "'".$userID."'";
+			$MySQL['query'] = "SELECT `name`, `op` FROM `threads` WHERE `id` = '".$return."'";
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+			$MySQL['row'] = $MySQL['result']->fetch_assoc();
+			$op = $MySQL['row']['op'];
+			$name = $MySQL['row']['name'];
+			$username = getFirstName($userID)." ".getLastName($userID);
+			if(!$op == $userID){
+				$MySQL['query'] = "INSERT INTO `messages` (`senderID`, `receiverID`, `text`) VALUES (0, ".$MySQL['row']['op'].", '<p>Hi,</p><p>".$username." has posted a reply onto your thread \"".$name."\". Click <a href=\"?p=thread&id=".$return."\">here</a> to view it.</p>')";
+				$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			}
 			break;
 		case 't':
-			$columns[0]='`name`';
-			$columns[1]='`board_id`';
-			$columns[2]='`op`';
-			$values[0]="'".$data."'";
-			$values[1]="'".$return."'";
-			$values[2]="'".$userID."'";
+			$columns[0] = '`name`';
+			$columns[1] = '`board_id`';
+			$columns[2] = '`op`';
+			$values[0] = "'".$data."'";
+			$values[1] = "'".$return."'";
+			$values[2] = "'".$userID."'";
 			break;
 		case 'b':
-			$columns[0]='`name`';
-			$values[0]="'".$data."'";
+			$columns[0] = '`name`';
+			$values[0] = "'".$data."'";
 			break;
 	}
-	$ptb=ptbSwitch($ptb);
-	$i=0;
-	while($i<count($columns)){
-		if($i==0){
-			$fin_columns=$columns[$i];
-			$fin_values=$values[$i];
+	$ptb = ptbSwitch($ptb);
+	$i = 0;
+	while($i < count($columns)){
+		if($i == 0){
+			$fin_columns = $columns[$i];
+			$fin_values = $values[$i];
 		} else {
-			$fin_columns=$fin_columns.', '.$columns[$i];
-			$fin_values=$fin_values.', '.$values[$i];
+			$fin_columns = $fin_columns.', '.$columns[$i];
+			$fin_values = $fin_values.', '.$values[$i];
 		}
 		$i++;
 	}
-  	$MySQL['query']="INSERT INTO `".$ptb[0]."` (".$fin_columns.") VALUES (".$fin_values.")";
+  	$MySQL['query'] = "INSERT INTO `".$ptb[0]."` (".$fin_columns.") VALUES (".$fin_values.")";
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-	if($MySQL['connection']->affected_rows==1){
+	if($MySQL['connection']->affected_rows == 1){
 		echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
 	}
 	include("dbdisconnect.inc.php");
@@ -81,31 +82,34 @@ function ptbNew($ptb, $data, $return, $userID){
 function ptbChgSav($ptb, $id, $data, $return, $pag){
 	include("dbconnect.inc.php");
 	for($i=0;$i<count($data);$i++){
-		$data[$i]=$MySQL['connection']->real_escape_string($data[$i]);
+		$data[$i] = $MySQL['connection']->real_escape_string($data[$i]);
 	}
 	switch($ptb){
     	case 'p':
-			$columns[0]='`text`';
-			$values[0]="'".$data[0]."'";
+			$columns[0] = '`text`';
+			$values[0] = "'".$data[0]."'";
 			break;
 		case 'b':
-			$columns[0]='`name`';
-			$values[0]="'".$data[0]."'";
+			$columns[0] = '`name`';
+			$values[0] = "'".$data[0]."'";
 			break;	
 		case 't':
-			$columns[0]='`name`';
-			$columns[0]='`sticky`';
-			$values[0]="'".$data[0]."'";
-			$values[0]="'".$data[1]."'";
+			$columns[0] = '`name`';
+			$columns[1] = '`sticky`';
+			$values[0] = "'".$data[0]."'";
+			$values[1] = "'".$data[1]."'";
 			break;			
 	}
 	
 	$ptb=ptbSwitch($ptb);
-	$fin_update=$columns[0].' = '.$values[0];
+	if(count($columns) == 1){
+		$fin_update=$columns[0].' = '.$values[0];
+	} else {
+		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1];
+	}
   	$MySQL['query']="UPDATE `".$ptb[0]."` SET ".$fin_update." WHERE `id` = ".$id;
-	
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-	if($MySQL['connection']->affected_rows==1){
+	if($MySQL['connection']->affected_rows == 1){
 		echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'&pag='.$pag.'" />';
 	}
 	include("dbdisconnect.inc.php");
@@ -115,32 +119,31 @@ function ptbChgForm($ptb, $id, $return, $pag){
 	include("dbconnect.inc.php");
 	switch($ptb){
     	case 'p':
-			$columns[0]='`text`';
+			$columns[0] = '`text`';
 			break;
 		case 't':
-			$columns[0]='`name`';
-			$columns[1]='`sticky`';
+			$columns[0] = '`name`';
+			$columns[1] = '`sticky`';
 			break;
 		case 'b':
-			$columns[0]='`name`';
+			$columns[0] = '`name`';
 			break;
 	}
-	$ptbs=ptbSwitch($ptb);
-	$i=0;
-	while($i<count($columns)){
-		if($i==0){
-			$fin_columns=$columns[$i];
+	$ptbs = ptbSwitch($ptb);
+	$i = 0;
+	while($i < count($columns)){
+		if($i == 0){
+			$fin_columns = $columns[$i];
 		} else {
-			$fin_columns=$fin_columns.', '.$columns[$i];
+			$fin_columns = $fin_columns.', '.$columns[$i];
 		}
 		$i++;
 	}
 
-	$MySQL['query']="SELECT ".$fin_columns." FROM `".$ptbs[0]."` WHERE `id` = ".$id." LIMIT 1";
-  	
-	$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
-	if($MySQL['result']->num_rows!==0){
-		$MySQL['row']=$MySQL['result']->fetch_assoc();	
+	$MySQL['query'] = "SELECT ".$fin_columns." FROM `".$ptbs[0]."` WHERE `id` = ".$id." LIMIT 1";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+	if($MySQL['result']->num_rows !== 0){
+		$MySQL['row'] = $MySQL['result']->fetch_assoc();	
 		echo "
 				<form method='get'>
 					<input type='hidden' name='action' value='save'>
@@ -149,13 +152,17 @@ function ptbChgForm($ptb, $id, $return, $pag){
 					<input type='hidden' name='return' value='".$return."'>
 					<input type='hidden' name='pag' value='".$pag."'>
 					<input type='hidden' name='p' value='".$ptbs[1]."'>";
-		if($ptb=='t'||$ptb=='b'){
+		if($ptb == 't' || $ptb == 'b'){
 			echo "	<input type='text' name='data' value='".$MySQL['row'][(substr($columns[0], 1, -1))]."'>";
-		} elseif($ptb=='p'){
+		} elseif($ptb == 'p'){
 			echo "	<textarea rows='15' name='data'>".$MySQL['row'][(substr($fin_columns, 1, -1))]."</textarea>";
 		}
-		if($ptb=='t'){
-			if($MySQL['row'][(substr($columns[1], 1, -1))]){$sticky = ' selected';}else{$sticky='';}
+		if($ptb == 't'){
+			if($MySQL['row'][(substr($columns[1], 1, -1))]){
+				$sticky = ' selected';
+			} else {
+				$sticky = '';
+			}
 			echo "	<label for='sticky'>Sticky: </label><select name='sticky'><option".$sticky." value='0'>False</option><option".$sticky." value='1'>True</option>";
 		}
 		echo "	<input class='post-area-submit' type='submit' name='save' value='Save'></form>";
@@ -168,41 +175,44 @@ function ptbAction(){
 	//return is the id 
 	switch($_GET['action']){
 		case 'delete':
-			ptbDelete($_GET['ptb'], $_GET['id'], $_GET['return']);
+			logAction();
+			ptbDelete(getIfIssetGet('ptb', ''), getIfIssetGet('id', ''), getIfIssetGet('return', ''));
 			break;
 		case 'new': 
-			ptbNew($_GET['ptb'], $_GET['data'], $_GET['return'], $_SESSION['forumUserID']);
+			logAction();
+			ptbNew(getIfIssetGet('ptb', ''), getIfIssetGet('data', ''), getIfIssetGet('return', ''), $_SESSION['forumUserID']);
 			break;
 		case 'save': 
-			if($_GET['ptb']=='t'){$sticky=$_GET['sticky'];}{$sticky=0;}
-			ptbChgSav($_GET['ptb'], $_GET['id'], array($_GET['data'],$sticky), $_GET['return'], $_GET['pag']);
+			logAction();
+			if($_GET['ptb']=='t'){$sticky=$_GET['sticky'];}else{$sticky=0;}
+			ptbChgSav(getIfIssetGet('ptb', ''), getIfIssetGet('id', ''), array(getIfIssetGet('data', ''),$sticky), getIfIssetGet('return', ''), getIfIssetGet('pag', ''));
 			break;
 		case 'change': 
-			ptbChgForm($_GET['ptb'], $_GET['id'], $_GET['return'], $_GET['pag']);
+			ptbChgForm(getIfIssetGet('ptb', ''), getIfIssetGet('id', ''), getIfIssetGet('return', ''), getIfIssetGet('pag', ''));
 			break;
 	}
 }
 
 function ptbShow($ptb, $return){
 	include('dbconnect.inc.php');
-	$ptbs=ptbSwitch($ptb);
-	if($ptb=='b'){$MySQL['query']="SELECT * FROM `".$ptbs[0]."`";}
-	if($ptb=='t'){$MySQL['query']="SELECT * FROM `".$ptbs[0]."` WHERE board_id=".$return." ORDER BY `sticky` DESC, `id` DESC";}
-	if($ptb=='p'){
+	$ptbs = ptbSwitch($ptb);
+	if($ptb == 'b'){$MySQL['query'] = "SELECT * FROM `".$ptbs[0]."`";}
+	if($ptb == 't'){$MySQL['query'] = "SELECT * FROM `".$ptbs[0]."` WHERE board_id=".$return." ORDER BY `sticky` DESC, `id` DESC";}
+	if($ptb == 'p'){
 		if(isset($_GET['pag'])){
-			$pag=$_GET['pag'];
+			$pag = $_GET['pag'];
 		} else {
-			$MySQL['query']="SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$return."";
-			$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-			$MySQL['row']=$MySQL['result']->fetch_assoc();
-			$amRows=$MySQL['row']['amRows'];
-			$amPages=ceil($amRows/10);
-			if($amPages==0){$amPages=1;}
-			$pag=$amPages;
+			$MySQL['query'] = "SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$return."";
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+			$MySQL['row'] = $MySQL['result']->fetch_assoc();
+			$amRows = $MySQL['row']['amRows'];
+			$amPages = ceil($amRows / 10);
+			if($amPages == 0){$amPages = 1;}
+			$pag = $amPages;
 		}
-		$MySQL['query']="SELECT `posts`.`text`, `posts`.`date_created`, `users`.`firstname`, `users`.`sig`, `posts`.`id`, `posts`.`user_id`, `threads`.`name`, `threads`.`op` FROM `posts`, `users`, `threads` WHERE `threads`.`id`= ".$return." AND `posts`.`thread_id`=".$return." AND `users`.`id` = `posts`.`user_id` ORDER BY date_created ASC LIMIT ".(($pag-1)*10).", ".($pag*10)."";
+		$MySQL['query'] = "SELECT `posts`.`text`, `posts`.`date_created`, `users`.`firstname`, `users`.`sig`, `posts`.`id`, `posts`.`user_id`, `threads`.`name`, `threads`.`op` FROM `posts`, `users`, `threads` WHERE `threads`.`id`= ".$return." AND `posts`.`thread_id`=".$return." AND `users`.`id` = `posts`.`user_id` ORDER BY date_created ASC LIMIT ".(($pag-1)*10).", ".($pag*10)."";
 	}
-	$MySQL['result']= $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	switch($ptb){
 		case 'p':
 			$i=0;
@@ -260,10 +270,11 @@ function ptbShow($ptb, $return){
 					$i++;
 				}
 				ptbPageLinks($ptb,$return, $pag);
+			} else {
+				echo "<p>Nothing here yet.</p>";
 			}
 			if(isLoggedIn()){
-			echo "
-					<form method='get' id='newPost' action=''>
+			echo "	<form method='get' id='newPost' action=''>
 						<input type='hidden' name='action' value='new'>
 						<input type='hidden' name='ptb' value='p'>
 						<input type='hidden' name='return' value='".$return."'>
@@ -311,14 +322,16 @@ function ptbShow($ptb, $return){
 			
 			if(isLoggedIn() && (isAdmin() || $ptb == 't')) {
 				echo "
-					<form method='get'>
-						<input type='hidden' name='action' value='new'>
-						<input type='hidden' name='ptb' value='".$ptb."'>
-						<input type='hidden' name='return' value='".$return."'>
-						<input type='hidden' name='p' value='index'>
-						<input type='text' name='data' value='New'>
-						<input type='submit' name='submit' value='Make'>
-					</form>";
+					<div class='newPtb'>
+						<form method='get'>
+							<input type='hidden' name='action' value='new'>
+							<input type='hidden' name='ptb' value='".$ptb."'>
+							<input type='hidden' name='return' value='".$return."'>
+							<input type='hidden' name='p' value='index'>
+							<input type='text' name='data' value='New'>
+							<input type='submit' name='submit' value='Make'>
+						</form>
+					</div>";
 			}
 			break;
 	}

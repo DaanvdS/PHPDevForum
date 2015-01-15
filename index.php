@@ -6,8 +6,7 @@ session_start();
 
 include('pages/functions.inc.php');
 
-$page = getStrIfIsset("page");
-if($page == "notset")$page = "index";
+$page = getIfIssetGet('p', 'index');
 
 if(!isset($_SESSION['forumAdmin'])){
 	$_SESSION['forumAdmin'] = 0;
@@ -15,18 +14,22 @@ if(!isset($_SESSION['forumAdmin'])){
 
 include('dbconnect.inc.php');
 if(isLoggedIn()){
+	//Check whether the logged in account is still activated.
 	$MySQL['query'] = "SELECT `activated`, `admin` FROM `users` WHERE `id` = '".$_SESSION['forumUserID']."' LIMIT 1";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 	if($MySQL['result']->num_rows == 1){
 		$MySQL['row'] = $MySQL['result']->fetch_assoc();
 		if($MySQL['row']['activated'] == 0){
+			//Log out if the account has been disabled
 			session_unset(); 
 			session_destroy();
 			echo '<script>alert("Woops! Your account has not been activated!");</script><meta http-equiv="refresh" content="0; url=?p=login" /></script>';
 			exit();
 		}
+		//(Re)set the admin variable
 		$_SESSION['forumAdmin'] = $MySQL['row']['admin'];
 	} else {
+		//Log out if the account has been deleted
 		session_unset(); 
 		session_destroy();
 		echo '<script>alert("Woops! Your account has not been found!");</script><meta http-equiv="refresh" content="0; url=?p=login" /></script>';
@@ -34,8 +37,9 @@ if(isLoggedIn()){
 	}
 }
 
+//If page file exists then get title
 if(file_exists("pages/".$page.".inc.php")){
-	$title = getTitle($_GET['ptb'], $_GET['id'], $page);
+	$title = getTitle($page, getIfIssetGet('id', ''));  // Dit doet het niet. Nee hehe. Repareren :)
 } else {
 	$title = "Forum - 404";
 	$page = "404";
@@ -95,6 +99,7 @@ include('dbdisconnect.inc.php');
 				</a>
 				<div id="account-info">
 					<?php 
+					//Show links to user/admin-panels based on rights 
 					if(isAdmin()){
 						echo '<a class="hidden-a" href="?p=adminpanel">Admin panel</a>'; 
 					}
@@ -102,16 +107,13 @@ include('dbdisconnect.inc.php');
 					if(isLoggedIn()){
 						include('dbconnect.inc.php');
 						$MySQL['result'] = $MySQL['connection']->query("SELECT COUNT(*) AS `amountOfRows` FROM `messages` WHERE `receiverID`='".$_SESSION['forumUserID']."' AND `unread` = '1'");
-						$MySQL['row']=$MySQL['result']->fetch_assoc();
+						$MySQL['row'] = $MySQL['result']->fetch_assoc();
 						if($MySQL['row']['amountOfRows']==0){$unreadMessages='';}else{$unreadMessages='<b>('.$MySQL['row']['amountOfRows'].')</b>';}
-						echo '<a class="hidden-a" href="?p=inbox">Inbox '.$unreadMessages.'</a>';
-						$MySQL['result'] = $MySQL['connection']->query("SELECT `firstname`, `lastname` FROM `users` WHERE `id`='".$_SESSION['forumUserID']."' LIMIT 1");
-						$MySQL['row']=$MySQL['result']->fetch_assoc();
-						echo '<a class="hidden-a" href="?p=userpanel">'.$MySQL['row']['firstname'].' '.$MySQL['row']['lastname'].'</a>';
+						echo '<a class="hidden-a" href="?p=mailbox">Mailbox '.$unreadMessages.'</a>';
+						echo '<a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a>';
 						echo '<a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a>';
 					} else {
-						if(isset($_GET['id'])){$id=$_GET['id'];}else{$id='';}
-						echo '<a class="hidden-a" href="?p=login&goto='.$page.'&goid='.$id.'">Log in</a>'; 
+						echo '<a class="hidden-a" href="?p=login&goto='.$page.'&goid='.getIfIssetGet('id', '').'">Log in</a>'; 
 					}
 					
 					if(!isLoggedIn()){ 
@@ -122,8 +124,10 @@ include('dbdisconnect.inc.php');
 			
 			</div>
 			<div id="content">
-				<?php include("pages/breadcrumb.inc.php"); ?>
-				<?php if($page!=="404"){include("pages/".$page.".inc.php");}else{echo "404 - Page not found";} ?>
+				<?php //Include content
+					include("pages/breadcrumb.inc.php");
+					include("pages/".$page.".inc.php"); 
+				?>
 			</div>
 		</div>
 	</body>

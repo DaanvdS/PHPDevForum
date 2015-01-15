@@ -173,3 +173,7 @@ blockquote p {
 .small {
 	font-size: x-small;
 }
+.newPtb {
+	margin-bottom: 4px;
+	text-align: center;
+}

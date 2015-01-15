@@ -136,3 +136,72 @@ zsh
 sl
 apt
 ls
+git pull
+git pull
+git pull
+ls
+git pull
+git pull
+git pull
+git pull
+git pull
+git pull
+git pull
+cd pages/
+git pull
+cd ~
+ls
+git pull
+cd pages
+vi ptb.inc.php
+./daanpush.sh
+cd ..
+./daanpush.sh
+chmod +x daanpush.sh 
+./daanpush.sh
+ls -l
+vi daanpush.sh
+daanpush.sh
+sh daanpush.sh
+git config --global user.name "Daan van der Spek"
+git config --global user.email "daanvanderspek@gmail.com"
+sh daanpush.sh
+git add .
+git commit
+git push origin master
+ls -l
+git pull
+ls
+cd pages
+ls
+rm inbox.inc.php 
+cd ..
+git pull
+git pull.
+git pull
+exit
+ls -l
+cd ~
+ls -l
+exit
+ls
+cd ~
+ls -l
+git pull
+exit
+cd ~
+ls
+./daanpush.sh 
+ls
+vi daanpush.sh
+ls
+ls -l
+cd ..
+exit
+ls -l
+./daanpush.sh
+git add -A
+git commit
+git push origin master
+ls -l
+exit
