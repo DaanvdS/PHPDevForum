@@ -88,19 +88,28 @@ function adminShowGroupPanel(){
 			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			redirectIfDone($MySQL['connection'], "Added succesfully", "adminpanel&section=groupmanagement");
 		} elseif($_GET['action'] == "assignUsersSave"){
-			$MySQL['query'] = "SELECT * FROM `usersInGroups` WHERE `userID` = '".$_GET['id']."' AND `groupID` = '".$_GET['groupid']."' LIMIT 1";
-			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-			if(!$MySQL['result']->num_rows == getIfIssetGet('assign', '0')){
-				if(getIfIssetGet('assign', '0') == 0){
-					$MySQL['query'] = "DELETE FROM `usersInGroups` WHERE `userID` = ".$_GET['id']." AND `groupID` = ".$_GET['groupid']."";
-				} elseif(getIfIssetGet('assign', '0') == 1){
-					$MySQL['query'] = "INSERT INTO `usersInGroups` (`userID`, `groupID`) VALUES ('".$_GET['id']."', '".$_GET['groupid']."')";
-				}
+			$i=0;
+			$j=0;
+			while($i < $_GET['i']){
+				$MySQL['query'] = "SELECT * FROM `usersInGroups` WHERE `userID` = '".$_GET['id'.$i]."' AND `groupID` = '".$_GET['groupid']."' LIMIT 1";
 				$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
-				redirectIfDone($MySQL['connection'], "(De-)assigned succesfully", "adminpanel&section=groupmanagement&action=assignUsersFrm&id=".$_GET['groupid']."&name=".$_GET['name']);
-			} else {
-				echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel&section=groupmanagement&action=assignUsersFrm&id='.$_GET["groupid"].'&name='.$_GET["name"].'">';
-			}			
+				if(!$MySQL['result']->num_rows == getIfIssetGet('assign'.$i, '0')){
+					if(getIfIssetGet('assign'.$i, '0') == 0){
+						$MySQL['query'] = "DELETE FROM `usersInGroups` WHERE `userID` = ".$_GET['id'.$i]." AND `groupID` = ".$_GET['groupid']."";
+					} elseif(getIfIssetGet('assign'.$i, '0') == 1){
+						$MySQL['query'] = "INSERT INTO `usersInGroups` (`userID`, `groupID`) VALUES ('".$_GET['id'.$i]."', '".$_GET['groupid']."')";
+					}
+					$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+					if($MySQL['connection']->affected_rows == 1){
+						$j++;
+					}
+					//redirectIfDone($MySQL['connection'], "(De-)assigned succesfully", "adminpanel&section=groupmanagement&action=assignUsersFrm&id=".$_GET['groupid']."&name=".$_GET['name']);
+				} else {
+					$j++;
+				}	
+				$i++;
+			}
+			if($j == $_GET['i'])echo '<meta http-equiv="refresh" content="0; url=?p=adminpanel&section=groupmanagement&action=assignUsersFrm&id='.$_GET["groupid"].'&name='.$_GET["name"].'">';
 		} elseif($_GET['action'] == "assignUsersFrm"){
 			//Set the direct of sorting the colomns.
 			$sort = getIfIssetPost('sort', 'id');
@@ -144,7 +153,7 @@ function adminShowGroupPanel(){
 						//&nbsp;<a class='up' href='javascript:document.forms[\"change".$MySQL['row']['id']."\"].submit();'><img src='images/change.png'></a>
 					}
 				}
-				echo "<tr><td colspan='5'><input type='submit' value='Save'></td></tr></form></table>";
+				echo "<tr><td colspan='5'><input type='hidden' name='i' value='".$i."'><input type='submit' value='Save'></td></tr></form></table>";
 			} else {
 				echo "<p>No groups found.</p>";
 			}
