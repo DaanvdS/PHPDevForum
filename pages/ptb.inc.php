@@ -218,14 +218,18 @@ function ptbShow($ptb, $return){
 			$i=0;
 			if($MySQL['result']->num_rows > 0){
 				ptbPageLinks($ptb,$return, $pag);
-				while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
+				while($MySQL['row'] = $MySQL['result']->fetch_assoc()) { 
+				    // Show Profile
+					$MySQL['result2'] = $MySQL['connection']->query("SELECT COUNT(*) AS postcount FROM posts WHERE posts.user_id=".$MySQL['row']["user_id"]);
+					$MySQL['row2'] = $MySQL['result2']->fetch_assoc();
 					echo "
 					<table class='post'>
 						<tr>
 							<td class='userbar'>
 								<p class='username'>".$MySQL['row']["firstname"]."</p>
 								<p class='rank'>".getUserRank($MySQL['row']["user_id"])."</p>
-								<p class='avatar'>".getUserAvatar($MySQL['row']["user_id"])."</p>";
+								<p class='avatar'>".getUserAvatar($MySQL['row']["user_id"])."</p>
+								<p class='avatar'>".$MySQL['row2']['postcount']."</p>";
 					if(isLoggedIn()){
 						echo "
 								<p class='postbuttons'>
