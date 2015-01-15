@@ -27,7 +27,7 @@ if(!isLoggedIn()){
 				echo "<p>This username is already taken.</p>";
 			} else {
 				$code = rand();
-				$MySQL['result']=$MySQL['connection']->query("INSERT INTO `users` (`firstname`, `lastname`, `groupid`, `username`, `password`, `emailaddress`, `activationcode`, `activated`, `admin`) VALUES ('".$_POST['forumFirstName']."', '".$_POST['forumLastName']."', '1', '".$_POST['forumUsername']."', '".md5($_POST['forumPassword'])."', '".$_POST['forumEmailaddress']."', '".$code."', '0', '0')");
+				$MySQL['result']=$MySQL['connection']->query("INSERT INTO `users` (`firstname`, `lastname`, `username`, `password`, `emailaddress`, `activationcode`, `activated`, `admin`) VALUES ('".$_POST['forumFirstName']."', '".$_POST['forumLastName']."', '".$_POST['forumUsername']."', '".md5($_POST['forumPassword'])."', '".$_POST['forumEmailaddress']."', '".$code."', '0', '0')");
 				if($MySQL['connection']->affected_rows==1){
 					echo "<p>Registration was completed succesfully. Please activate your account via the email that was sent to your address.";
 					$message = '
@@ -55,6 +55,7 @@ if(!isLoggedIn()){
 
 					// Mail it
 					mail($_POST['forumEmailaddress'], "Activation account at PHPDev", $message, $headers);
+					$MySQL['result']=$MySQL['connection']->query("INSERT INTO `usersInGroups` (`userID`, `groupID`) VALUES ('".$MySQL['connection']->insert_id."', '1')");					
 				} else {
 					echo "<p>Username/Password incorrect!</p>";
 				}
