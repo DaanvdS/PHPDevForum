@@ -92,6 +92,7 @@ function adminShowGroupPanel(){
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			if(!$MySQL['result']->num_rows == getIfIssetGet('assign', '0')){
 				$MySQL['query'] = "INSERT INTO `usersInGroups` (`userID`, `groupID`) VALUES ('".$_GET['id']."', '".$_GET['groupid']."');";
+				echo $MySQL['query'];
 				$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 				redirectIfDone($MySQL['connection'], "(De-)assigned succesfully", "adminpanel&section=groupmanagement");
 			} else {
