@@ -220,10 +220,10 @@ function showBoards(){
 				echo "
 				<td class='item-icons'>
 					<p>
-						<a class='hidden-a' href='?p=index&action=change&ptb='b'&id=".$MySQL['row']["id"]."&return=""'>
+						<a class='hidden-a' href='?p=index&action=change&ptb='b'&id=".$MySQL['row']["id"]."&return=``'>
 							<img src='images/change.png'>
 						</a>
-						<a class='hidden-a' href='?p=index&action=delete&ptb='b'&id=".$MySQL['row']['id']."&return=""'>
+						<a class='hidden-a' href='?p=index&action=delete&ptb='b'&id=".$MySQL['row']['id']."&return=``'>
 							<img src='images/remove.png'>
 						</a>
 					</p>
