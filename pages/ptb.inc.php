@@ -126,7 +126,7 @@ function ptbChgForm($ptb, $id, $return, $pag){
 		case 't':
 			$columns[0] = '`name`';
 			$columns[1] = '`sticky`';
-			$columns[1] = '`board_id`';
+			$columns[2] = '`board_id`';
 			break;
 		case 'b':
 			$columns[0] = '`name`';
@@ -163,7 +163,7 @@ function ptbChgForm($ptb, $id, $return, $pag){
 		}
 		if($ptb == 't'){
 			$MySQL['result2'] = $MySQL['connection']->query("SELECT * FROM boards");
-			echo "<select name='moveto'>";
+			echo "<select name='board_id'>";
 			while($MySQL['row2'] = $MySQL['result2']->fetch_assoc()) { 
 				echo "<option ";
 				if ($MySQL['row2']['id'] == $MySQL['row']['board_id'])echo "selected ";
