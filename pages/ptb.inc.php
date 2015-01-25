@@ -198,7 +198,7 @@ function ptbAction(){
 		case 'save': 
 			logAction();
 			if($_GET['ptb']=='t'){$sticky=$_GET['sticky'];}else{$sticky=0;}
-			if(isset($_GET['board_id'])){$board_id = $_GET['board_id']}else{$board_id="";}
+			if(isset($_GET['board_id'])){$board_id = $_GET['board_id'];}else{$board_id="";}
 			ptbChgSav(getIfIssetGet('ptb', ''), getIfIssetGet('id', ''), array(getIfIssetGet('data', ''),$sticky,$board_id), getIfIssetGet('return', ''), getIfIssetGet('pag', ''));
 			break;
 		case 'change': 
