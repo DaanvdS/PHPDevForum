@@ -213,7 +213,7 @@ function showBoards(){
 			if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
 			echo "
 			<tr>
-				<td class='item".$sticky."' onclick='window.location.href = \"?p=".substr($ptbs[0],0,-1)."&id=".$MySQL['row']["id"]."\"'>
+				<td class='item".$sticky."' onclick='window.location.href = \"?p=".substr("boards",0,-1)."&id=".$MySQL['row']["id"]."\"'>
 					".$MySQL['row']["name"]."
 				</td>";
 			if(isLoggedIn() && isAdmin()){
@@ -267,7 +267,7 @@ function showThreads($board){
 			if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
 			echo "
 			<tr>
-				<td class='item".$sticky."' onclick='window.location.href = \"?p=".substr("boards",0,-1)."&id=".$MySQL['row']["id"]."\"'>
+				<td class='item".$sticky."' onclick='window.location.href = \"?p=".substr("threads",0,-1)."&id=".$MySQL['row']["id"]."\"'>
 					".$MySQL['row']["name"]."
 				</td>";
 			if(isLoggedIn() && isAdmin()){
