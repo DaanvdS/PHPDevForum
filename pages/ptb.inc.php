@@ -328,7 +328,7 @@ function showPosts($thread){
 
 	$i= 0;
 	if($MySQL['result']->num_rows > 0){
-		ptbPageLinks($ptb,$thread, $pag);
+		ptbPageLinks("p",$thread, $pag);
 		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) { 
 			  // Count the posts
 			$MySQL['result2'] = $MySQL['connection']->query("SELECT COUNT(*) AS postcount FROM posts WHERE posts.user_id=".$MySQL['row']["user_id"]);
@@ -385,7 +385,7 @@ function showPosts($thread){
 			</table>";
 			$i++;
 		}
-		ptbPageLinks($ptb,$thread, $pag);
+		ptbPageLinks("p",$thread, $pag);
 	} else {
 		echo "<p>Nothing here yet.</p>";
 	}
