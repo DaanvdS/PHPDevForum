@@ -101,6 +101,7 @@ function hasSpecialRights($id,$op){
 }
 
 function isInGroup($id,$groupid){
+	include("dbconnect.inc.php");
 	$MySQL['query'] = "SELECT * FROM usersInGroups WHERE userID=".$id." groupID=".$groupid;
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	if ($MySQL['result']->num_rows > 0){
