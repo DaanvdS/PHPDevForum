@@ -220,10 +220,10 @@ function showBoards(){
 				echo "
 				<td class='item-icons'>
 					<p>
-						<a class='hidden-a' href='?p=index&action=change&ptb=".$ptb."&id=".$MySQL['row']["id"]."&return=".$return."'>
+						<a class='hidden-a' href='?p=index&action=change&ptb='b'&id=".$MySQL['row']["id"]."&return=""'>
 							<img src='images/change.png'>
 						</a>
-						<a class='hidden-a' href='?p=index&action=delete&ptb=".$ptb."&id=".$MySQL['row']['id']."&return=".$return."'>
+						<a class='hidden-a' href='?p=index&action=delete&ptb='b'&id=".$MySQL['row']['id']."&return=""'>
 							<img src='images/remove.png'>
 						</a>
 					</p>
@@ -240,7 +240,7 @@ function showBoards(){
 		echo "
 		</table>";
 		}
-	if(isLoggedIn() && (isAdmin() || $ptb == 't')) {
+	if(isLoggedIn() && isAdmin()) {
 		echo "
 			<div class='newPtb'>
 				<form method='get'>
@@ -267,17 +267,17 @@ function showThreads($board){
 			if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
 			echo "
 			<tr>
-				<td class='item".$sticky."' onclick='window.location.href = \"?p=".substr($ptbs[0],0,-1)."&id=".$MySQL['row']["id"]."\"'>
+				<td class='item".$sticky."' onclick='window.location.href = \"?p=".substr("boards",0,-1)."&id=".$MySQL['row']["id"]."\"'>
 					".$MySQL['row']["name"]."
 				</td>";
 			if(isLoggedIn() && isAdmin()){
 				echo "
 				<td class='item-icons'>
 					<p>
-						<a class='hidden-a' href='?p=index&action=change&ptb=".$ptb."&id=".$MySQL['row']["id"]."&return=".$return."'>
+						<a class='hidden-a' href='?p=index&action=change&ptb=b&id=".$MySQL['row']["id"]."&return=".$board."'>
 							<img src='images/change.png'>
 						</a>
-						<a class='hidden-a' href='?p=index&action=delete&ptb=".$ptb."&id=".$MySQL['row']['id']."&return=".$return."'>
+						<a class='hidden-a' href='?p=index&action=delete&ptb=b&id=".$MySQL['row']['id']."&return=".$baord."'>
 							<img src='images/remove.png'>
 						</a>
 					</p>
@@ -294,7 +294,7 @@ function showThreads($board){
 		echo "
 		</table>";
 		}
-	if(isLoggedIn() && (isAdmin() || $ptb == 't')) {
+	if(isLoggedIn()) {
 		echo "
 			<div class='newPtb'>
 				<form method='get'>
