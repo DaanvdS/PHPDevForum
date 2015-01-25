@@ -352,7 +352,7 @@ function showPosts($thread){
 						<p class='username'>".$MySQL['row']["firstname"]."</p>
 						<p class='rank'>".getUserRank($MySQL['row']["user_id"])."</p>
 						<p class='avatar'>".getUserAvatar($MySQL['row']["user_id"])."</p>
-						<p class='user-info'>".$MySQL['row2']['postcount']."</p>";
+						<p class='user-info'>posts: ".$MySQL['row2']['postcount']."</p>";
 			if(isLoggedIn()){
 				echo "
 						<p class='postbuttons'>
