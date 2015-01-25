@@ -135,6 +135,10 @@ blockquote p {
 	margin-left: auto;
 	margin-right: auto;
 }
+.user-info
+{
+	font-size: 8px;
+}
 .userbar
 {
 	background:gold;
