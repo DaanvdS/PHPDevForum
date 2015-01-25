@@ -143,7 +143,7 @@ function ptbChgForm($ptb, $id, $return, $pag){
 	}
 
 	$MySQL['query'] = "SELECT ".$fin_columns." FROM `".$ptbs[0]."` WHERE `id` = ".$id." LIMIT 1";
-	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	if($MySQL['result']->num_rows !== 0){
 		$MySQL['row'] = $MySQL['result']->fetch_assoc();	
 		echo "
@@ -281,10 +281,10 @@ function showThreads($board){
 				echo "
 				<td class='item-icons'>
 					<p>
-						<a class='hidden-a' href='?p=index&action=change&ptb=b&id=".$MySQL['row']["id"]."&return=".$board."'>
+						<a class='hidden-a' href='?p=index&action=change&ptb=t&id=".$MySQL['row']["id"]."&return=".$board."'>
 							<img src='images/change.png'>
 						</a>
-						<a class='hidden-a' href='?p=index&action=delete&ptb=b&id=".$MySQL['row']['id']."&return=".$board."'>
+						<a class='hidden-a' href='?p=index&action=delete&ptb=t&id=".$MySQL['row']['id']."&return=".$board."'>
 							<img src='images/remove.png'>
 						</a>
 					</p>
