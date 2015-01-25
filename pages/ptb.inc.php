@@ -96,7 +96,7 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
 		case 't':
 			$columns[0] = '`name`';
 			$columns[1] = '`sticky`';
-			$columns[1] = '`board_id`';
+			$columns[2] = '`board_id`';
 			$values[0] = "'".$data[0]."'";
 			$values[1] = "'".$data[1]."'";
 			$values[2] = "'".$data[2]."'";
