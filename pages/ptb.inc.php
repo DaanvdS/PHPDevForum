@@ -107,7 +107,7 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
 	if(count($columns) == 1){
 		$fin_update=$columns[0].' = '.$values[0];
 	} else {
-		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1];
+		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1].', '.$columns[2].' = '.$values[2];
 	}
   	$MySQL['query']="UPDATE `".$ptb[0]."` SET ".$fin_update." WHERE `id` = ".$id;
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
