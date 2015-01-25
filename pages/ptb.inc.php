@@ -166,7 +166,7 @@ function ptbChgForm($ptb, $id, $return, $pag){
 			echo "<select name='moveto'>";
 			while($MySQL['row2'] = $MySQL['result2']->fetch_assoc()) { 
 				echo "<option ";
-				if ($MySQL['row2']['id'] == $MySQL['row']['board_id']
+				if ($MySQL['row2']['id'] == $MySQL['row']['board_id'])echo "selected ";
 				echo "value='".$MySQL['row2']['id']."' >".$MySQL['row2']['name']."</option>";
 			}
 			echo "</select>";
