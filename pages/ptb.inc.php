@@ -165,7 +165,7 @@ function ptbChgForm($ptb, $id, $return, $pag){
 			while($MySQL['row2'] = $MySQL['result2']->fetch_assoc()) { 
 				echo "<option value='' />";
 			}
-			echo "</select>"
+			echo "</select>";
 		
 			if($MySQL['row'][(substr($columns[1], 1, -1))]){
 				$sticky = ' selected';
@@ -224,7 +224,7 @@ function ptbShow($ptb, $return){
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	switch($ptb){
 		case 'p':
-			$i=0;
+			$i= 0;
 			if($MySQL['result']->num_rows > 0){
 				ptbPageLinks($ptb,$return, $pag);
 				while($MySQL['row'] = $MySQL['result']->fetch_assoc()) { 
@@ -248,7 +248,7 @@ function ptbShow($ptb, $return){
 										<img src='images/quote.png'>
 									</a>";
 					}
-					if (hasRights($MySQL['row']['user_id'],$MySQL['row']['op'])) {
+					if (hasSpecialRights($MySQL['row']['user_id'],$MySQL['row']['op'])) {
 						echo "
 									<a class='hidden-a' href='?p=thread&action=change&ptb=p&id=".$MySQL['row']['id']."&return=".$return."&pag=".$pag."'>
 										<img src='images/change.png'>

@@ -85,9 +85,22 @@ function isAdmin(){
 		return false;
 	}
 }
-
-function hasRights($id,$op){
+function hasReadRights($id){
+	$MySQL['query'] = "SELECT ";
+	return true;
+}
+function hasSpecialRights($id,$op){
 	if(isLoggedIn() && (isOwner($id) || isAdmin() || isOP($op))){
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isInGroup($id,$groupid){
+	$MySQL['query'] = "SELECT * FROM usersInGroups WHERE userID=".$id." groupID=".$groupid;
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+	if ($MySQL['result']->num_rows > 0){
 		return true;
 	} else {
 		return false;
