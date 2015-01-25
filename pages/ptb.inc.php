@@ -124,7 +124,7 @@ function ptbChgForm($ptb, $id, $return, $pag){
 		case 't':
 			$columns[0] = '`name`';
 			$columns[1] = '`sticky`';
-			$columns[1] = '`moveto`';
+			$columns[1] = '`board_id`';
 			break;
 		case 'b':
 			$columns[0] = '`name`';
