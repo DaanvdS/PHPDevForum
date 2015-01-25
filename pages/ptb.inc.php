@@ -246,7 +246,7 @@ function showBoards(){
 				<form method='get'>
 					<input type='hidden' name='action' value='new'>
 					<input type='hidden' name='ptb' value='".$ptb."'>
-					<input type='hidden' name='return' value='".$return."'>
+					<input type='hidden' name='return' value='board'>
 					<input type='hidden' name='p' value='index'>
 					<input type='text' name='data' value='New'>
 					<input type='submit' name='submit' value='Make'>
@@ -277,7 +277,7 @@ function showThreads($board){
 						<a class='hidden-a' href='?p=index&action=change&ptb=b&id=".$MySQL['row']["id"]."&return=".$board."'>
 							<img src='images/change.png'>
 						</a>
-						<a class='hidden-a' href='?p=index&action=delete&ptb=b&id=".$MySQL['row']['id']."&return=".$baord."'>
+						<a class='hidden-a' href='?p=index&action=delete&ptb=b&id=".$MySQL['row']['id']."&return=".$board."'>
 							<img src='images/remove.png'>
 						</a>
 					</p>
