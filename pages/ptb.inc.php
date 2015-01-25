@@ -203,6 +203,11 @@ function ptbAction(){
 }
 function showBoards(){
 	include('dbconnect.inc.php');
+	if (isLoggedIn()){
+		$id = getID();
+	} else {
+  	$id = "":
+  }
 	$MySQL['query'] = "SELECT * FROM `boards`";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	
@@ -210,36 +215,38 @@ function showBoards(){
 		echo "
 		<table class='item-container'>";
 		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
-			if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
-			echo "
-			<tr>
-				<td class='item".$sticky."' onclick='window.location.href = \"?p=".substr("boards",0,-1)."&id=".$MySQL['row']["id"]."\"'>
-					".$MySQL['row']["name"]."
-				</td>";
-			if(isLoggedIn() && isAdmin()){
+			if(hasRights($id,$MySQL['row']['groupID'])){
+				if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
 				echo "
-				<td class='item-icons'>
-					<p>
-						<a class='hidden-a' href='?p=index&action=change&ptb='b'&id=".$MySQL['row']["id"]."&return=``'>
-							<img src='images/change.png'>
-						</a>
-						<a class='hidden-a' href='?p=index&action=delete&ptb='b'&id=".$MySQL['row']['id']."&return=``'>
-							<img src='images/remove.png'>
-						</a>
-					</p>
-				</td>";
+				<tr>
+					<td class='item".$sticky."' onclick='window.location.href = \"?p=".substr("boards",0,-1)."&id=".$MySQL['row']["id"]."\"'>
+						".$MySQL['row']["name"]."
+					</td>";
+				if(isLoggedIn() && isAdmin()){
+					echo "
+					<td class='item-icons'>
+						<p>
+							<a class='hidden-a' href='?p=index&action=change&ptb='b'&id=".$MySQL['row']["id"]."&return=``'>
+								<img src='images/change.png'>
+							</a>
+							<a class='hidden-a' href='?p=index&action=delete&ptb='b'&id=".$MySQL['row']['id']."&return=``'>
+								<img src='images/remove.png'>
+							</a>
+						</p>
+					</td>";
 			
-			} else {
+				} else {
+					echo "
+					<td class='item-empty'>
+					</td>";
+				}
 				echo "
-				<td class='item-empty'>
-				</td>";
+				</tr>";
 			}
-			echo "
-			</tr>";
-		} 
-		echo "
-		</table>";
 		}
+		echo "
+		</table>";	
+	}
 	if(isLoggedIn() && isAdmin()) {
 		echo "
 			<div class='newPtb'>
