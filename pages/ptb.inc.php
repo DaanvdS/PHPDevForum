@@ -204,7 +204,7 @@ function ptbAction(){
 function showBoards(){
 	include('dbconnect.inc.php');
 	if (isLoggedIn()){
-		$id = getID();
+		$id = $_SESSION['forumUserID'];
 	} else {
   	$id = "";
   }
