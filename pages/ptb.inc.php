@@ -255,9 +255,9 @@ function showBoards(){
 	}
 }
 
-function showThreads(){
+function showThreads($board){
 	include('dbconnect.inc.php');
-	$MySQL['query'] = "SELECT * FROM `threads`";
+	$MySQL['query'] = "SELECT * FROM `threads` WHERE board_id=".$board." ORDER BY `sticky` DESC, `id` DESC";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	
 	if($MySQL['result']->num_rows > 0){
@@ -309,12 +309,12 @@ function showThreads(){
 	}
 }
 
-function showPosts($return){
+function showPosts($thread){
 	include('dbconnect.inc.php');
 	if(isset($_GET['pag'])){
 		$pag = $_GET['pag'];
 	} else {
-		$MySQL['query'] = "SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$return."";
+		$MySQL['query'] = "SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$thread."";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 		$MySQL['row'] = $MySQL['result']->fetch_assoc();
 		$amRows = $MySQL['row']['amRows'];
@@ -322,13 +322,13 @@ function showPosts($return){
 		if($amPages == 0){$amPages = 1;}
 		$pag = $amPages;
 	}
-	$MySQL['query'] = "SELECT `posts`.`text`, `posts`.`date_created`, `users`.`firstname`, `users`.`sig`, `posts`.`id`, `posts`.`user_id`, `threads`.`name`, `threads`.`op` FROM `posts`, `users`, `threads` WHERE `threads`.`id`= ".$return." AND `posts`.`thread_id`=".$return." AND `users`.`id` = `posts`.`user_id` ORDER BY date_created ASC LIMIT ".(($pag-1)*10).", ".($pag*10)."";
+	$MySQL['query'] = "SELECT `posts`.`text`, `posts`.`date_created`, `users`.`firstname`, `users`.`sig`, `posts`.`id`, `posts`.`user_id`, `threads`.`name`, `threads`.`op` FROM `posts`, `users`, `threads` WHERE `threads`.`id`= ".$thread." AND `posts`.`thread_id`=".$thread." AND `users`.`id` = `posts`.`user_id` ORDER BY date_created ASC LIMIT ".(($pag-1)*10).", ".($pag*10)."";
 
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 
 	$i= 0;
 	if($MySQL['result']->num_rows > 0){
-		ptbPageLinks($ptb,$return, $pag);
+		ptbPageLinks($ptb,$thread, $pag);
 		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) { 
 			  // Count the posts
 			$MySQL['result2'] = $MySQL['connection']->query("SELECT COUNT(*) AS postcount FROM posts WHERE posts.user_id=".$MySQL['row']["user_id"]);
@@ -352,10 +352,10 @@ function showPosts($return){
 			}
 			if (hasSpecialRights($MySQL['row']['user_id'],$MySQL['row']['op'])) {
 				echo "
-							<a class='hidden-a' href='?p=thread&action=change&ptb=p&id=".$MySQL['row']['id']."&return=".$return."&pag=".$pag."'>
+							<a class='hidden-a' href='?p=thread&action=change&ptb=p&id=".$MySQL['row']['id']."&return=".$thread."&pag=".$pag."'>
 								<img src='images/change.png'>
 							</a>
-							<a class='hidden-a' href='?p=thread&action=delete&ptb=p&id=".$MySQL['row']['id']."&return=".$return."&pag=".$pag."'>
+							<a class='hidden-a' href='?p=thread&action=delete&ptb=p&id=".$MySQL['row']['id']."&return=".$thread."&pag=".$pag."'>
 								<img src='images/remove.png'>
 							</a>
 						</p>";
@@ -385,7 +385,7 @@ function showPosts($return){
 			</table>";
 			$i++;
 		}
-		ptbPageLinks($ptb,$return, $pag);
+		ptbPageLinks($ptb,$thread, $pag);
 	} else {
 		echo "<p>Nothing here yet.</p>";
 	}
@@ -393,7 +393,7 @@ function showPosts($return){
 	echo "	<form method='get' id='newPost' action=''>
 				<input type='hidden' name='action' value='new'>
 				<input type='hidden' name='ptb' value='p'>
-				<input type='hidden' name='return' value='".$return."'>
+				<input type='hidden' name='return' value='".$thread."'>
 				<input type='hidden' name='p' value='index'>
 				<div class='post-area'><textarea name='data' rows='4' cols='50'></textarea></div>
 				<input class='post-area-submit' type='submit' name='submit' value='Submit'>
@@ -553,6 +553,7 @@ function ptbShow($ptb, $return){
 	}
 	include('dbdisconnect.inc.php');
 }
+
 function ptbPageLinks($ptb, $return, $pag){
 	include('dbconnect.inc.php');
 	switch($ptb){
