@@ -8,6 +8,6 @@
 	if(isset($_GET['action'])){
 		ptbAction();
 	} else {
-		ptbShow("p", $id);
+		showPosts("p", $id);
 	}
 ?>

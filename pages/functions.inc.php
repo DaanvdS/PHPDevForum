@@ -85,9 +85,12 @@ function isAdmin(){
 		return false;
 	}
 }
-function hasReadRights($id){
-	$MySQL['query'] = "SELECT ";
-	return true;
+function hasRights($id,$groupid){
+	if (isset($groupid)){
+		return isInGroup($id,$groupid);
+	} else {
+		return true; // If the board isn't in a group, everyone has permission.
+	}
 }
 function hasSpecialRights($id,$op){
 	if(isLoggedIn() && (isOwner($id) || isAdmin() || isOP($op))){

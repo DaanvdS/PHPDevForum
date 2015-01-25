@@ -201,7 +201,209 @@ function ptbAction(){
 			break;
 	}
 }
+function showBoards(){
+	include('dbconnect.inc.php');
+	$MySQL['query'] = "SELECT * FROM `boards`";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+	
+	if($MySQL['result']->num_rows > 0){
+		echo "
+		<table class='item-container'>";
+		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
+			if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
+			echo "
+			<tr>
+				<td class='item".$sticky."' onclick='window.location.href = \"?p=".substr($ptbs[0],0,-1)."&id=".$MySQL['row']["id"]."\"'>
+					".$MySQL['row']["name"]."
+				</td>";
+			if(isLoggedIn() && isAdmin()){
+				echo "
+				<td class='item-icons'>
+					<p>
+						<a class='hidden-a' href='?p=index&action=change&ptb=".$ptb."&id=".$MySQL['row']["id"]."&return=".$return."'>
+							<img src='images/change.png'>
+						</a>
+						<a class='hidden-a' href='?p=index&action=delete&ptb=".$ptb."&id=".$MySQL['row']['id']."&return=".$return."'>
+							<img src='images/remove.png'>
+						</a>
+					</p>
+				</td>";
+			
+			} else {
+				echo "
+				<td class='item-empty'>
+				</td>";
+			}
+			echo "
+			</tr>";
+		} 
+		echo "
+		</table>";
+		}
+	if(isLoggedIn() && (isAdmin() || $ptb == 't')) {
+		echo "
+			<div class='newPtb'>
+				<form method='get'>
+					<input type='hidden' name='action' value='new'>
+					<input type='hidden' name='ptb' value='".$ptb."'>
+					<input type='hidden' name='return' value='".$return."'>
+					<input type='hidden' name='p' value='index'>
+					<input type='text' name='data' value='New'>
+					<input type='submit' name='submit' value='Make'>
+				</form>
+			</div>";
+	}
+}
 
+function showThreads(){
+	include('dbconnect.inc.php');
+	$MySQL['query'] = "SELECT * FROM `threads`";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+	
+	if($MySQL['result']->num_rows > 0){
+		echo "
+		<table class='item-container'>";
+		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
+			if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
+			echo "
+			<tr>
+				<td class='item".$sticky."' onclick='window.location.href = \"?p=".substr($ptbs[0],0,-1)."&id=".$MySQL['row']["id"]."\"'>
+					".$MySQL['row']["name"]."
+				</td>";
+			if(isLoggedIn() && isAdmin()){
+				echo "
+				<td class='item-icons'>
+					<p>
+						<a class='hidden-a' href='?p=index&action=change&ptb=".$ptb."&id=".$MySQL['row']["id"]."&return=".$return."'>
+							<img src='images/change.png'>
+						</a>
+						<a class='hidden-a' href='?p=index&action=delete&ptb=".$ptb."&id=".$MySQL['row']['id']."&return=".$return."'>
+							<img src='images/remove.png'>
+						</a>
+					</p>
+				</td>";
+			
+			} else {
+				echo "
+				<td class='item-empty'>
+				</td>";
+			}
+			echo "
+			</tr>";
+		} 
+		echo "
+		</table>";
+		}
+	if(isLoggedIn() && (isAdmin() || $ptb == 't')) {
+		echo "
+			<div class='newPtb'>
+				<form method='get'>
+					<input type='hidden' name='action' value='new'>
+					<input type='hidden' name='ptb' value='".$ptb."'>
+					<input type='hidden' name='return' value='".$return."'>
+					<input type='hidden' name='p' value='index'>
+					<input type='text' name='data' value='New'>
+					<input type='submit' name='submit' value='Make'>
+				</form>
+			</div>";
+	}
+}
+
+function showPosts($return){
+	include('dbconnect.inc.php');
+	if(isset($_GET['pag'])){
+		$pag = $_GET['pag'];
+	} else {
+		$MySQL['query'] = "SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$return."";
+		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+		$MySQL['row'] = $MySQL['result']->fetch_assoc();
+		$amRows = $MySQL['row']['amRows'];
+		$amPages = ceil($amRows / 10);
+		if($amPages == 0){$amPages = 1;}
+		$pag = $amPages;
+	}
+	$MySQL['query'] = "SELECT `posts`.`text`, `posts`.`date_created`, `users`.`firstname`, `users`.`sig`, `posts`.`id`, `posts`.`user_id`, `threads`.`name`, `threads`.`op` FROM `posts`, `users`, `threads` WHERE `threads`.`id`= ".$return." AND `posts`.`thread_id`=".$return." AND `users`.`id` = `posts`.`user_id` ORDER BY date_created ASC LIMIT ".(($pag-1)*10).", ".($pag*10)."";
+
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+
+	$i= 0;
+	if($MySQL['result']->num_rows > 0){
+		ptbPageLinks($ptb,$return, $pag);
+		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) { 
+			  // Count the posts
+			$MySQL['result2'] = $MySQL['connection']->query("SELECT COUNT(*) AS postcount FROM posts WHERE posts.user_id=".$MySQL['row']["user_id"]);
+			$MySQL['row2'] = $MySQL['result2']->fetch_assoc();
+			// Show Profile information
+			echo "
+			<table class='post'>
+				<tr>
+					<td class='userbar'>
+						<p class='username'>".$MySQL['row']["firstname"]."</p>
+						<p class='rank'>".getUserRank($MySQL['row']["user_id"])."</p>
+						<p class='avatar'>".getUserAvatar($MySQL['row']["user_id"])."</p>
+						<p class='avatar'>".$MySQL['row2']['postcount']."</p>";
+			if(isLoggedIn()){
+				echo "
+						<p class='postbuttons'>
+							<script>var text".$i." = '".$MySQL['connection']->real_escape_string($MySQL['row']["text"])."';</script>
+							<a class='hidden-a' onClick='quote(\"".$MySQL['row']["firstname"]."\",text".$i.")' href='#newPost'>
+								<img src='images/quote.png'>
+							</a>";
+			}
+			if (hasSpecialRights($MySQL['row']['user_id'],$MySQL['row']['op'])) {
+				echo "
+							<a class='hidden-a' href='?p=thread&action=change&ptb=p&id=".$MySQL['row']['id']."&return=".$return."&pag=".$pag."'>
+								<img src='images/change.png'>
+							</a>
+							<a class='hidden-a' href='?p=thread&action=delete&ptb=p&id=".$MySQL['row']['id']."&return=".$return."&pag=".$pag."'>
+								<img src='images/remove.png'>
+							</a>
+						</p>";
+			}
+			if($i==0){
+				$threadtitle=$MySQL['row']["name"];
+				$postnr="First post";
+			} else {
+				$threadtitle="Re: ".$MySQL['row']["name"];
+				$postnr="Answer #".$i;
+			}
+			if(!$MySQL['row']['sig']==''){
+				$sig="<hr /><div class='signature'>".$MySQL['row']['sig']."</div>";
+			} else { 
+				$sig=""; 
+			}
+			echo "
+					</td>
+					<td>
+						<div class='post-content'>
+							<p><b>".$threadtitle."</b></p>
+							<p class='postedon'>".$postnr.", posted on: ".$MySQL['row']["date_created"]."
+							<hr />".$MySQL['row']["text"].$sig."
+						</div>
+					</td>
+				</tr>
+			</table>";
+			$i++;
+		}
+		ptbPageLinks($ptb,$return, $pag);
+	} else {
+		echo "<p>Nothing here yet.</p>";
+	}
+	if(isLoggedIn()){
+	echo "	<form method='get' id='newPost' action=''>
+				<input type='hidden' name='action' value='new'>
+				<input type='hidden' name='ptb' value='p'>
+				<input type='hidden' name='return' value='".$return."'>
+				<input type='hidden' name='p' value='index'>
+				<div class='post-area'><textarea name='data' rows='4' cols='50'></textarea></div>
+				<input class='post-area-submit' type='submit' name='submit' value='Submit'>
+			</form>";
+	}
+
+
+}
+
+// DEPRECATED
 function ptbShow($ptb, $return){
 	include('dbconnect.inc.php');
 	$ptbs = ptbSwitch($ptb);
