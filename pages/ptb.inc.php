@@ -206,7 +206,7 @@ function showBoards(){
 	if (isLoggedIn()){
 		$id = getID();
 	} else {
-  	$id = "":
+  	$id = "";
   }
 	$MySQL['query'] = "SELECT * FROM `boards`";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
