@@ -94,7 +94,7 @@ include('dbdisconnect.inc.php');
 		<div id="header">
 			<table id="header-table">
 			<tr>
-			<td>
+			<td class="fill">
 			<a class="hidden-a" href="?p=index">
 					<h1>Forum</h1>
 			</a>
@@ -119,7 +119,7 @@ include('dbdisconnect.inc.php');
 			?>
 			</tr>
 			<tr>
-			<td>
+			<td class="fill">
 			<?php
 			include("pages/breadcrumb.inc.php");
 			?>

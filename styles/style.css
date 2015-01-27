@@ -57,9 +57,9 @@ a, a:visited
 {
 	padding: 0px;
 }
-#header-table td
+.fill
 {
-	padding: 0px;
+	width:100%;
 }
 #title
 {
