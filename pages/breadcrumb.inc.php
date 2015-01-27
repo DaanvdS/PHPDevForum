@@ -1,6 +1,7 @@
 <?php
 include("dbconnect.inc.php");
-$out="<a class='hidden-a' href='?p=index'>PHPDev Forums</a>";
+//$out="<a class='hidden-a' href='?p=index'>PHPDev Forums</a>";
+$out = "";
 if(isset($_GET['p'])){
   if($_GET['p']=='board') {
 		//Get boardname and display it
