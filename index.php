@@ -92,33 +92,45 @@ include('dbdisconnect.inc.php');
 	<body>	
 		<div id="container">
 		<div id="header">
+			<table>
+			<tr>
+			<td>
 			<a class="hidden-a" href="?p=index">
 					<h1>Forum</h1>
 			</a>
+			</td>
+			<td>
 			<?php
 			include("pages/breadcrumb.inc.php");
 			?>
-			
+			</td>
+			</tr>
+			<tr>
+			<td rowspan=2>
 			<?php 
 			//Show links to user/admin-panels based on rights 
-			if(isAdmin()){
-				echo '<a class="hidden-a" href="?p=adminpanel"><img src="images/admin.png" /></a>'; 
-			}
+
+			?>
+			</td>
+			</tr>
+			<tr>
 			
+			<?php
 			if(isLoggedIn()){
 				include('dbconnect.inc.php');
 				$MySQL['result'] = $MySQL['connection']->query("SELECT COUNT(*) AS `amountOfRows` FROM `messages` WHERE `receiverID`='".$_SESSION['forumUserID']."' AND `unread` = '1'");
 				$MySQL['row'] = $MySQL['result']->fetch_assoc();
 				if($MySQL['row']['amountOfRows']==0){$unreadMessages='';}else{$unreadMessages='<b>('.$MySQL['row']['amountOfRows'].')</b>';}
-				echo '<a class="hidden-a" href="?p=mailbox"><img src="images/mailbox.png" />'.$unreadMessages.'</a>';
-				echo '<a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a>';
-				echo '<a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a>';
+				echo '<td><a class="hidden-a" href="?p=mailbox"><img src="images/mailbox.png" />'.$unreadMessages.'</a></td>';
+//				echo '<td><a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a></td>';
+				
+				if(isAdmin()){
+					echo '<td><a class="hidden-a" href="?p=adminpanel"><img src="images/admin.png" /></a></td>'; 
+				}
+				echo '</tr><tr><td><a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a></td></tr>';
 			} else {
-				echo '<a class="hidden-a" href="?p=login&goto='.$page.'&goid='.getIfIssetGet('id', '').'">Log in</a>'; 
-			}
-			
-			if(!isLoggedIn()){ 
-				echo '<a class="hidden-a" href="?p=register">Register</a>'; 
+				echo '<td><a class="hidden-a" href="?p=login&goto='.$page.'&goid='.getIfIssetGet('id', '').'">Log in</a></td>'; 
+				echo '<td><a class="hidden-a" href="?p=register">Register</a></td>'; 
 			}
 			?>
 		</div>
