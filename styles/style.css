@@ -47,6 +47,7 @@ a, a:visited
 #header
 {
 	position: absolute;
+	background-color:#FFFFFF;
 	left: 0px;
 	top: 10px;
 	height: 80px;
@@ -104,15 +105,10 @@ a, a:visited
 	-moz-border-radius-topright: 10px;
 	border-top-right-radius: 10px;	 */
 }
-#account-info *
-{
-	top: 50px;
-	margin:10px;
-}
-#account-info img
+#header img
 {
 	float: right;
-	height: 31px;
+	max-height: 50px;
 }
 #adminavatar img
 {
