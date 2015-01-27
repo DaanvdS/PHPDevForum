@@ -86,7 +86,7 @@ function isAdmin(){
 	}
 }
 function hasRights($id,$groupid){
-	if(isset($id){
+	if(isset($id)){
 		if(isset($groupid)){
 			return isInGroup($id,$groupid);
 		} else {
