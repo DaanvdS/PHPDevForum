@@ -53,11 +53,11 @@ a, a:visited
 	height: 60px;
 	width: 100%;
 }
-#header-table
+#header-table th
 {
-	
+	padding: 0px;
 }
-#header-table td th
+#header-table td
 {
 	padding: 0px;
 }
