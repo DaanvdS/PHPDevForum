@@ -100,7 +100,7 @@ include('dbdisconnect.inc.php');
 				<?php 
 				//Show links to user/admin-panels based on rights 
 				if(isAdmin()){
-					echo '<a class="hidden-a" href="?p=adminpanel">Admin panel</a>'; 
+					echo '<a class="hidden-a" href="?p=adminpanel"><img src="images/admin.png">Admin panel</img></a>'; 
 				}
 				
 				if(isLoggedIn()){
@@ -108,7 +108,7 @@ include('dbdisconnect.inc.php');
 					$MySQL['result'] = $MySQL['connection']->query("SELECT COUNT(*) AS `amountOfRows` FROM `messages` WHERE `receiverID`='".$_SESSION['forumUserID']."' AND `unread` = '1'");
 					$MySQL['row'] = $MySQL['result']->fetch_assoc();
 					if($MySQL['row']['amountOfRows']==0){$unreadMessages='';}else{$unreadMessages='<b>('.$MySQL['row']['amountOfRows'].')</b>';}
-					echo '<a class="hidden-a" href="?p=mailbox">Mailbox '.$unreadMessages.'</a>';
+					echo '<a class="hidden-a" href="?p=mailbox"><img src="images/mailbox.png">Mailbox</img>'.$unreadMessages.'</a>';
 					echo '<a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a>';
 					echo '<a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a>';
 				} else {
