@@ -93,7 +93,7 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
 			$columns[0] = '`name`';
 			$columns[1] = '`groupID`';
 			$values[0] = "'".$data[0]."'";
-			$values[0] = "'".$data[3]."'";
+			$values[1] = "'".$data[3]."'";
 			break;	
 		case 't':
 			$columns[0] = '`name`';
@@ -108,7 +108,10 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
 	$ptb=ptbSwitch($ptb);
 	if(count($columns) == 1){
 		$fin_update=$columns[0].' = '.$values[0];
-	} else {
+	} elseif(count($columns) == 2) {
+		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1];
+	}
+	elseif(count($columns) == 3) {
 		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1].', '.$columns[2].' = '.$values[2];
 	}
   	$MySQL['query']="UPDATE `".$ptb[0]."` SET ".$fin_update." WHERE `id` = ".$id;
