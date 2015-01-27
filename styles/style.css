@@ -59,9 +59,9 @@ a, a:visited
 	height: 100%;
 	width: 30%;
 	background-color:#5276D7;
-	-webkit-border-top-left-radius: 10px;
+/* 	-webkit-border-top-left-radius: 10px;
 	-moz-border-radius-topleft: 10px;
-	border-top-left-radius: 10px;
+	border-top-left-radius: 10px; */
 }
 
 #content
@@ -72,12 +72,12 @@ a, a:visited
 	/*min-height:400px;*/
 	width: 100%;
 	background-color: #C3C3C3;
-	-webkit-border-bottom-right-radius: 10px;
+/* 	-webkit-border-bottom-right-radius: 10px;
 	-moz-border-radius-bottomright: 10px;
 	border-bottom-right-radius: 10px;
 	-webkit-border-bottom-left-radius: 10px;
 	-moz-border-radius-bottomleft: 10px;
-	border-bottom-left-radius: 10px;
+	border-bottom-left-radius: 10px; */
 }
 #breadcrumb p
 {
@@ -93,9 +93,9 @@ a, a:visited
 	width: 70%;
 	text-align: right;
 	background-color:#A4B9F1;
-	-webkit-border-top-right-radius: 10px;
+/* 	-webkit-border-top-right-radius: 10px;
 	-moz-border-radius-topright: 10px;
-	border-top-right-radius: 10px;	
+	border-top-right-radius: 10px;	 */
 }
 #account-info *
 {
