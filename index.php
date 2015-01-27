@@ -99,22 +99,6 @@ include('dbdisconnect.inc.php');
 					<h1>Forum</h1>
 			</a>
 			</td>
-			<td>
-			<?php
-			include("pages/breadcrumb.inc.php");
-			?>
-			</td>
-			</tr>
-			<tr>
-			<td rowspan=2>
-			<?php 
-			//Show links to user/admin-panels based on rights 
-
-			?>
-			</td>
-			</tr>
-			<tr>
-			
 			<?php
 			if(isLoggedIn()){
 				include('dbconnect.inc.php');
@@ -127,12 +111,20 @@ include('dbdisconnect.inc.php');
 				if(isAdmin()){
 					echo '<td><a class="hidden-a" href="?p=adminpanel"><img src="images/admin.png" /></a></td>'; 
 				}
-				echo '</tr><tr><td><a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a></td></tr>';
+				echo '<td rowspan=2><a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a></td>';
 			} else {
 				echo '<td><a class="hidden-a" href="?p=login&goto='.$page.'&goid='.getIfIssetGet('id', '').'">Log in</a></td>'; 
 				echo '<td><a class="hidden-a" href="?p=register">Register</a></td>'; 
 			}
 			?>
+			</tr>
+			<tr>
+			<td>
+			<?php
+			include("pages/breadcrumb.inc.php");
+			?>
+			</td>
+			</tr>
 		</div>
 		
 			<div id="content">
