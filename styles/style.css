@@ -12,7 +12,7 @@ p
 }
 body
 {
-	background-image: url("../images/triangular_@2X.png");
+	background-image: url("../images/triangular.png");
 	background-color: #DCDCDC;
 }
 .hidden-a
@@ -36,8 +36,8 @@ a, a:visited
 {
 	position: relative;
 	margin: auto;
-	width: 90%;
-	top:10px;
+	width: 100%;
+	/* top:10px; */
 	background-color: #C3C3C3;
 	font-family: "Open Sans";
 	border-radius: 10px;
@@ -70,7 +70,7 @@ a, a:visited
 	top: 50px;
 	left: 0px;
 	/*min-height:400px;*/
-	width: 100%;
+	width: 90%;
 	background-color: #C3C3C3;
 /* 	-webkit-border-bottom-right-radius: 10px;
 	-moz-border-radius-bottomright: 10px;
