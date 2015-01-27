@@ -17,7 +17,7 @@ blockquote p {
 	/*min-height: 80px;*/
 	/*width:100%;*/
 	margin-bottom:2px;
-	background-color: #FFF0A4;
+	background-color: #FFFFFF;
 	border-radius: 2px;
 }
 .item 
@@ -87,8 +87,8 @@ blockquote p {
 	min-height: 80px;
 	/*width:100%;*/
 	margin-bottom:2px;
-	background-color: #FFF0A4;
-	border-radius: 2px;
+	background-color: #FFFFFF;
+	/* border-radius: 2px; */
 }
 .post td
 {
