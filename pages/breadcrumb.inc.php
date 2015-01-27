@@ -2,7 +2,7 @@
 include("dbconnect.inc.php");
 if(!isset($_GET['p'])){
 	//If page is not set, the indexpage will be shown
-	$out="<div id='breadcrumb'><p><a class='hidden-a' href='?p=index'>PHPDev Forums</a></p></div>";
+	$out="<a class='hidden-a' href='?p=index'>PHPDev Forums</a>";
 } elseif($_GET['p']=='board') {
 	//Get boardname and display it
 	$MySQL['query']="SELECT `name` FROM `boards` WHERE `id` = '".$_GET['id']."' LIMIT 1";
@@ -10,7 +10,7 @@ if(!isset($_GET['p'])){
 	if($MySQL['result']->num_rows==1){
 		$MySQL['row']=$MySQL['result']->fetch_assoc();
 		$boardName=$MySQL['row']['name'];
-		$out="<div id='breadcrumb'><p><a class='hidden-a' href='?p=index'>PHPDev Forums</a> > <a class='hidden-a' href='?p=board&id=".$_GET['id']."'>".$boardName."</a></p></div>";
+		$out.=" > <a class='hidden-a' href='?p=board&id=".$_GET['id']."'>".$boardName."</a>";
 	} else {
 		$out="Unknown";
 	}
@@ -24,15 +24,15 @@ if(!isset($_GET['p'])){
 		$boardID=$MySQL['row']['id'];
 		$boardName=$MySQL['row']['boardname'];
 		$threadName=$MySQL['row']['threadname'];
-		$out="<div id='breadcrumb'><p><a class='hidden-a' href='?p=index'>PHPDev Forums</a> > <a class='hidden-a' href='?p=board&id=".$boardID."'>".$boardName."</a> > <a class='hidden-a' href='?p=thread&id=".$id."'>".$threadName."</a></p></div>";
+		$out.=" > <a class='hidden-a' href='?p=board&id=".$boardID."'>".$boardName."</a> > <a class='hidden-a' href='?p=thread&id=".$id."'>".$threadName."</a>";
 	} else {
 		$out="Unknown";
 	}
 } else {
 	//Display the other pages that there are, and make the first letter a capital
-	$out="<div id='breadcrumb'><p><a class='hidden-a' href='?p=index'>PHPDev Forums</a> > <a class='hidden-a' href='?p=".$_GET['p']."'>".ucwords($_GET['p'])."</a></p></div>";
+	$out.=" > <a class='hidden-a' href='?p=".$_GET['p']."'>".ucwords($_GET['p'])."</a>";
 }
 
-echo $out;
+echo "<p>".$out."</p>";
 include("dbdisconnect.inc.php");
 ?>
