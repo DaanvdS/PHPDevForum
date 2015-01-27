@@ -109,7 +109,7 @@ include('dbdisconnect.inc.php');
 //				echo '<td><a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a></td>';
 				
 				if(isAdmin()){
-					echo '<td><a class="hidden-a" href="?p=adminpanel"><img src="images/admin.png" /></a></td>'; 
+					echo '<a class="hidden-a" href="?p=adminpanel"><img src="images/admin.png" /></a>'; 
 				}
 				echo '<td rowspan=2><a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a></td>';
 			} else {
