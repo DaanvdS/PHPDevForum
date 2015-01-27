@@ -67,7 +67,7 @@ a, a:visited
 #content
 {
 	position: absolute;
-	top: 50px;
+	/* top: 50px; */
 	left: 0px;
 	/*min-height:400px;*/
 	width: 100%;
