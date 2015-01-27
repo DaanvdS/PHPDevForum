@@ -26,18 +26,18 @@ blockquote p {
 	height: 50px;
 	width: 100%;
 	padding: 4px;
-	background-color: Beige;
+	background-color: #FFFFFF;
 }
 .item-sticky
 {
 	height: 50px;
 	width: 100%;
 	padding: 4px;
-	background-color: Azure;
+	background-color: #FFF0A4;
 }
 .item-sticky:hover
 {
-	background-color: khaki;
+	background-color: #FFE34E;
 	height: 50px;
 	padding: 4px;
 	width: 100%;
@@ -45,7 +45,7 @@ blockquote p {
 }
 .item:hover
 {
-	background-color: khaki;
+	background-color: #FFE34E;
 	height: 50px;
 	padding: 4px;
 	width: 100%;
@@ -64,7 +64,7 @@ blockquote p {
 	margin: 0;
 	padding: 0;
 	border-radius: 0px;
-	background-color: Beige;
+	background-color: #FFFFFF;
 }
 .thread
 {
@@ -72,11 +72,11 @@ blockquote p {
 	left: 0px;
 	height: 40px;
 	width:100%;
-	background-color: Beige;
+	background-color: #FFF0A4;
 }
 .thread:hover
 {
-	background-color: Azure;
+	background-color: #FFE34E;
 }
 .post
 {
