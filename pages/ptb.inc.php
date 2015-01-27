@@ -206,6 +206,7 @@ function ptbAction(){
 			break;
 	}
 }
+
 function showBoards(){
 	include('dbconnect.inc.php');
 	if (isLoggedIn()){
@@ -342,7 +343,7 @@ function showPosts($thread){
 	if($MySQL['result']->num_rows > 0){
 		ptbPageLinks("p",$thread, $pag);
 		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) { 
-			  // Count the posts
+			// Count the posts
 			$MySQL['result2'] = $MySQL['connection']->query("SELECT COUNT(*) AS postcount FROM posts WHERE posts.user_id=".$MySQL['row']["user_id"]);
 			$MySQL['row2'] = $MySQL['result2']->fetch_assoc();
 			// Show Profile information
@@ -415,7 +416,7 @@ function showPosts($thread){
 
 }
 
-// DEPRECATED
+// DEPRECIATED
 function ptbShow($ptb, $return){
 	include('dbconnect.inc.php');
 	$ptbs = ptbSwitch($ptb);
