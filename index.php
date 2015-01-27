@@ -91,45 +91,45 @@ include('dbdisconnect.inc.php');
 	</head>
 	<body>	
 		<div id="container">
-		<div id="header">
-			<table id="header-table">
-			<tr>
-			<td class="fill">
-			<a class="hidden-a" href="?p=index">
-					<h1>Forum</h1>
-			</a>
-			</td>
-			<?php
-			if(isLoggedIn()){
-				include('dbconnect.inc.php');
-				$MySQL['result'] = $MySQL['connection']->query("SELECT COUNT(*) AS `amountOfRows` FROM `messages` WHERE `receiverID`='".$_SESSION['forumUserID']."' AND `unread` = '1'");
-				$MySQL['row'] = $MySQL['result']->fetch_assoc();
-				if($MySQL['row']['amountOfRows']==0){$unreadMessages='';}else{$unreadMessages='<b>('.$MySQL['row']['amountOfRows'].')</b>';}
-				echo '<td><a class="hidden-a" href="?p=mailbox"><img src="images/mailbox.png" />'.$unreadMessages.'</a></td>';
-//				echo '<td><a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a></td>';
+			<div id="header">
+				<table id="header-table">
+				<tr>
+				<td class="fill">
+				<a class="hidden-a" href="?p=index">
+						<h1>Forum</h1>
+				</a>
+				</td>
+				<?php
+				if(isLoggedIn()){
+					include('dbconnect.inc.php');
+					$MySQL['result'] = $MySQL['connection']->query("SELECT COUNT(*) AS `amountOfRows` FROM `messages` WHERE `receiverID`='".$_SESSION['forumUserID']."' AND `unread` = '1'");
+					$MySQL['row'] = $MySQL['result']->fetch_assoc();
+					if($MySQL['row']['amountOfRows']==0){$unreadMessages='';}else{$unreadMessages='<b>('.$MySQL['row']['amountOfRows'].')</b>';}
+					echo '<td><a class="hidden-a" href="?p=mailbox"><img src="images/mailbox.png" />'.$unreadMessages.'</a></td>';
+	//				echo '<td><a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a></td>';
 				
-				if(isAdmin()){
-					echo '<td><a class="hidden-a" href="?p=adminpanel"><img src="images/admin.png" /></a></td>'; 
+					if(isAdmin()){
+						echo '<td><a class="hidden-a" href="?p=adminpanel"><img src="images/admin.png" /></a></td>'; 
+					}
+					echo '<td rowspan=2><a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a></td>';
+				} else {
+					echo '<td><a class="hidden-a" href="?p=login&goto='.$page.'&goid='.getIfIssetGet('id', '').'">Log in</a></td>'; 
+					echo '<td><a class="hidden-a" href="?p=register">Register</a></td>'; 
 				}
-				echo '<td rowspan=2><a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a></td>';
-			} else {
-				echo '<td><a class="hidden-a" href="?p=login&goto='.$page.'&goid='.getIfIssetGet('id', '').'">Log in</a></td>'; 
-				echo '<td><a class="hidden-a" href="?p=register">Register</a></td>'; 
-			}
-			?>
-			</tr>
-			<tr>
-			<td class="fill">
-			<?php
-			include("pages/breadcrumb.inc.php");
-			?>
-			</td>
-			</tr>
-		</div>
+				?>
+				</tr>
+				<tr>
+				<td class="fill">
+				<?php
+				include("pages/breadcrumb.inc.php");
+				?>
+				</td>
+				</tr>
+			</div>
 		
 			<div id="content">
 				<?php //Include content
-					
+					echo "SWAG";
 					include("pages/".$page.".inc.php"); 
 				?>
 			</div>
