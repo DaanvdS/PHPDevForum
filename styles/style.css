@@ -12,6 +12,7 @@ p
 }
 body
 {
+	background-image: url("images/mooning.png");
 	background-color: #DCDCDC;
 }
 .hidden-a
