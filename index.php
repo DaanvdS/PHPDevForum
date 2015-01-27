@@ -106,7 +106,7 @@ include('dbdisconnect.inc.php');
 					$MySQL['row'] = $MySQL['result']->fetch_assoc();
 					if($MySQL['row']['amountOfRows']==0){$unreadMessages='';}else{$unreadMessages='<b>('.$MySQL['row']['amountOfRows'].')</b>';}
 					echo '<td><a class="hidden-a" href="?p=mailbox"><img src="images/mailbox.png" />'.$unreadMessages.'</a></td>';
-	//				echo '<td><a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a></td>';
+					//echo '<td><a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a></td>';
 				
 					if(isAdmin()){
 						echo '<td><a class="hidden-a" href="?p=adminpanel"><img src="images/admin.png" /></a></td>'; 
@@ -129,7 +129,6 @@ include('dbdisconnect.inc.php');
 		
 			<div id="content">
 				<?php //Include content
-					echo "SWAG";
 					include("pages/".$page.".inc.php"); 
 				?>
 			</div>
