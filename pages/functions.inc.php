@@ -86,10 +86,14 @@ function isAdmin(){
 	}
 }
 function hasRights($id,$groupid){
-	if (isset($groupid)){
-		return isInGroup($id,$groupid);
+	if(isset($id){
+		if(isset($groupid)){
+			return isInGroup($id,$groupid);
+		} else {
+			return true; // If the board isn't in a group, everyone has permission.
+		}
 	} else {
-		return true; // If the board isn't in a group, everyone has permission.
+		return true;
 	}
 }
 function hasSpecialRights($id,$op){
