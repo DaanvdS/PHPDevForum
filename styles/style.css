@@ -59,7 +59,7 @@ a, a:visited
 	top: 0px;
 	height: 100%;
 	width: 30%;
-	background-color:#5276D7;
+	background-color:#B1F6CB;
 /* 	-webkit-border-top-left-radius: 10px;
 	-moz-border-radius-topleft: 10px;
 	border-top-left-radius: 10px; */
@@ -80,6 +80,10 @@ a, a:visited
 	-moz-border-radius-bottomleft: 10px;
 	border-bottom-left-radius: 10px; */
 }
+#breadcrumb
+{
+	height: 50px;
+}
 #breadcrumb p
 {
 	color:#123FB9;
@@ -93,7 +97,7 @@ a, a:visited
 	height: 100%;
 	width: 70%;
 	text-align: right;
-	background-color:#A4B9F1;
+	background-color:#FFFFFF;
 /* 	-webkit-border-top-right-radius: 10px;
 	-moz-border-radius-topright: 10px;
 	border-top-right-radius: 10px;	 */
