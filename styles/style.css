@@ -37,7 +37,7 @@ a, a:visited
 {
 	position: relative;
 	margin: auto;
-	top:50px;
+	top:10px;
 	width: 90%;
 	/* background-color: #C3C3C3; */
 	
@@ -49,9 +49,9 @@ a, a:visited
 	position: absolute;
 	background-color:#FFFFFF;
 	left: 0px;
-	top: 10px;
-	height: 80px;
-	width: 90%;
+	top: 0px;
+	height: 60px;
+	width: 100%;
 }
 #title
 {
@@ -70,7 +70,7 @@ a, a:visited
 #content
 {
 	position: absolute;
-	top: 10px;
+	top: 70px;
 	left: 0px;
 	/*min-height:400px;*/
 	width: 100%;

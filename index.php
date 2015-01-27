@@ -90,6 +90,7 @@ include('dbdisconnect.inc.php');
 		<?php echo "<title>".$title."</title>";?>
 	</head>
 	<body>	
+		<div id="container">
 		<div id="header">
 			<a class="hidden-a" href="?p=index">
 					<h1>Forum</h1>
@@ -121,7 +122,7 @@ include('dbdisconnect.inc.php');
 			}
 			?>
 		</div>
-		<div id="container">
+		
 			<div id="content">
 				<?php //Include content
 					
