@@ -130,6 +130,7 @@ function ptbChgForm($ptb, $id, $return, $pag){
 			break;
 		case 'b':
 			$columns[0] = '`name`';
+			$columns[1] = '`groupID`';
 			break;
 	}
 	$ptbs = ptbSwitch($ptb);
@@ -160,6 +161,19 @@ function ptbChgForm($ptb, $id, $return, $pag){
 			echo "	<input type='text' name='data' value='".$MySQL['row'][(substr($columns[0], 1, -1))]."'>";
 		} elseif($ptb == 'p'){
 			echo "	<textarea rows='15' name='data'>".$MySQL['row'][(substr($fin_columns, 1, -1))]."</textarea>";
+		}
+		if($ptb == 'b'){
+			$MySQL['result2'] = $MySQL['connection']->query("SELECT * FROM usergroups");
+			echo "<select name='groupID'>";
+			while($MySQL['row2'] = $MySQL['result2']->fetch_assoc()) { 
+				if($MySQL['row']['groupID'] == $MySQL['row2']['id']){
+					$sticky = ' selected';
+				} else {
+					$sticky = '';
+				}
+				echo "<option".$sticky." value='".$MySQL['row2']['id']."'>".$MySQL['row2']['name']."</option>";
+			}
+			echo "</select>";
 		}
 		if($ptb == 't'){
 			$MySQL['result2'] = $MySQL['connection']->query("SELECT * FROM boards");
