@@ -92,39 +92,39 @@ include('dbdisconnect.inc.php');
 	<body>	
 		<div id="header">
 			<a class="hidden-a" href="?p=index">
-				<div id="title">
 					<h1>Forum</h1>
-				</div>
 			</a>
-			<div id="account-info">
-				<?php 
-				//Show links to user/admin-panels based on rights 
-				if(isAdmin()){
-					echo '<a class="hidden-a" href="?p=adminpanel"><img src="images/admin.png" /></a>'; 
-				}
-				
-				if(isLoggedIn()){
-					include('dbconnect.inc.php');
-					$MySQL['result'] = $MySQL['connection']->query("SELECT COUNT(*) AS `amountOfRows` FROM `messages` WHERE `receiverID`='".$_SESSION['forumUserID']."' AND `unread` = '1'");
-					$MySQL['row'] = $MySQL['result']->fetch_assoc();
-					if($MySQL['row']['amountOfRows']==0){$unreadMessages='';}else{$unreadMessages='<b>('.$MySQL['row']['amountOfRows'].')</b>';}
-					echo '<a class="hidden-a" href="?p=mailbox"><img src="images/mailbox.png" />'.$unreadMessages.'</a>';
-					echo '<a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a>';
-					echo '<a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a>';
-				} else {
-					echo '<a class="hidden-a" href="?p=login&goto='.$page.'&goid='.getIfIssetGet('id', '').'">Log in</a>'; 
-				}
-				
-				if(!isLoggedIn()){ 
-					echo '<a class="hidden-a" href="?p=register">Register</a>'; 
-				}
-				?>
-			</div>
+			<?php
+			include("pages/breadcrumb.inc.php");
+			?>
+			
+			<?php 
+			//Show links to user/admin-panels based on rights 
+			if(isAdmin()){
+				echo '<a class="hidden-a" href="?p=adminpanel"><img src="images/admin.png" /></a>'; 
+			}
+			
+			if(isLoggedIn()){
+				include('dbconnect.inc.php');
+				$MySQL['result'] = $MySQL['connection']->query("SELECT COUNT(*) AS `amountOfRows` FROM `messages` WHERE `receiverID`='".$_SESSION['forumUserID']."' AND `unread` = '1'");
+				$MySQL['row'] = $MySQL['result']->fetch_assoc();
+				if($MySQL['row']['amountOfRows']==0){$unreadMessages='';}else{$unreadMessages='<b>('.$MySQL['row']['amountOfRows'].')</b>';}
+				echo '<a class="hidden-a" href="?p=mailbox"><img src="images/mailbox.png" />'.$unreadMessages.'</a>';
+				echo '<a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a>';
+				echo '<a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a>';
+			} else {
+				echo '<a class="hidden-a" href="?p=login&goto='.$page.'&goid='.getIfIssetGet('id', '').'">Log in</a>'; 
+			}
+			
+			if(!isLoggedIn()){ 
+				echo '<a class="hidden-a" href="?p=register">Register</a>'; 
+			}
+			?>
 		</div>
 		<div id="container">
 			<div id="content">
 				<?php //Include content
-					include("pages/breadcrumb.inc.php");
+					
 					include("pages/".$page.".inc.php"); 
 				?>
 			</div>
