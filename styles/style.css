@@ -36,7 +36,8 @@ a, a:visited
 {
 	position: relative;
 	margin: auto;
-	width: 100%;
+	top:50px;
+	width: 90%;
 	/* top:10px; */
 	background-color: #C3C3C3;
 	font-family: "Open Sans";
