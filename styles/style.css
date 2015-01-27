@@ -3,7 +3,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 h1,h2,h3,h4,h5,h6
 {
 	margin:4px;
-	color: Maroon;
+	color: #123FB9;
 }
 p
 {
@@ -17,7 +17,7 @@ body
 .hidden-a
 {
 	text-decoration: none;
-	color: Maroon;
+	color: #123FB9;
 }
 .hidden-a:visited
 {
@@ -25,7 +25,7 @@ body
 }
 a, a:visited
 {
-	color: Maroon;
+	color: #123FB9;
 }
 .right
 {
@@ -57,7 +57,7 @@ a, a:visited
 	top: 0px;
 	height: 100%;
 	width: 30%;
-	background-color:orange;
+	background-color:#5276D7;
 	-webkit-border-top-left-radius: 10px;
 	-moz-border-radius-topleft: 10px;
 	border-top-left-radius: 10px;
@@ -80,7 +80,7 @@ a, a:visited
 }
 #breadcrumb p
 {
-	color:maroon;
+	color:#123FB9;
 	font-weight: bold;
 }
 #account-info
