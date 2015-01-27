@@ -53,6 +53,12 @@ a, a:visited
 	height: 60px;
 	width: 100%;
 }
+#header-table
+{
+	overflow: hidden;
+white-space: nowrap; /* Don't forget this one */
+text-overflow: ellipsis;
+}
 #header-table th, #header-table td
 {
 	padding: 0px;
