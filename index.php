@@ -92,7 +92,7 @@ include('dbdisconnect.inc.php');
 	<body>	
 		<div id="container">
 		<div id="header">
-			<table>
+			<table id="header-table">
 			<tr>
 			<td>
 			<a class="hidden-a" href="?p=index">
