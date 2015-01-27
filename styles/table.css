@@ -2,7 +2,7 @@ table,th,td,tr { margin:0px;padding:0px;}
 table
 {
 	margin: 4px;
-	color: maroon;
+	color: #FFFFFF;
 }
 th, td 
 {
@@ -13,8 +13,8 @@ th, td
 }
 th
 {
-	background-color: wheat;
-	border-bottom: 2px solid chocolate; 
+	background-color: #FFB675;
+	border-bottom: 2px solid #FF7800; 
 	font-weight: normal;
 }
 td
