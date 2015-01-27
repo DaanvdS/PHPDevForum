@@ -3,7 +3,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 h1,h2,h3,h4,h5,h6
 {
 	margin:4px;
-	color: #123FB9;
+	color: #394F41;
 }
 p
 {
@@ -19,7 +19,7 @@ body
 .hidden-a
 {
 	text-decoration: none;
-	color: #123FB9;
+	color: #000000;
 }
 .hidden-a:visited
 {
@@ -27,7 +27,7 @@ body
 }
 a, a:visited
 {
-	color: #123FB9;
+	color: #394F41;
 }
 .right
 {
@@ -59,7 +59,8 @@ a, a:visited
 	top: 0px;
 	height: 100%;
 	width: 30%;
-	background-color:#B1F6CB;
+	background-color:#FFCA91;
+	/*background-color:#B1F6CB;*/
 /* 	-webkit-border-top-left-radius: 10px;
 	-moz-border-radius-topleft: 10px;
 	border-top-left-radius: 10px; */
@@ -87,7 +88,7 @@ a, a:visited
 }
 #breadcrumb p
 {
-	color:#123FB9;
+	color:#394F41;
 	font-weight: bold;
 }
 #account-info
