@@ -38,6 +38,6 @@ echo "<p id='breadcrumbP' style='text-overflow: ellipsis;'>".$out."</p>";
 echo "
 <script>var index = '".$index."';
 var orig = document.getElementById('breadcrumbP').innerHTML;
-if(screen.width > 500){document.getElementById('breadcrumbP').innerHTML = index.concat(orig);}</script>";
+if(window.innerWidth > 500){document.getElementById('breadcrumbP').innerHTML = index.concat(orig);}</script>";
 include("dbdisconnect.inc.php");
 ?>
