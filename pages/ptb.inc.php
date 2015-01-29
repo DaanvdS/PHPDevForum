@@ -275,7 +275,7 @@ function showBoards(){
 	}
 	if(isLoggedIn() && isAdmin()) {
 		echo "
-			<div class='newPtb'>
+			<div class='post-area'>
 				<form method='get'>
 					<input type='hidden' name='action' value='new'>
 					<input type='hidden' name='ptb' value='b'>
@@ -329,7 +329,7 @@ function showThreads($board){
 		}
 	if(isLoggedIn()) {
 		echo "
-			<div class='newPtb'>
+			<div class='post-area'>
 				<form method='get'>
 					<input type='hidden' name='action' value='new'>
 					<input type='hidden' name='ptb' value='t'>
@@ -571,7 +571,7 @@ function ptbShow($ptb, $return){
 			
 			if(isLoggedIn() && (isAdmin() || $ptb == 't')) {
 				echo "
-					<div class='newPtb'>
+					<div class='post-area'>
 						<form method='get'>
 							<input type='hidden' name='action' value='new'>
 							<input type='hidden' name='ptb' value='".$ptb."'>
