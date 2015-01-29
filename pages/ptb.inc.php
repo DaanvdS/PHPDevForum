@@ -432,8 +432,6 @@ function showPosts($thread){
 				<div class='post-area'><input class='post-area-submit' type='submit' name='submit' value='Submit'>
 			</form></div>";
 	}
-
-
 }
 
 // DEPRECIATED
