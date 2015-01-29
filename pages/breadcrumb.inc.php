@@ -1,6 +1,6 @@
 <?php
 include("dbconnect.inc.php");
-$index="<a class='hidden-a' href='?p=index'>PHPDev Forums</a>";
+$index="<a class=\"hidden-a\" href=\"?p=index\">PHPDev Forums</a>";
 $out = "";
 if(isset($_GET['p'])){
 	$index.=" > ";
@@ -35,7 +35,8 @@ if(isset($_GET['p'])){
 	}
 }
 echo "<p id='breadcrumbP'>".$out."</p>";
-echo "<script>var index = '".$index."';
+echo "
+<script>var index = '".$index."';
 var orig = document.getElementById('breadcrumbP').innerHTML;
 if(screen.width > 500){document.getElementById('breadcrumbP').innerHTML = index.concat(orig);}</script>";
 include("dbdisconnect.inc.php");
