@@ -242,7 +242,7 @@ function ptbLike($id, $pag, $return, $userID){
 		}
 	} else {
 		//It's already been liked
-		echo '<meta http-equiv="refresh" content="0; url=?p=thread&id='.$return.'&pag='.$pag.'" />';
+		//echo '<meta http-equiv="refresh" content="0; url=?p=thread&id='.$return.'&pag='.$pag.'" />';
 	}
 	include("dbdisconnect.inc.php");
 }
