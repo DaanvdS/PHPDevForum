@@ -120,7 +120,10 @@ blockquote p {
 }
 .post-area
 {
-	margin: 4px;
+	width: 100%;
+	margin-top: 5px;
+	text-align: center;
+	background-color: #FFFFFF;
 }
 .post-area-submit
 {
