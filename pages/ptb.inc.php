@@ -232,8 +232,8 @@ function showBoards(){
 	if (isLoggedIn()){
 		$id = $_SESSION['forumUserID'];
 	} else {
-  	$id = "";
-  }
+		$id = "";
+	}
 	$MySQL['query'] = "SELECT * FROM `boards`";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	
@@ -368,7 +368,7 @@ function showPosts($thread){
 			$MySQL['row2'] = $MySQL['result2']->fetch_assoc();
 			// Show Profile information
 			echo "
-			<table class='post'>
+			<table class='item-container'>
 				<tr>
 					<td class='userbar'>
 						<p class='username'>".$MySQL['row']["firstname"]."</p>
