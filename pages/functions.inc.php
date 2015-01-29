@@ -86,14 +86,10 @@ function isAdmin(){
 	}
 }
 function hasRights($id,$groupid){
-	if($id == ""){
-		if(isset($groupid)){
-			return isInGroup($id,$groupid);
-		} else {
-			return false; // If the board isn't in a group, everyone has permission.
-		}
+	if(isset($groupid)){
+		return isInGroup($id,$groupid);
 	} else {
-		return true;
+		return false; // If the board isn't in a group, everyone has permission.
 	}
 }
 function hasSpecialRights($id,$op){
@@ -105,6 +101,9 @@ function hasSpecialRights($id,$op){
 }
 
 function isInGroup($id,$groupid){
+	if ($groupid == 1) {
+		return true;
+	}
 	include("dbconnect.inc.php");
 	$MySQL['query'] = "SELECT * FROM usersInGroups WHERE userID = '".$id."' AND groupID = '".$groupid."'";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
