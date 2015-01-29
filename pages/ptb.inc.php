@@ -225,12 +225,12 @@ function ptbAction(){
 			ptbChgForm(getIfIssetGet('ptb', ''), getIfIssetGet('id', ''), getIfIssetGet('return', ''), getIfIssetGet('pag', ''));
 			break;
 		case 'like':
-			ptbLike(getIfIssetGet('id', ''), getIfIssetGet('pag', ''), $_SESSION['forumUserID']);
+			ptbLike(getIfIssetGet('id', ''), getIfIssetGet('pag', ''), getIfIssetGet('return', ''), $_SESSION['forumUserID']);
 			break;
 	}
 }
 
-function ptbLike($id, $pag, $userID){
+function ptbLike($id, $pag, $return, $userID){
 	include("dbconnect.inc.php");
 	$MySQL['query'] = "SELECT `id` FROM `postsLikedByUsers` WHERE `postID` = '".$id."' LIMIT 1";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
@@ -238,11 +238,11 @@ function ptbLike($id, $pag, $userID){
 		$MySQL['query'] = "INSERT INTO `postsLikedByUsers` (`postID`, `userID`) VALUES (".$id.", ".$userID.")";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 		if($MySQL['connection']->affected_rows == 1){
-			echo '<meta http-equiv="refresh" content="0; url=?p=thread&id='.$id.'&pag='.$pag.'" />';
+			echo '<meta http-equiv="refresh" content="0; url=?p=thread&id='.$return.'&pag='.$pag.'" />';
 		}
 	} else {
 		//It's already been liked
-		echo '<meta http-equiv="refresh" content="0; url=?p=thread&id='.$id.'&pag='.$pag.'" />';
+		echo '<meta http-equiv="refresh" content="0; url=?p=thread&id='.$return.'&pag='.$pag.'" />';
 	}
 	include("dbdisconnect.inc.php");
 }
@@ -431,7 +431,7 @@ function showPosts($thread){
 					</td>
 					<td class='post-content'>
 						
-							<p><b>".$threadtitle."</b><span style='float: right; padding-top: 6px;'><a class='hidden-a' href='?p=thread&action=like&id=".$MySQL['row']['id']."&pag=".$pag."'><img src='images/like.png'></a></span></p>
+							<p><b>".$threadtitle."</b><span style='float: right; padding-top: 6px;'><a class='hidden-a' href='?p=thread&action=like&return=".$thread."&id=".$MySQL['row']['id']."&pag=".$pag."'><img src='images/like.png'></a></span></p>
 							<p class='postedon'>".$postnr.", posted on: ".$MySQL['row']["date_created"]."
 							<hr />".$MySQL['row']["text"].$sig."
 						
