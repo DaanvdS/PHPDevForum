@@ -93,7 +93,7 @@ include('dbdisconnect.inc.php');
 				var width = 0;
 				width = document.getElementById('header-table').clientWidth - 54;
 				document.getElementById('breadcrumbP').style.width=width;
-				console.log("Gedaan. Het zou nu ".concat(width).concat(" moeten zijn."));
+				console.log(width);
 			}
 		</script>
 		<?php echo "<title>".$title."</title>";?>
