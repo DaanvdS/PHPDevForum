@@ -110,6 +110,7 @@ blockquote p {
 }
 .post-content
 {
+	vertical-align:top;
 	width:100%;
 }
 .post-content p
