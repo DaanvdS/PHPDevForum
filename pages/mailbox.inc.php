@@ -118,8 +118,8 @@ if(isLoggedIn()){
 		mailboxPageLinks($ip);
 		
 		echo "
-			<div class='item-container'><form method='get' id='newPost' action=''>
-				<div class='post-area'>Send to: <select id='sendID' name='sendID'></div>";
+			<form method='get' id='newPost' action=''>
+				<div class='post-area'>Send to: <select id='sendID' name='sendID'>";
 				
 		$MySQL['query']="SELECT `id`, `firstname`, `lastname` FROM `users` ORDER BY `lastname`, `firstname` ASC";
 		$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
@@ -133,9 +133,9 @@ if(isLoggedIn()){
 				</select>
 				<input type='hidden' name='p' value='mailbox'>
 				<input type='hidden' name='action' value='sendmessage'>
-				<div class='post-area'><textarea name='data' rows='4' cols='50'></textarea></div>
+				<textarea name='data' rows='4' cols='50'></textarea></div>
 				<input class='post-area-submit' type='submit' name='submit' value='Submit'>
-			</form></div>";
+			</form>";
 		include('dbdisconnect.inc.php');
 	}
 }
