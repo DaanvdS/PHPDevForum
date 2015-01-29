@@ -1,12 +1,12 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 html
 {
-	background-color: Linen;
+	background-color: white;
 }
 *
 {
 	color: black;
-	background-color: Linen;
+	background-color: white;
 	font-family: "Open Sans";
 }
 h1, h2, h3, h4, h5, h6

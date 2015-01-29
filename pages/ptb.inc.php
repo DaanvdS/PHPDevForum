@@ -224,6 +224,9 @@ function ptbAction(){
 		case 'change': 
 			ptbChgForm(getIfIssetGet('ptb', ''), getIfIssetGet('id', ''), getIfIssetGet('return', ''), getIfIssetGet('pag', ''));
 			break;
+		case 'like':
+			ptbLike(getIfIssetGet('ptb', ''), getIfIssetGet('id', ''), $_SESSION['forumUserID']);
+			break;
 	}
 }
 
