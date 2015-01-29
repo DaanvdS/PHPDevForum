@@ -50,7 +50,7 @@ if(isLoggedIn()){
 		$MySQL['result']= $MySQL['connection']->query($MySQL['query']);
 		if($MySQL['result']->num_rows!==0){
 			$MySQL['row'] = $MySQL['result']->fetch_assoc();
-			echo "	<table style='width: 99%;'><form method='post'>
+			echo "	<table style='width: 100%;'><form method='post'>
 						<tr><th>First name:</th><td><input class='up' type='text' name='forumFirstName' value='".$MySQL['row']['firstname']."'></td></tr>
 						<tr><th>Last name:</th><td><input class='up' type='text' name='forumLastName' value='".$MySQL['row']['lastname']."'></td></tr>
 						<tr><th>Username:</th><td><input class='up' type='text' name='forumUsername' value='".$MySQL['row']['username']."'></td></tr>
