@@ -99,27 +99,30 @@ include('dbdisconnect.inc.php');
 						<h1>Forum</h1>
 				</a>
 				</td>
+				<td>
 				<?php
 				if(isLoggedIn()){
 					include('dbconnect.inc.php');
 					$MySQL['result'] = $MySQL['connection']->query("SELECT COUNT(*) AS `amountOfRows` FROM `messages` WHERE `receiverID`='".$_SESSION['forumUserID']."' AND `unread` = '1'");
 					$MySQL['row'] = $MySQL['result']->fetch_assoc();
 					if($MySQL['row']['amountOfRows']==0){$unreadMessages='';}else{$unreadMessages='<b>('.$MySQL['row']['amountOfRows'].')</b>';}
-					echo '<td><a class="hidden-a" href="?p=mailbox"><img src="images/mailbox.png" />'.$unreadMessages.'</a></td>';
+					echo '<a class="hidden-a" href="?p=mailbox"><img src="images/mailbox.png" />'.$unreadMessages.'</a>';
 					//echo '<td><a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a></td>';
 				
 					if(isAdmin()){
-						echo '<td><a class="hidden-a" href="?p=adminpanel"><img src="images/admin.png" /></a></td>'; 
+						echo '<a class="hidden-a" href="?p=adminpanel"><img src="images/admin.png" /></a>'; 
 					}
+					
 					echo '<td rowspan=2><a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a></td>';
 				} else {
 					echo '<td><a class="hidden-a" href="?p=login&goto='.$page.'&goid='.getIfIssetGet('id', '').'">Log in</a></td>'; 
 					echo '<td style="padding-left: 8px; padding-right: 6px;"><a class="hidden-a" href="?p=register">Register</a></td>'; 
 				}
 				?>
+				</td>
 				</tr>
 				<tr>
-				<td class="fill">
+				<td colspan="2" class="fill">
 				<?php
 				include("pages/breadcrumb.inc.php");
 				?>
