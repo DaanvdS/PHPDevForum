@@ -146,6 +146,7 @@ blockquote p {
 }
 .user-info
 {
+	text-align: center;
 	font-size: 8pt;
 }
 .userbar
