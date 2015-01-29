@@ -91,7 +91,7 @@ include('dbdisconnect.inc.php');
 			function resizeBreadCrumb(){
 				document.getElementById('breadcrumbP').style.width = 0;
 				var width = 0;
-				width = document.getElementById('header-table').clientWidth - 54;
+				width = document.getElementById('header-table').clientWidth - 58;
 				document.getElementById('breadcrumbP').style.width = width + "px";
 				console.log(width);
 			}
