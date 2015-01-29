@@ -37,7 +37,7 @@ if(isset($_GET['p'])){
 echo "<div style='
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: clip;'><p id='breadcrumbP' style='text-overflow: ellipsis;'>".$out."</p></div>";
+    text-overflow: ellipsis;'><p id='breadcrumbP'>".$out."</p></div>";
 echo "
 <script>var index = '".$index."';
 var orig = document.getElementById('breadcrumbP').innerHTML;
