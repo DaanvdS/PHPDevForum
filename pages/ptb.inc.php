@@ -431,7 +431,7 @@ function showPosts($thread){
 				<input type='hidden' name='return' value='".$thread."'>
 				<input type='hidden' name='p' value='index'>
 				<textarea name='data' rows='4' cols='50'></textarea></div>
-				<div class='post-area'><input class='post-area-submit' type='submit' name='submit' value='Submit'>
+				<div class='post-area' height='22px'><input class='post-area-submit' type='submit' name='submit' value='Submit'>
 			</form></div>";
 	}
 	
