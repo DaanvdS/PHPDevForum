@@ -297,7 +297,7 @@ function showThreads($board){
 		echo "
 		<table class='item-container'>";
 		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
-				if(hasRights($_SESSION['forumUserID'], $MySQL['row']['groupID'])){
+				//if(hasRights($_SESSION['forumUserID'], $MySQL['row']['groupID'])){
 				if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
 				echo "
 				<tr>
@@ -324,7 +324,7 @@ function showThreads($board){
 				}
 				echo "
 			</tr>";
-			}
+			//}
 		} 
 		echo "
 		</table>";
