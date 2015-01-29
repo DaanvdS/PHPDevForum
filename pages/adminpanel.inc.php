@@ -6,7 +6,7 @@ logAction();
 if(isLoggedIn() && isAdmin()){
 	include("pages/adminfunctions.inc.php");
 	switch(getIfIssetGet('section', '')){
-    	case '': echo "<table class='item-container'><tr><td><p>Section: <a href='?p=adminpanel&section=usermanagement'>User management</a> <a href='?p=adminpanel&section=groupmanagement'>Group management</a> <a href='?p=adminpanel&section=pull'>Git pull</a></p></td></tr></table>"; break;
+    	case '': echo "<div class='item-container'><p>Section: <a href='?p=adminpanel&section=usermanagement'>User management</a> <a href='?p=adminpanel&section=groupmanagement'>Group management</a> <a href='?p=adminpanel&section=pull'>Git pull</a></p></div>"; break;
 		case 'usermanagement': adminShowUserPanel(); break;
 		case 'groupmanagement': adminShowGroupPanel(); break;
 		case 'pull': 

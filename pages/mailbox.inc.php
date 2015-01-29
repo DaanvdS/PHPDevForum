@@ -118,7 +118,7 @@ if(isLoggedIn()){
 		mailboxPageLinks($ip);
 		
 		echo "
-			<form method='get' id='newPost' action=''>
+			<div class='item-container'><form method='get' id='newPost' action=''>
 				<div class='post-area'>Send to: <select id='sendID' name='sendID'></div>";
 				
 		$MySQL['query']="SELECT `id`, `firstname`, `lastname` FROM `users` ORDER BY `lastname`, `firstname` ASC";
@@ -135,7 +135,7 @@ if(isLoggedIn()){
 				<input type='hidden' name='action' value='sendmessage'>
 				<div class='post-area'><textarea name='data' rows='4' cols='50'></textarea></div>
 				<input class='post-area-submit' type='submit' name='submit' value='Submit'>
-			</form>";
+			</form></div>";
 		include('dbdisconnect.inc.php');
 	}
 }
