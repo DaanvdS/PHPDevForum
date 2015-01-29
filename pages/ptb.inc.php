@@ -428,8 +428,8 @@ function showPosts($thread){
 				<input type='hidden' name='ptb' value='p'>
 				<input type='hidden' name='return' value='".$thread."'>
 				<input type='hidden' name='p' value='index'>
-				<textarea name='data' rows='4' cols='50'></textarea>
-				<input class='post-area-submit' type='submit' name='submit' value='Submit'>
+				<textarea name='data' rows='4' cols='50'></textarea></div>
+				<div class='post-area'><input class='post-area-submit' type='submit' name='submit' value='Submit'>
 			</form></div>";
 	}
 
