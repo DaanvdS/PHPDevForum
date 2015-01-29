@@ -11,6 +11,7 @@ blockquote p {
 
 .item-container
 {
+	vertical-align: top;
 	position:relative;
 	display:block;
 	left: 0px;

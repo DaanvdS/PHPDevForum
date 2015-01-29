@@ -409,12 +409,12 @@ function showPosts($thread){
 			}
 			echo "
 					</td>
-					<td>
-						<div class='post-content'>
+					<td class='post-content'>
+						
 							<p><b>".$threadtitle."</b></p>
 							<p class='postedon'>".$postnr.", posted on: ".$MySQL['row']["date_created"]."
 							<hr />".$MySQL['row']["text"].$sig."
-						</div>
+						
 					</td>
 				</tr>
 			</table>";
