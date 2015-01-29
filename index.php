@@ -114,7 +114,7 @@ include('dbdisconnect.inc.php');
 					echo '<td rowspan=2><a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a></td>';
 				} else {
 					echo '<td><a class="hidden-a" href="?p=login&goto='.$page.'&goid='.getIfIssetGet('id', '').'">Log in</a></td>'; 
-					echo '<td style="padding-left: 8px; padding-right: 2px;"><a class="hidden-a" href="?p=register">Register</a></td>'; 
+					echo '<td style="padding-left: 8px; padding-right: 6px;"><a class="hidden-a" href="?p=register">Register</a></td>'; 
 				}
 				?>
 				</tr>
