@@ -34,7 +34,7 @@ if(isset($_GET['p'])){
 		$out.="<a class='hidden-a' href='?p=".$_GET['p']."'>".ucwords($_GET['p'])."</a>";
 	}
 }
-echo "<p id='breadcrumbP' style='width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>".$out."</p>";
+echo "<p id='breadcrumbP' style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>".$out."</p>";
 echo "
 <script>var index = '".$index."';
 var orig = document.getElementById('breadcrumbP').innerHTML;
