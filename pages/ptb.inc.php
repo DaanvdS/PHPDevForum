@@ -232,7 +232,7 @@ function ptbAction(){
 
 function ptbLike($id, $pag, $return, $userID){
 	include("dbconnect.inc.php");
-	$MySQL['query'] = "SELECT `id` FROM `postsLikedByUsers` WHERE `postID` = '".$id."' LIMIT 1";
+	$MySQL['query'] = "SELECT `id` FROM `postsLikedByUsers` WHERE `postID` = '".$id."' AND `userID` = '".$userID."' LIMIT 1";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	if($MySQL['result']->num_rows == 0){
 		$MySQL['query'] = "INSERT INTO `postsLikedByUsers` (`postID`, `userID`) VALUES (".$id.", ".$userID.")";
