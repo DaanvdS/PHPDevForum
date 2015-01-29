@@ -89,8 +89,10 @@ include('dbdisconnect.inc.php');
 		</script>
 		<script>
 			function resizeBreadCrumb(){
-				var width = document.getElementById('header-table').offsetWidth - 54;
-				document.getElementById('breadcrumbP').width=width;
+				document.getElementById('breadcrumbP').style.width = 0;
+				var width = 0;
+				width = document.getElementById('header-table').clientWidth - 54;
+				document.getElementById('breadcrumbP').style.width=width;
 				console.log("Gedaan. Het zou nu ".concat(width).concat(" moeten zijn."));
 			}
 		</script>
@@ -134,6 +136,7 @@ include('dbdisconnect.inc.php');
 				include("pages/breadcrumb.inc.php");
 				?>
 				</td>
+				<td></td>
 				</tr>
 				</table>
 			</div>
