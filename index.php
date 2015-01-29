@@ -86,7 +86,7 @@ include('dbdisconnect.inc.php');
 			statusbar : false,
 			plugins: "stylebuttons link image"
 		});</script>
-		<script type="text/javascript" src="tinymce/functions.js"></script>
+		<script type="text/javascript" src="js/functions.js"></script>
 		<?php echo "<title>".$title."</title>";?>
 	</head>
 	<body onLoad="resizeBreadCrumb();" onResize="resizeBreadCrumb();">	
