@@ -92,7 +92,7 @@ include('dbdisconnect.inc.php');
 				document.getElementById('breadcrumbP').style.width = 0;
 				var width = 0;
 				width = document.getElementById('header-table').clientWidth - 54;
-				document.getElementById('breadcrumbP').style.width=width;
+				document.getElementById('breadcrumbP').style.width = width + "px";
 				console.log(width);
 			}
 		</script>
