@@ -1,10 +1,10 @@
 <?php
 include("dbconnect.inc.php");
-//$out="<a class='hidden-a' href='?p=index'>PHPDev Forums</a>";
+$index="<a class='hidden-a' href='?p=index'>PHPDev Forums</a>";
 $out = "";
 if(isset($_GET['p'])){
-//	$out.=" > ";
-  if($_GET['p']=='board') {
+	$index.=" > ";
+	if($_GET['p']=='board') {
 		//Get boardname and display it
 		$MySQL['query']="SELECT `name` FROM `boards` WHERE `id` = '".$_GET['id']."' LIMIT 1";
 		$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
@@ -30,10 +30,11 @@ if(isset($_GET['p'])){
 			$out="Unknown";
 		}
 	} else {
-	//Display the other pages that there are, and make the first letter a capital
-	$out.="<a class='hidden-a' href='?p=".$_GET['p']."'>".ucwords($_GET['p'])."</a>";
+		//Display the other pages that there are, and make the first letter a capital
+		$out.="<a class='hidden-a' href='?p=".$_GET['p']."'>".ucwords($_GET['p'])."</a>";
+	}
 }
-}
-echo "<p>".$out."</p>";
+echo "<script>if(screen.width >= 500){document.getElementById('breadcrumbP').innerHTML = '".$index."' + document.getElementById('breadcrumbP').innerHTML;}</script>";
+echo "<p id='breadcrumbP'>".$out."</p>";
 include("dbdisconnect.inc.php");
 ?>
