@@ -58,44 +58,8 @@ include('dbdisconnect.inc.php');
 		<link rel="stylesheet" type="text/css" href="styles/table.css" />
 		<link rel="stylesheet" type="text/css" href="styles/ptb.css" />
 		<script type="text/javascript" src="tinymce/tinymce.min.js"></script>
-		<script type="text/javascript">
-			tinyMCE.PluginManager.add('stylebuttons', function(editor, url) {
-			  ['p', 'code', 'h1'].forEach(function(name){
-			   editor.addButton("style-" + name, {
-				   tooltip: "Toggle " + name,
-					 text: name.toUpperCase(),
-					 onClick: function() { editor.execCommand('mceToggleFormat', false, name); },
-					 onPostRender: function() {
-						 var self = this, setup = function() {
-							 editor.formatter.formatChanged(name, function(state) {
-								 self.active(state);
-							 });
-						 };
-						 editor.formatter ? setup() : editor.on('init', setup);
-					 }
-				 })
-			  });
-			});
-			tinymce.init({
-				selector: "textarea",
-				content_css : "styles/tinymce.css",
-				menubar : false,
-				toolbar: [
-					"bold italic strikethrough | undo redo | style-p style-h1 style-code | bullist numlist | link image "
-				],
-				statusbar : false,
-				plugins: "stylebuttons link image"
-			});
-		</script>
-		<script>
-			function resizeBreadCrumb(){
-				document.getElementById('breadcrumbP').style.width = 0;
-				var width = 0;
-				width = document.getElementById('header-table').clientWidth - 66;
-				document.getElementById('breadcrumbP').style.width = width + "px";
-				console.log(width);
-			}
-		</script>
+		<script type="text/javascript" src="tinymce/initTinyMCE.js"></script>
+		<script type="text/javascript" src="tinymce/functions.js"></script>
 		<?php echo "<title>".$title."</title>";?>
 	</head>
 	<body onLoad="resizeBreadCrumb();" onResize="resizeBreadCrumb();">	
