@@ -125,6 +125,7 @@ include('dbdisconnect.inc.php');
 				?>
 				</td>
 				</tr>
+				</table>
 			</div>
 		
 			<div id="content">
