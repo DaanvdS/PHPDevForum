@@ -122,7 +122,7 @@ include('dbdisconnect.inc.php');
 				</td>
 				</tr>
 				<tr>
-				<td colspan="3" class="fill">
+				<td colspan="2">
 				<?php
 				include("pages/breadcrumb.inc.php");
 				?>
