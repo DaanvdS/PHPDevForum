@@ -34,7 +34,7 @@ if(isset($_GET['p'])){
 		$out.="<a class='hidden-a' href='?p=".$_GET['p']."'>".ucwords($_GET['p'])."</a>";
 	}
 }
-echo "<script>if(screen.width > 500){document.getElementById('breadcrumbP').innerHTML = '".$index."' + document.getElementById('breadcrumbP').innerHTML;}</script>";
+echo "<script>if(screen.width > 500){document.getElementById('breadcrumbP').innerHTML = '".$index."'.concat(document.getElementById('breadcrumbP').innerHTML);}</script>";
 echo "<p id='breadcrumbP'>".$out."</p>";
 include("dbdisconnect.inc.php");
 ?>
