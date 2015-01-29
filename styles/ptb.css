@@ -19,8 +19,20 @@ blockquote p {
 	margin-bottom:2px;
 	margin-top: 10px;
 	background-color: #FFFFFF;
-	border-radius: 2px;
+	/* border-radius: 2px; */
 	
+}
+.post
+{
+	position:relative;
+	display:block;
+	color: black;
+	left: 0px;
+	min-height: 80px;
+	/*width:100%;*/
+	margin-bottom:2px;
+	background-color: #FFFFFF;
+	/* border-radius: 2px; */
 }
 .item 
 {
@@ -81,18 +93,7 @@ blockquote p {
 {
 	background-color: #FFE34E;
 }
-.post
-{
-	position:relative;
-	display:block;
-	color: black;
-	left: 0px;
-	min-height: 80px;
-	/*width:100%;*/
-	margin-bottom:2px;
-	background-color: #FFFFFF;
-	/* border-radius: 2px; */
-}
+
 .post td
 {
 	background-color:transparent;
