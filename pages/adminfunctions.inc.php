@@ -175,7 +175,7 @@ function adminShowGroupPanel(){
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 		if($MySQL['result']->num_rows !== 0){
 			//Displaying the adminpanel table and data
-			?><h1>Group management</h1><table><tr>
+			?><table class='item-container'><tr><td><h1>Group management</h1><table><tr>
 				<th><form id='id' method='post'><input type='hidden' name='dir' value='<?php if($sort=="id"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='sort' value='id'></form><a href='javascript:document.forms["id"].submit();'><?php if($sort=="id"){ echo "<b>"; } ?>ID<?php if($sort=="id"){ echo "</b>"; } ?></a></th>
 				<th><form id='name' method='post'><input type='hidden' name='dir' value='<?php if($sort=="name"){ echo $adir; } else { echo "ASC"; }?>'><input type='hidden' name='section' value='groupmanagement'><input type='hidden' name='sort' value='name'></form><a href='javascript:document.forms["name"].submit();'><?php if($sort=="name"){ echo "<b>"; } ?>Name<?php if($sort=="name"){ echo "</b>"; } ?></a></th><th></th>
 				<th></th>
@@ -191,7 +191,7 @@ function adminShowGroupPanel(){
 							</form></tr>";
 				}
 			}
-			echo "</table>";
+			echo "</table></td></tr></table>";
 		} else {
 			echo "<p>No groups found.</p>";
 		}
