@@ -87,6 +87,13 @@ include('dbdisconnect.inc.php');
 				plugins: "stylebuttons link image"
 			});
 		</script>
+		<script>
+			function resizeBreadCrumb(){
+				var width = parseInt(document.getElementById('header-table').width,10) - 54;
+				console.log(width);
+				document.getElementById('breadcrumbP').style.width=width;
+			}
+		</script>
 		<?php echo "<title>".$title."</title>";?>
 	</head>
 	<body>	
