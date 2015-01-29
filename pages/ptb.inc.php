@@ -427,12 +427,15 @@ function showPosts($thread){
 			} else { 
 				$sig=""; 
 			}
+			
+			$MySQL['result2'] = $MySQL['connection']->query("SELECT COUNT(*) AS likecount FROM postsLikedByUsers WHERE postID=".$MySQL['row']["id"]);
+			$MySQL['row2'] = $MySQL['result2']->fetch_assoc();
 			echo "
 					</td>
 					<td class='post-content'>
 						
 							<p><b>".$threadtitle."</b><span style='float: right; padding-top: 6px;'><a class='hidden-a' href='?p=thread&action=like&return=".$thread."&id=".$MySQL['row']['id']."&pag=".$pag."'><img src='images/like.png'></a></span></p>
-							<p class='postedon'>".$postnr.", posted on: ".$MySQL['row']["date_created"]."
+							<p class='postedon'>".$postnr.", posted on: ".$MySQL['row']["date_created"]."<span style='float: right;'>".$MySQL['row2']['likecount']."</span></p>
 							<hr />".$MySQL['row']["text"].$sig."
 						
 					</td>
