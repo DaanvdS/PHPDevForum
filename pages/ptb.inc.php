@@ -423,14 +423,14 @@ function showPosts($thread){
 		echo "<p>Nothing here yet.</p>";
 	}
 	if(isLoggedIn()){
-	echo "	<form method='get' id='newPost' action=''>
+	echo "	<div class='post-area'><form method='get' id='newPost' action=''>
 				<input type='hidden' name='action' value='new'>
 				<input type='hidden' name='ptb' value='p'>
 				<input type='hidden' name='return' value='".$thread."'>
 				<input type='hidden' name='p' value='index'>
-				<div class='post-area'><textarea name='data' rows='4' cols='50'></textarea></div>
+				<textarea name='data' rows='4' cols='50'></textarea>
 				<input class='post-area-submit' type='submit' name='submit' value='Submit'>
-			</form>";
+			</form></div>";
 	}
 
 
