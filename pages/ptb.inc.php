@@ -414,7 +414,7 @@ function showPosts($thread){
 					</td>
 					<td class='post-content'>
 						
-							<p><b>".$threadtitle."</b><span style='float: right; padding-top: 6px;'><a class='hidden-a' href='?p=thread&action=like&id=".$MySQL['row']['id']."'><img src='images/like.png'></span></p>
+							<p><b>".$threadtitle."</b><span style='float: right; padding-top: 6px;'><a class='hidden-a' href='?p=thread&action=like&id=".$MySQL['row']['id']."'><img src='images/like.png'></a></span></p>
 							<p class='postedon'>".$postnr.", posted on: ".$MySQL['row']["date_created"]."
 							<hr />".$MySQL['row']["text"].$sig."
 						
