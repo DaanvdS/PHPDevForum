@@ -90,7 +90,7 @@ include('dbdisconnect.inc.php');
 		<script>
 			function resizeBreadCrumb(){
 				var width = document.getElementById('header-table').offsetWidth - 54;
-				document.getElementById('breadcrumbP').style.width=width;
+				document.getElementById('breadcrumbP').width=width;
 				console.log("Gedaan. Het zou nu ".concat(width).concat(" moeten zijn."));
 			}
 		</script>
