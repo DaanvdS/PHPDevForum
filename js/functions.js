@@ -1,6 +1,5 @@
 var breadCrumbStartSet;
 function initializePage(){
-	console.log(document.getElementById('breadcrumbP').innerHTML.substring(0,59));
 	if(document.getElementById('breadcrumbP').innerHTML.substring(0,59)=='<a class="hidden-a" href="?p=index">PHPDev Forums</a> > '){
 		console.log("Was al gezet");
 		breadCrumbStartSet = 1;
