@@ -1,3 +1,4 @@
+var breadCrumbStartSet = 0;
 function resizeBreadCrumb(){
 	document.getElementById('breadcrumbP').style.width = 0;
 	var width = 0;
@@ -12,7 +13,4 @@ function resizeBreadCrumb(){
 		console.log('Set text');
 		document.getElementById('breadcrumbP').innerHTML = index.concat(orig); 
 	}
-}
-function initializePage(){
-	var breadCrumbStartSet = 0;
 }
