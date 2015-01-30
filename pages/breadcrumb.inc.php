@@ -1,6 +1,5 @@
 <?php
 include("dbconnect.inc.php");
-$index="<a class=\"hidden-a\" href=\"?p=index\">PHPDev Forums</a> > ";
 $out = "";
 if(isset($_GET['p'])){
 	if($_GET['p']=='board') {
@@ -36,15 +35,5 @@ if(isset($_GET['p'])){
 	$out = "<a class='hidden-a' href='?p=index'>Index</a>";
 }
 echo "<p id='breadcrumbP' style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>".$out."</p>";
-echo "
-<script>function setBreadCrumbText() {
-	var index = '".$index."';
-	var orig = document.getElementById('breadcrumbP').innerHTML;
-	if(window.innerWidth > 750 && breadCrumbStartSet == 0){ 
-		breadCrumbStartSet = 1;
-		document.getElementById('breadcrumbP').innerHTML = index.concat(orig); 
-	}
-}
-</script>";
 include("dbdisconnect.inc.php");
 ?>

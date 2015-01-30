@@ -4,7 +4,14 @@ function resizeBreadCrumb(){
 	width = document.getElementById('header-table').clientWidth - 66;
 	document.getElementById('breadcrumbP').style.width = width + "px";
 	console.log(width);
-	setBreadCrumbText();
+	
+	var index = '<a class="hidden-a" href="?p=index">PHPDev Forums</a> > ';
+	var orig = document.getElementById('breadcrumbP').innerHTML;
+	if(window.innerWidth > 750 && breadCrumbStartSet = 0){ 
+		breadCrumbStartSet = 1;
+		console.log('Set text');
+		document.getElementById('breadcrumbP').innerHTML = index.concat(orig); 
+	}
 }
 function initializePage(){
 	var breadCrumbStartSet = 0;
