@@ -35,10 +35,13 @@ if(isset($_GET['p'])){
 }else {
 	$out = "<a class='hidden-a' href='?p=index'>Index</a>";
 }
-echo "<p id='breadcrumbP' style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>".$out."</p>";
+echo "<p onLoad='setBreadCrumbText();' id='breadcrumbP' style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>".$out."</p>";
 echo "
-<script>var index = '".$index."';
-var orig = document.getElementById('breadcrumbP').innerHTML;
-if(window.innerWidth > 750){document.getElementById('breadcrumbP').innerHTML = index.concat(orig);}</script>";
+<script>function setBreadCrumbText() {
+	var index = '".$index."';
+	var orig = document.getElementById('breadcrumbP').innerHTML;
+	if(window.innerWidth > 750){ document.getElementById('breadcrumbP').innerHTML = index.concat(orig); }
+}
+</script>";
 include("dbdisconnect.inc.php");
 ?>
