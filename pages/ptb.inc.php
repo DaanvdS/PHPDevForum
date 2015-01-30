@@ -392,7 +392,7 @@ function showPosts($thread){
 			// Count the posts
 			$MySQL['result2'] = $MySQL['connection']->query("SELECT COUNT(*) AS `postcount` FROM `posts` WHERE `user_id`=".$MySQL['row']["user_id"]);
 			$MySQL['row2'] = $MySQL['result2']->fetch_assoc();
-			$MySQL['result3'] = $MySQL['connection']->query("SELECT COUNT(*) AS `likecount` FROM `postsLikedByUsers` WHERE `postID`=".$MySQL['row']["id"]." AND `userID`=".$_SESSION['forumUserID']);
+			$MySQL['result3'] = $MySQL['connection']->query("SELECT COUNT(*) AS `likecount` FROM `postsLikedByUsers` WHERE `userID`=".$MySQL['row']["user_id"]);
 			$MySQL['row3'] = $MySQL['result3']->fetch_assoc();
 			// Show Profile information
 			echo "
