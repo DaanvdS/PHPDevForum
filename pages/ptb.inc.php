@@ -438,7 +438,7 @@ function showPosts($thread){
 			$MySQL['result2'] = $MySQL['connection']->query("SELECT COUNT(*) AS `likecount` FROM `postsLikedByUsers` WHERE `postID` = ".$MySQL['row']["id"]);
 			$MySQL['row2'] = $MySQL['result2']->fetch_assoc();
 			$MySQL['result3'] = $MySQL['connection']->query("SELECT `id` FROM `postsLikedByUsers` WHERE `postID` = ".$MySQL['row']["id"]." AND `userID` = ".$_SESSION['forumUserID']." LIMIT 1");
-			if($MySQL['result3']->num_rows())$unlike="un";else$unlike="";
+			if($MySQL['result3']->num_rows)$unlike="un";else$unlike="";
 			echo "
 					</td>
 					<td class='post-content'>
