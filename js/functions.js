@@ -1,4 +1,12 @@
-var breadCrumbStartSet = 0;
+var breadCrumbStartSet;
+function initializePage(){
+	if(document.getElementById('breadcrumbP').innerHTML.substring(0,59)=='<a class="hidden-a" href="?p=index">PHPDev Forums</a> > '){
+		console.log("Was al gezet");
+		breadCrumbStartSet = 1;
+	} else {
+		breadCrumbStartSet = 0;
+	}
+}
 function resizeBreadCrumb(){
 	document.getElementById('breadcrumbP').style.width = 0;
 	var width = 0;
