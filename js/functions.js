@@ -7,7 +7,7 @@ function resizeBreadCrumb(){
 	
 	var index = '<a class="hidden-a" href="?p=index">PHPDev Forums</a> > ';
 	var orig = document.getElementById('breadcrumbP').innerHTML;
-	if(window.innerWidth > 750 && breadCrumbStartSet = 0){ 
+	if((window.innerWidth > 750) && (breadCrumbStartSet == 0)){ 
 		breadCrumbStartSet = 1;
 		console.log('Set text');
 		document.getElementById('breadcrumbP').innerHTML = index.concat(orig); 
