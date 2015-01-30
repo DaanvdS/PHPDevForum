@@ -1,9 +1,8 @@
 <?php
 include("dbconnect.inc.php");
-$index="<a class=\"hidden-a\" href=\"?p=index\">PHPDev Forums</a>";
+$index="<a class=\"hidden-a\" href=\"?p=index\">PHPDev Forums</a> > ";
 $out = "";
 if(isset($_GET['p'])){
-	$index.=" > ";
 	if($_GET['p']=='board') {
 		//Get boardname and display it
 		$MySQL['query']="SELECT `name` FROM `boards` WHERE `id` = '".$_GET['id']."' LIMIT 1";
@@ -34,7 +33,7 @@ if(isset($_GET['p'])){
 		$out.="<a class='hidden-a' href='?p=".$_GET['p']."'>".ucwords($_GET['p'])."</a>";
 	}
 }else {
-	$out = " > <a class='hidden-a' href='?p=index'>Index</a>";
+	$out = "<a class='hidden-a' href='?p=index'>Index</a>";
 }
 echo "<p id='breadcrumbP' style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>".$out."</p>";
 echo "
