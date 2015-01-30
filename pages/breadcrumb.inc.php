@@ -33,6 +33,8 @@ if(isset($_GET['p'])){
 		//Display the other pages that there are, and make the first letter a capital
 		$out.="<a class='hidden-a' href='?p=".$_GET['p']."'>".ucwords($_GET['p'])."</a>";
 	}
+}else {
+	$out = $index;
 }
 echo "<p id='breadcrumbP' style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>".$out."</p>";
 echo "
