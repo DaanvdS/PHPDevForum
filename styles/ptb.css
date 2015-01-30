@@ -139,7 +139,7 @@ blockquote p {
 }
 .avatar img
 {
-	height: 72px;
+	width: 72px;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
