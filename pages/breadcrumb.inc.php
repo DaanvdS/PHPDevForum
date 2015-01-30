@@ -35,7 +35,7 @@ if(isset($_GET['p'])){
 }else {
 	$out = "<a class='hidden-a' href='?p=index'>Index</a>";
 }
-echo "<p onLoad='setBreadCrumbText();' id='breadcrumbP' style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>".$out."</p>";
+echo "<p id='breadcrumbP' style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>".$out."</p>";
 echo "
 <script>function setBreadCrumbText() {
 	var index = '".$index."';

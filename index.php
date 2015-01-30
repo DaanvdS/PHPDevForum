@@ -89,7 +89,7 @@ include('dbdisconnect.inc.php');
 		<script type="text/javascript" src="js/functions.js"></script>
 		<?php echo "<title>".$title."</title>";?>
 	</head>
-	<body onLoad="resizeBreadCrumb();" onResize="resizeBreadCrumb(); setBreadCrumbText();">	
+	<body onLoad="resizeBreadCrumb(); setBreadCrumbText();" onResize="resizeBreadCrumb(); setBreadCrumbText();">	
 		<div id="container">
 			<div id="header">
 				<table id="header-table">
