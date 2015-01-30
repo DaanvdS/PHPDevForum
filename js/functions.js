@@ -14,6 +14,6 @@ function resizeBreadCrumb(){
 	} else if((window.innerWidth <= 750) && (breadCrumbStartSet == 1)){ 
 		breadCrumbStartSet = 0;
 		console.log('Unset text');
-		document.getElementById('breadcrumbP').innerHTML = orig.substring(56); 
+		document.getElementById('breadcrumbP').innerHTML = orig.substring(59); 
 	}	
 }
