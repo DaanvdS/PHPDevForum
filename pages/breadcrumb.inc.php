@@ -34,7 +34,7 @@ if(isset($_GET['p'])){
 		$out.="<a class='hidden-a' href='?p=".$_GET['p']."'>".ucwords($_GET['p'])."</a>";
 	}
 }else {
-	$out = "<a class='hidden-a' href='?p=index'>Index</a>";
+	$out = " > <a class='hidden-a' href='?p=index'>Index</a>";
 }
 echo "<p id='breadcrumbP' style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>".$out."</p>";
 echo "
