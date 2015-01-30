@@ -1,5 +1,6 @@
 <?php
 include("dbconnect.inc.php");
+$index = '<a class="hidden-a" href="?p=index">PHPDev Forums</a> > ';
 $out = "";
 if(isset($_GET['p'])){
 	if($_GET['p']=='board') {
@@ -31,9 +32,10 @@ if(isset($_GET['p'])){
 		//Display the other pages that there are, and make the first letter a capital
 		$out.="<a class='hidden-a' href='?p=".$_GET['p']."'>".ucwords($_GET['p'])."</a>";
 	}
-}else {
+} else {
 	$out = "<a class='hidden-a' href='?p=index'>Index</a>";
 }
+if((isset($_COOKIE['windowWidth'])) && ($_COOKIE['windowWidth']>750))$out=$index.$out;
 echo "<p id='breadcrumbP' style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>".$out."</p>";
 include("dbdisconnect.inc.php");
 ?>
