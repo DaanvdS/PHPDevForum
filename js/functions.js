@@ -4,4 +4,8 @@ function resizeBreadCrumb(){
 	width = document.getElementById('header-table').clientWidth - 66;
 	document.getElementById('breadcrumbP').style.width = width + "px";
 	console.log(width);
+	setBreadCrumbText();
+}
+function initializePage(){
+	var breadCrumbStartSet = 0;
 }

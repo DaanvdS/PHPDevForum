@@ -40,7 +40,10 @@ echo "
 <script>function setBreadCrumbText() {
 	var index = '".$index."';
 	var orig = document.getElementById('breadcrumbP').innerHTML;
-	if(window.innerWidth > 750){ document.getElementById('breadcrumbP').innerHTML = index.concat(orig); }
+	if(window.innerWidth > 750 && breadCrumbStartSet == 0){ 
+		breadCrumbStartSet = 1;
+		document.getElementById('breadcrumbP').innerHTML = index.concat(orig); 
+	}
 }
 </script>";
 include("dbdisconnect.inc.php");
