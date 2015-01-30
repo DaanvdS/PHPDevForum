@@ -242,7 +242,11 @@ function ptbLike($id, $pag, $return, $userID){
 		}
 	} else {
 		//It's already been liked
-		echo '<meta http-equiv="refresh" content="0; url=?p=thread&id='.$return.'&pag='.$pag.'" />';
+		$MySQL['query'] = "DELETE FROM `postsLikedByUsers` WHERE `postID` = '".$id."' AND `userID` = '".$userID."' LIMIT 1";
+		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+		if($MySQL['connection']->affected_rows == 1){
+			echo '<meta http-equiv="refresh" content="0; url=?p=thread&id='.$return.'&pag='.$pag.'" />';
+		}
 	}
 	include("dbdisconnect.inc.php");
 }
