@@ -35,6 +35,7 @@ if(isset($_GET['p'])){
 	}
 }else {
 	$out = $index;
+	$index = "";
 }
 echo "<p id='breadcrumbP' style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>".$out."</p>";
 echo "
