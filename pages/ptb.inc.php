@@ -390,8 +390,10 @@ function showPosts($thread){
 		ptbPageLinks("p",$thread, $pag);
 		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) { 
 			// Count the posts
-			$MySQL['result2'] = $MySQL['connection']->query("SELECT COUNT(*) AS postcount FROM posts WHERE posts.user_id=".$MySQL['row']["user_id"]);
+			$MySQL['result2'] = $MySQL['connection']->query("SELECT COUNT(*) AS `postcount` FROM `posts` WHERE `user_id`=".$MySQL['row']["user_id"]);
 			$MySQL['row2'] = $MySQL['result2']->fetch_assoc();
+			$MySQL['result3'] = $MySQL['connection']->query("SELECT COUNT(*) AS `likecount` FROM `postsLikedByUsers` WHERE `postID`=".$MySQL['row']["id"]." AND `userID`=".$_SESSION['forumUserID']);
+			$MySQL['row3'] = $MySQL['result3']->fetch_assoc();
 			// Show Profile information
 			echo "
 			<table class='item-container'>
@@ -400,7 +402,8 @@ function showPosts($thread){
 						<p class='username'>".$MySQL['row']["firstname"]."</p>
 						<p class='rank'>".getUserRank($MySQL['row']["user_id"])."</p>
 						<p class='avatar'>".getUserAvatar($MySQL['row']["user_id"])."</p>
-						<p class='user-info'>Posts: ".$MySQL['row2']['postcount']."</p>";
+						<p class='user-info'>Posts: ".$MySQL['row2']['postcount']."</p>
+						<p class='user-info'>Karma: ".$MySQL['row3']['likecount']."</p>";
 			if(isLoggedIn()){
 				echo "
 						<p class='postbuttons'>
