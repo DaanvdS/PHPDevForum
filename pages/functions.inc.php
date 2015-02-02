@@ -1,5 +1,6 @@
 <?php
 include("ptb.inc.php");
+include("mobileDetect.inc.php");
 
 function intToBool($in) {
 	if($in  ==  0) {
