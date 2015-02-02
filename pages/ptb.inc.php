@@ -232,17 +232,27 @@ function ptbAction(){
 
 function ptbLike($id, $pag, $return, $userID){
 	include("dbconnect.inc.php");
-	$MySQL['query'] = "SELECT `id` FROM `postsLikedByUsers` WHERE `postID` = '".$id."' AND `userID` = '".$userID."' LIMIT 1";
+	$MySQL['query'] = "SELECT `postsLikedByUsers`.`postID` FROM `postsLikedByUsers`, `posts` WHERE `posts`.`user_id`=`postsLikedByUsers`.`userID` AND `postsLikedByUsers`.`postID`=".$id." AND `posts`.`id`=`postsLikedByUsers`.`postID` ";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	if($MySQL['result']->num_rows == 0){
-		$MySQL['query'] = "INSERT INTO `postsLikedByUsers` (`postID`, `userID`) VALUES (".$id.", ".$userID.")";
+		$MySQL['query'] = "SELECT `id` FROM `postsLikedByUsers` WHERE `postID` = '".$id."' AND `userID` = '".$userID."' LIMIT 1";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-		if($MySQL['connection']->affected_rows == 1){
-			echo '<meta http-equiv="refresh" content="0; url=?p=thread&id='.$return.'&pag='.$pag.'" />';
+		if($MySQL['result']->num_rows == 0){
+			$MySQL['query'] = "INSERT INTO `postsLikedByUsers` (`postID`, `userID`) VALUES (".$id.", ".$userID.")";
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+			if($MySQL['connection']->affected_rows == 1){
+				echo '<meta http-equiv="refresh" content="0; url=?p=thread&id='.$return.'&pag='.$pag.'" />';
+			}
+		} else {
+			//It's already been liked
+			$MySQL['query'] = "DELETE FROM `postsLikedByUsers` WHERE `postID` = '".$id."' AND `userID` = '".$userID."' LIMIT 1";
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+			if($MySQL['connection']->affected_rows == 1){
+				echo '<meta http-equiv="refresh" content="0; url=?p=thread&id='.$return.'&pag='.$pag.'" />';
+			}
 		}
 	} else {
-		//It's already been liked
-		$MySQL['query'] = "DELETE FROM `postsLikedByUsers` WHERE `postID` = '".$id."' AND `userID` = '".$userID."' LIMIT 1";
+		$MySQL['query'] = "DELETE FROM `postsLikedByUsers`, `posts` WHERE `postsLikedByUsers`.`postID`=".$id."";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 		if($MySQL['connection']->affected_rows == 1){
 			echo '<meta http-equiv="refresh" content="0; url=?p=thread&id='.$return.'&pag='.$pag.'" />';
@@ -450,7 +460,7 @@ function showPosts($thread){
 								<a class='hidden-a' href='?p=thread&action=like&return=".$thread."&id=".$MySQL['row']['id']."&pag=".$pag."'>
 										<img src='images/".$unlike."like.png'>
 								</a>
-								<span class='user-info' style='margin-left: 5px'>
+									<span class='user-info' style='margin-left: 5px'>
 										".$MySQL['row2']['likecount']."
 									</span>
 								</span>";
