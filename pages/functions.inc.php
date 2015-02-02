@@ -1,6 +1,7 @@
 <?php
 include("ptb.inc.php");
-include("mobileDetect.inc.php");
+require_once 'mobileDetect.inc.php';
+$detect = new Mobile_Detect;
 
 function intToBool($in) {
 	if($in  ==  0) {
