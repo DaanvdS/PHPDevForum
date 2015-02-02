@@ -444,18 +444,18 @@ function showPosts($thread){
 					<td class='post-content'>
 						
 							<p>
-								<b>".$threadtitle."</b>
-								<span style='float: right; padding-top: 6px;'>";
+								<b>".$threadtitle."</b>";
 			if($MySQL['row']["user_id"] !== $_SESSION['forumUserID']){
-				echo "				<a class='hidden-a' href='?p=thread&action=like&return=".$thread."&id=".$MySQL['row']['id']."&pag=".$pag."'>
+				echo "			<span style='float: right; padding-top: 6px;'>
+								<a class='hidden-a' href='?p=thread&action=like&return=".$thread."&id=".$MySQL['row']['id']."&pag=".$pag."'>
 										<img src='images/".$unlike."like.png'>
-									</a>";
-			}
-			echo "					<span class='user-info' style='margin-left: 5px'>
+								</a>
+								<span class='user-info' style='margin-left: 5px'>
 										".$MySQL['row2']['likecount']."
 									</span>
-								</span>
-							</p>
+								</span>";
+			}
+			echo "				</p>
 							<p class='postedon'>".$postnr.", posted on: ".$MySQL['row']["date_created"]."</p>
 							<hr />".$MySQL['row']["text"].$sig."
 						
