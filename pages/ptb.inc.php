@@ -445,11 +445,13 @@ function showPosts($thread){
 						
 							<p>
 								<b>".$threadtitle."</b>
-								<span style='float: right; padding-top: 6px;'>
-									<a class='hidden-a' href='?p=thread&action=like&return=".$thread."&id=".$MySQL['row']['id']."&pag=".$pag."'>
+								<span style='float: right; padding-top: 6px;'>";
+			if($MySQL['row']["user_id"] !== $_SESSION['forumUserID']){
+				echo "				<a class='hidden-a' href='?p=thread&action=like&return=".$thread."&id=".$MySQL['row']['id']."&pag=".$pag."'>
 										<img src='images/".$unlike."like.png'>
-									</a>
-									<span class='user-info' style='margin-left: 5px'>
+									</a>";
+			}
+			echo "					<span class='user-info' style='margin-left: 5px'>
 										".$MySQL['row2']['likecount']."
 									</span>
 								</span>
