@@ -57,7 +57,7 @@ include('dbdisconnect.inc.php');
 		<link rel="stylesheet" type="text/css" href="styles/style.css" />
 		<link rel="stylesheet" type="text/css" href="styles/table.css" />
 		<link rel="stylesheet" type="text/css" href="styles/ptb.css" />
-		<script type="text/javascript" src="tinymce/tinymce.min.js"></script>
+		<script type="text/javascript" src="tinymce/js/tinymce/tinymce.min.js"></script>
 		<script type="text/javascript">
 		tinyMCE.PluginManager.add('stylebuttons', function(editor, url) {
 		  ['p', 'code', 'h1'].forEach(function(name){
