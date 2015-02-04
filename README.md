@@ -1,2 +1,2 @@
 # PHPDevForum
-Just testing
+Het PHPDevForum voor Informatica
