@@ -28,7 +28,7 @@ if(!isLoggedIn()){
 			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 			if($MySQL['result']->num_rows == 1){
 				$MySQL['row'] = $MySQL['result']->fetch_assoc();
-				getLoggedInUser() = $MySQL['row']['id'];
+				$_SESSION['forumUserID'] = $MySQL['row']['id'];
 				$_SESSION['forumAdmin'] = $MySQL['row']['admin'];
 				echo '<meta http-equiv="refresh" content="0; url=?p='.$_POST['goto'].'&id='.$_POST['goid'].'" />';
 			} else {
