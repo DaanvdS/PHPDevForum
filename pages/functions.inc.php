@@ -34,7 +34,7 @@ function getLoggedInUser(){
 	if(isset($_SESSION['forumUserID'])){
 		return $_SESSION['forumUserID'];
 	} else {
-		return: "0";
+		return "0";
 	}
 }
 
