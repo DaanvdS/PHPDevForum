@@ -212,7 +212,7 @@ function ptbAction(){
 			break;
 		case 'new': 
 			logAction();
-			ptbNew(getIfIssetGet('ptb', ''), getIfIssetGet('data', ''), getIfIssetGet('return', ''), $_SESSION['forumUserID']);
+			ptbNew(getIfIssetGet('ptb', ''), getIfIssetGet('data', ''), getIfIssetGet('return', ''), getLoggedInUser());
 			break;
 		case 'save': 
 			logAction();
@@ -225,7 +225,7 @@ function ptbAction(){
 			ptbChgForm(getIfIssetGet('ptb', ''), getIfIssetGet('id', ''), getIfIssetGet('return', ''), getIfIssetGet('pag', ''));
 			break;
 		case 'like':
-			ptbLike(getIfIssetGet('id', ''), getIfIssetGet('pag', ''), getIfIssetGet('return', ''), $_SESSION['forumUserID']);
+			ptbLike(getIfIssetGet('id', ''), getIfIssetGet('pag', ''), getIfIssetGet('return', ''), getLoggedInUser());
 			break;
 	}
 }
@@ -264,7 +264,7 @@ function ptbLike($id, $pag, $return, $userID){
 function showBoards(){
 	include('dbconnect.inc.php');
 	if (isLoggedIn()){
-		$id = $_SESSION['forumUserID'];
+		$id = getLoggedInUser();
 	} else {
 		$id = "";
 	}
@@ -331,7 +331,7 @@ function showThreads($board){
 		echo "
 		<table class='item-container'>";
 		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
-				//if(hasRights($_SESSION['forumUserID'], $MySQL['row']['groupID'])){
+				//if(hasRights(getLoggedInUser(), $MySQL['row']['groupID'])){
 				if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
 				echo "
 				<tr>
@@ -447,7 +447,7 @@ function showPosts($thread){
 			
 			$MySQL['result2'] = $MySQL['connection']->query("SELECT COUNT(*) AS `likecount` FROM `postsLikedByUsers` WHERE `postID` = ".$MySQL['row']["id"]);
 			$MySQL['row2'] = $MySQL['result2']->fetch_assoc();
-			$MySQL['result3'] = $MySQL['connection']->query("SELECT `id` FROM `postsLikedByUsers` WHERE `postID` = ".$MySQL['row']["id"]." AND `userID` = ".$_SESSION['forumUserID']." LIMIT 1");
+			$MySQL['result3'] = $MySQL['connection']->query("SELECT `id` FROM `postsLikedByUsers` WHERE `postID` = ".$MySQL['row']["id"]." AND `userID` = ".getLoggedInUser()." LIMIT 1");
 			if($MySQL['result3']->num_rows)$unlike="un";else$unlike="";
 			echo "
 					</td>
@@ -455,7 +455,7 @@ function showPosts($thread){
 						
 							<p>
 								<b>".$threadtitle."</b>";
-			if($MySQL['row']["user_id"] !== $_SESSION['forumUserID']){
+			if($MySQL['row']["user_id"] !== getLoggedInUser()){
 				echo "			<span style='float: right; padding-top: 6px;'>
 								<a class='hidden-a' href='?p=thread&action=like&return=".$thread."&id=".$MySQL['row']['id']."&pag=".$pag."'>
 										<img src='images/".$unlike."like.png'>

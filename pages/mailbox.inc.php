@@ -13,7 +13,7 @@ if(isLoggedIn()){
 		logAction();
 		if($_GET['action']=="sendmessage"){
 			include('dbconnect.inc.php');
-			$MySQL['query']="INSERT INTO `messages` (`senderID`, `receiverID`, `text`) VALUES ('".$_SESSION['forumUserID']."', '".$_GET['sendID']."', '".$_GET['data']."')";
+			$MySQL['query']="INSERT INTO `messages` (`senderID`, `receiverID`, `text`) VALUES ('".getLoggedInUser()."', '".$_GET['sendID']."', '".$_GET['data']."')";
 			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			if($MySQL['connection']->affected_rows==1){
 				echo '<meta http-equiv="refresh" content="0; url=?p=mailbox" />';
@@ -28,9 +28,9 @@ if(isLoggedIn()){
 				echo "Something went wrong!"; 
 			} else {
 				$MySQL['row']=$MySQL['result']->fetch_assoc();
-				if($MySQL['row']['receiverID']==$_SESSION['forumUserID']){
+				if($MySQL['row']['receiverID']==getLoggedInUser()){
 					$MySQL['query']="UPDATE `messages` SET `delbyReceiver` = '1' WHERE `id` = ".$_GET['id']."";
-				} elseif($MySQL['row']['senderID']==$_SESSION['forumUserID']) {
+				} elseif($MySQL['row']['senderID']==getLoggedInUser()) {
 					$MySQL['query']="UPDATE `messages` SET `delbySender` = '1' WHERE `id` = ".$_GET['id']."";
 				}
 				$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
@@ -47,7 +47,7 @@ if(isLoggedIn()){
 		} else {
 			$ip=1;
 		}
-		$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."' ORDER BY date_created DESC";
+		$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".getLoggedInUser()."' OR `senderID` = '".getLoggedInUser()."' ORDER BY date_created DESC";
 		$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 		$i=0;
 		$j=(($ip-1)*10);
@@ -56,10 +56,10 @@ if(isLoggedIn()){
 		if($MySQL['result']->num_rows==0){ echo "No messages!"; }
 		mailboxPageLinks($ip);
 		while($MySQL['row']=$MySQL['result']->fetch_assoc()) {
-			if($MySQL['row']['receiverID']==$_SESSION['forumUserID']){
+			if($MySQL['row']['receiverID']==getLoggedInUser()){
 				$MySQL['connection']->query("UPDATE `messages` SET `unread` = '0' WHERE `id` = '".$MySQL['row']['id']."'");
 			}
-			if(($MySQL['row']['receiverID']==$_SESSION['forumUserID'] && $MySQL['row']['delbyReceiver']==1)||($MySQL['row']['senderID']==$_SESSION['forumUserID'] && $MySQL['row']['delbySender']==1)){
+			if(($MySQL['row']['receiverID']==getLoggedInUser() && $MySQL['row']['delbyReceiver']==1)||($MySQL['row']['senderID']==getLoggedInUser() && $MySQL['row']['delbySender']==1)){
 				//Do not show
 			} else {
 				if(($l>=$j)&&($l<$k)){
@@ -70,7 +70,7 @@ if(isLoggedIn()){
 							<p class='username'>".getFirstName($MySQL['row']["senderID"])."</p>
 							<p class='rank'>".getUserRank($MySQL['row']["senderID"])."</p>
 							<p class='avatar'>".getUserAvatar($MySQL['row']["senderID"])."</p>";
-				if($MySQL['row']['senderID']==$_SESSION['forumUserID']){
+				if($MySQL['row']['senderID']==getLoggedInUser()){
 					$authorid=$MySQL['row']["receiverID"];
 				} else {
 					$authorid=$MySQL['row']["senderID"];
@@ -93,7 +93,7 @@ if(isLoggedIn()){
 						</p>";
 				
 				$sig=getSignature($MySQL['row']["senderID"]);
-				if($MySQL['row']['senderID']==$_SESSION['forumUserID']){
+				if($MySQL['row']['senderID']==getLoggedInUser()){
 					$sendto=", Sent to ".getFirstName($MySQL['row']['receiverID'])." ".getLastName($MySQL['row']['receiverID'])."";
 				} else {
 					$sendto="";
@@ -141,11 +141,11 @@ if(isLoggedIn()){
 }
 function mailboxPageLinks($ip){
 	include('dbconnect.inc.php');
-	$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".$_SESSION['forumUserID']."' OR `senderID` = '".$_SESSION['forumUserID']."'";
+	$MySQL['query']="SELECT * FROM `messages` WHERE `receiverID` = '".getLoggedInUser()."' OR `senderID` = '".getLoggedInUser()."'";
 	$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	$amRows=0;
 	while($MySQL['row']=$MySQL['result']->fetch_assoc()){
-		if(($MySQL['row']['receiverID']==$_SESSION['forumUserID'] && $MySQL['row']['delbyReceiver']==1)||($MySQL['row']['senderID']==$_SESSION['forumUserID'] && $MySQL['row']['delbySender']==1)){
+		if(($MySQL['row']['receiverID']==getLoggedInUser() && $MySQL['row']['delbyReceiver']==1)||($MySQL['row']['senderID']==getLoggedInUser() && $MySQL['row']['delbySender']==1)){
 			//Do not show
 		} else {
 			$amRows++;

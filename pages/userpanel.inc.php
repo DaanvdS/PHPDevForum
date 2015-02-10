@@ -7,9 +7,9 @@ if(isLoggedIn()){
 	include("dbconnect.inc.php");
 	if(isset($_POST['submit'])){
 		if($_POST['forumPassword']=='ac7de0d46779dcba088e7f0f59a40939'){
-			$MySQL['query']="UPDATE `users` SET `username` = '".$_POST['forumUsername']."', `firstname` = '".$_POST['forumFirstName']."', `lastname` = '".$_POST['forumLastName']."', `emailaddress` = '".$_POST['forumEmailaddress']."', `sig` = '".$_POST['forumSig']."' WHERE `id` = '".$_SESSION['forumUserID']."'";
+			$MySQL['query']="UPDATE `users` SET `username` = '".$_POST['forumUsername']."', `firstname` = '".$_POST['forumFirstName']."', `lastname` = '".$_POST['forumLastName']."', `emailaddress` = '".$_POST['forumEmailaddress']."', `sig` = '".$_POST['forumSig']."' WHERE `id` = '".getLoggedInUser()."'";
 		} else {
-			$MySQL['query']="UPDATE `users` SET `username` = '".$_POST['forumUsername']."', `password` = '".md5($_POST['forumPassword'])."', `firstname` = '".$_POST['forumFirstName']."', `lastname` = '".$_POST['forumLastName']."', `emailaddress` = '".$_POST['forumEmailaddress']."', `sig` = '".$_POST['forumSig']."'  WHERE `id` = '".$_SESSION['forumUserID']."'";
+			$MySQL['query']="UPDATE `users` SET `username` = '".$_POST['forumUsername']."', `password` = '".md5($_POST['forumPassword'])."', `firstname` = '".$_POST['forumFirstName']."', `lastname` = '".$_POST['forumLastName']."', `emailaddress` = '".$_POST['forumEmailaddress']."', `sig` = '".$_POST['forumSig']."'  WHERE `id` = '".getLoggedInUser()."'";
 		}
 		$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
 		echo '<meta http-equiv="refresh" content="0; url=?p=userpanel" />';
@@ -17,11 +17,11 @@ if(isLoggedIn()){
 		if(!isset($_GET['mode'])){$_GET['mode']="";}
 		if(!isset($_POST['mode'])){$_POST['mode']="";}
 		if($_GET['mode']=='setavatar'){
-			$MySQL['query']="UPDATE `users` SET `avatar` = '".$_GET['avatar']."' WHERE `id` = '".$_SESSION['forumUserID']."'";
+			$MySQL['query']="UPDATE `users` SET `avatar` = '".$_GET['avatar']."' WHERE `id` = '".getLoggedInUser()."'";
 			$MySQL['result']=$MySQL['connection']->query($MySQL['query']);
 			echo '<meta http-equiv="refresh" content="0; url=?p=userpanel" />';
 		}elseif($_POST['mode']=='uploadavatar'){
-			$target_file = "images/avatars/".getUsername($_SESSION['forumUserID']).".img";
+			$target_file = "images/avatars/".getUsername(getLoggedInUser()).".img";
 			$uploadOk = 1;
 			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 			if(getimagesize($_FILES["avatarimg"]["tmp_name"]) !== false) {
@@ -46,7 +46,7 @@ if(isLoggedIn()){
 			}
 		}
 	} else {
-		$MySQL['query']="SELECT * FROM `users` WHERE `id` = '".$_SESSION['forumUserID']."' LIMIT 1";
+		$MySQL['query']="SELECT * FROM `users` WHERE `id` = '".getLoggedInUser()."' LIMIT 1";
 		$MySQL['result']= $MySQL['connection']->query($MySQL['query']);
 		if($MySQL['result']->num_rows!==0){
 			$MySQL['row'] = $MySQL['result']->fetch_assoc();
@@ -59,7 +59,7 @@ if(isLoggedIn()){
 						<tr><th>Signature:</th><td><textarea name='forumSig'>".$MySQL['row']['sig']."</textarea></td></tr>
 						<tr><td colspan='2'><div align='center'><input type='submit' name='submit' value='Save'></form></div></td></tr>
 						<tr><td style='background-color: #C3C3C3' colspan='2'><br></td></tr>
-						<tr><th>Avatar:</th><td>".retrieveAvatars($_SESSION['forumUserID'])."</td></tr>
+						<tr><th>Avatar:</th><td>".retrieveAvatars(getLoggedInUser())."</td></tr>
 						<tr><form method='post' action='?p=logout'><td colspan='2'><div align='center'><input type='submit' name='submit' value='Log out'></form></div></td></tr>
 					</table>";
 		} else {

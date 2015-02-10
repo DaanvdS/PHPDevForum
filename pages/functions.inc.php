@@ -30,6 +30,14 @@ function getIfIssetPost($postvar, $default){
 	return $out;
 }
 
+function getLoggedInUser(){
+	if(isset(getLoggedInUser())){
+		return getLoggedInUser();
+	} else {
+		return: "0";
+	}
+}
+
 function getTitle($page, $id){
 	include("dbconnect.inc.php");
 	if($page=='thread' || $page=='board'){
@@ -65,7 +73,7 @@ function toggleInt($in){
 }
 
 function isLoggedIn(){
-	if(isset($_SESSION['forumUserID']) && $_SESSION['forumUserID'] !== ""){
+	if(isset(getLoggedInUser()) && getLoggedInUser() !== ""){
 		return true;
 	} else {
 		return false;
@@ -73,7 +81,7 @@ function isLoggedIn(){
 }
 
 function isOwner($id){
-	if($id == $_SESSION['forumUserID']){
+	if($id == getLoggedInUser()){
 		return true;
 	} else {
 		return false;
@@ -117,7 +125,7 @@ function isInGroup($id,$groupid){
 }
 
 function isOP($op){
-	if($_SESSION['forumUserID'] == $op){
+	if(getLoggedInUser() == $op){
 		return true;
 	} else {
 		return false;
@@ -284,7 +292,7 @@ function getUserRank($userID){
 }
 
 function logAction(){
-	$userID=$_SESSION['forumUserID'];
+	$userID=getLoggedInUser();
 	$page=getIfIssetGet('p', '');
 	$id=getIfIssetGet('id', '0');
 	$action=getIfIssetGet('action', '');

@@ -15,7 +15,7 @@ if(!isset($_SESSION['forumAdmin'])){
 include('dbconnect.inc.php');
 if(isLoggedIn()){
 	//Check whether the logged in account is still activated.
-	$MySQL['query'] = "SELECT `activated`, `admin` FROM `users` WHERE `id` = '".$_SESSION['forumUserID']."' LIMIT 1";
+	$MySQL['query'] = "SELECT `activated`, `admin` FROM `users` WHERE `id` = '".getLoggedInUser()."' LIMIT 1";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']);
 	if($MySQL['result']->num_rows == 1){
 		$MySQL['row'] = $MySQL['result']->fetch_assoc();
@@ -103,17 +103,17 @@ include('dbdisconnect.inc.php');
 				<?php
 				if(isLoggedIn()){
 					include('dbconnect.inc.php');
-					$MySQL['result'] = $MySQL['connection']->query("SELECT COUNT(*) AS `amountOfRows` FROM `messages` WHERE `receiverID`='".$_SESSION['forumUserID']."' AND `unread` = '1'");
+					$MySQL['result'] = $MySQL['connection']->query("SELECT COUNT(*) AS `amountOfRows` FROM `messages` WHERE `receiverID`='".getLoggedInUser()."' AND `unread` = '1'");
 					$MySQL['row'] = $MySQL['result']->fetch_assoc();
 					if($MySQL['row']['amountOfRows']==0){$unreadMessages='';}else{$unreadMessages='<b style="float: right;padding-top: 5px;padding-left: 2px;font-size: 9pt;">('.$MySQL['row']['amountOfRows'].')</b>';}
 					echo '<td><a class="hidden-a" href="?p=mailbox">'.$unreadMessages.'<img src="images/mailbox.png" /></a>';
-					//echo '<td><a class="hidden-a" href="?p=userpanel">'.getFirstName($_SESSION['forumUserID']).' '.getLastName($_SESSION['forumUserID']).'</a></td>';
+					//echo '<td><a class="hidden-a" href="?p=userpanel">'.getFirstName(getLoggedInUser()).' '.getLastName(getLoggedInUser()).'</a></td>';
 				
 					if(isAdmin()){
 						echo '<a class="hidden-a" href="?p=adminpanel"><img src="images/admin.png" /></a>'; 
 					}
 					echo '</td>';
-					echo '<td rowspan="2"><a class="hidden-a" href="?p=userpanel">'.getUserAvatar($_SESSION['forumUserID']).'</a></td>';
+					echo '<td rowspan="2"><a class="hidden-a" href="?p=userpanel">'.getUserAvatar(getLoggedInUser()).'</a></td>';
 				} else {
 					echo '<td style="float: right; margin-top: 3px;"><a class="hidden-a" href="?p=login&goto='.$page.'&goid='.getIfIssetGet('id', '').'">Log in</a>'; 
 					echo '<a style="padding-left: 8px; padding-right: 6px;" class="hidden-a" href="?p=register">Register</a></td>'; 
