@@ -31,8 +31,8 @@ function getIfIssetPost($postvar, $default){
 }
 
 function getLoggedInUser(){
-	if(isset(getLoggedInUser())){
-		return getLoggedInUser();
+	if(isset($_SESSION['forumUserID'])){
+		return $_SESSION['forumUserID'];
 	} else {
 		return: "0";
 	}
