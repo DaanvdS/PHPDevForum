@@ -52,6 +52,7 @@ a, a:visited
 	top: 0px;
 	height: 60px;
 	width: 100%;
+	box-shadow: 0px 4px 10px #aaaaaa;
 }
 #header-table
 {
