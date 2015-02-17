@@ -302,7 +302,7 @@ function showBoards(){
 				}
 				echo "
 				</tr>";
-				if(!($i == 0 || $i == $MySQL['result']->num_rows)){	echo "<tr><td style='height: 1px; background-color: black; display: block;'>&nbsp;</td></tr>"; }
+				if(!($i == $MySQL['result']->num_rows)){	echo "<tr><td style='height: 1px; background-color: black; display: block;'>&nbsp;</td></tr>"; }
 				$i++;
 			}
 		}
