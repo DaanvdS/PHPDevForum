@@ -270,17 +270,20 @@ function showBoards(){
 	}
 	$MySQL['query'] = "SELECT * FROM `boards`";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-	$i=0;
 	$j=0;
-	if($MySQL['result']->num_rows > 0){
-		echo "
-		<table class='item-container'>";
-		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {			
+	while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {			
 			if(hasRights($id,$MySQL['row']['groupID'])){
 				$j++;
 			}
 		}
-		$MySQL['row'] = "";
+	$i=0;
+	
+	$MySQL['query'] = "SELECT * FROM `boards`";
+	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+	if($MySQL['result']->num_rows > 0){
+		echo "
+		<table class='item-container'>";
+		
 		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {			
 			if(hasRights($id,$MySQL['row']['groupID'])){
 				if(!(($i+1)==$j)){ $border="style=' border-bottom: 1px;'"; } else { $border=""; }
