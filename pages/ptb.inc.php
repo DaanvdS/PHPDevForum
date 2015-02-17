@@ -289,8 +289,8 @@ function showBoards(){
 				if(!(($i+1)==$j)){ $border=" border-bottom: 1px solid #888 !important;"; } else { $border=""; }
 				if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
 				echo "
-				<tr>
-					<td class='item".$sticky."'".$border." onclick='window.location.href = \"?p=".substr("boards",0,-1)."&id=".$MySQL['row']["id"]."\"'>
+				<tr".$border.">
+					<td class='item".$sticky."' onclick='window.location.href = \"?p=".substr("boards",0,-1)."&id=".$MySQL['row']["id"]."\"'>
 						".$MySQL['row']["name"]."
 					</td>";
 				if(isLoggedIn() && isAdmin()){
