@@ -274,7 +274,7 @@ function showBoards(){
 	if($MySQL['result']->num_rows > 0){
 		echo "
 		<table class='item-container'>";
-		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
+		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {			
 			if(hasRights($id,$MySQL['row']['groupID'])){
 				if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
 				echo "
@@ -302,6 +302,7 @@ function showBoards(){
 				}
 				echo "
 				</tr>";
+				if(!($i == 0 || $i == $MySQL['result']->num_rows)){	echo "<tr><td style='height: 1px; background-color: black; display: block;'>&nbsp;</td></tr>"; }
 			}
 		}
 		echo "
