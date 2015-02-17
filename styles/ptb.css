@@ -8,7 +8,12 @@ blockquote {
 blockquote p {
 	font-size: small;
 }
-
+hr {
+    border: none;
+    height: 1px;
+    /* Set the hr color */
+    background-color: #888; /* Modern Browsers */
+}
 .item-container
 {
 	vertical-align: top;
