@@ -131,6 +131,8 @@ hr {
 	margin-top: 5px;
 	text-align: right;
 	background-color: #FFFFFF;
+	box-shadow: 0px 4px 10px #aaaaaa;
+	height: 30px;
 }
 .post-area-submit
 {
