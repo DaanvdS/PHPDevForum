@@ -270,7 +270,7 @@ function showBoards(){
 	}
 	$MySQL['query'] = "SELECT * FROM `boards`";
 	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-	
+	$i=0;
 	if($MySQL['result']->num_rows > 0){
 		echo "
 		<table class='item-container'>";
@@ -303,6 +303,7 @@ function showBoards(){
 				echo "
 				</tr>";
 				if(!($i == 0 || $i == $MySQL['result']->num_rows)){	echo "<tr><td style='height: 1px; background-color: black; display: block;'>&nbsp;</td></tr>"; }
+				$i++;
 			}
 		}
 		echo "
