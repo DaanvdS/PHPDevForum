@@ -286,7 +286,7 @@ function showBoards(){
 		
 		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {			
 			if(hasRights($id,$MySQL['row']['groupID'])){
-				if(!(($i+1)==$j)){ $border=" style=\"border-bottom: 1px solid #888 !important;\""; } else { $border=""; }
+				if(!(($i+1)==$j)){ $border=" style=\"border-bottom: 1px solid #999 !important;\""; } else { $border=""; }
 				if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
 				echo "
 				<tr".$border.">
