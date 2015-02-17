@@ -280,6 +280,7 @@ function showBoards(){
 				$j++;
 			}
 		}
+		echo $j;
 		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {			
 			if(hasRights($id,$MySQL['row']['groupID'])){
 				if(!(($i+1)==$j)){ $border="style=' border-bottom: 1px;'"; } else { $border=""; }
