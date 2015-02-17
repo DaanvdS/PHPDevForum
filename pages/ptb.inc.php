@@ -286,11 +286,11 @@ function showBoards(){
 		
 		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {			
 			if(hasRights($id,$MySQL['row']['groupID'])){
-				if(!(($i+1)==$j)){ $border="style=' border-bottom: 1px;'"; } else { $border=""; }
+				if(!(($i+1)==$j)){ $border=" style='border-bottom: 1px;'"; } else { $border=""; }
 				if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
 				echo "
 				<tr>
-					<td class='item".$sticky."' ".$border." onclick='window.location.href = \"?p=".substr("boards",0,-1)."&id=".$MySQL['row']["id"]."\"'>
+					<td class='item".$sticky."'".$border." onclick='window.location.href = \"?p=".substr("boards",0,-1)."&id=".$MySQL['row']["id"]."\"'>
 						".$MySQL['row']["name"]."
 					</td>";
 				if(isLoggedIn() && isAdmin()){
