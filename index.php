@@ -84,7 +84,7 @@ include('dbdisconnect.inc.php');
 				"bold italic strikethrough | undo redo | style-p style-h1 style-code | bullist numlist | link image "
 			],
 			statusbar : false,
-			plugins: "stylebuttons link image"
+			plugins: "stylebuttons link image autolink"
 		});</script>
 		<script type="text/javascript" src="js/functions.js"></script>
 		<?php echo "<title>".$title."</title>";?>
