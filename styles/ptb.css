@@ -51,7 +51,7 @@ hr {
 }
 .item-sticky
 {
-	height: 50px;
+	height: 58px;
 	width: 100%;
 	padding: 4px;
 	background-color: #FFF0A4;
@@ -59,7 +59,7 @@ hr {
 .item-sticky:hover
 {
 	background-color: #FFE34E;
-/* 	height: 50px; */
+ 	height: 58px;
 	padding: 4px;
 	width: 100%;
 	border-radius: 2px;
@@ -67,7 +67,7 @@ hr {
 .item:hover
 {
 	background-color: #FFE34E;
-	/* height: 50px; */
+	height: 58px;
 	padding: 4px;
 	width: 100%;
 	border-radius: 2px;
