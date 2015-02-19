@@ -155,6 +155,7 @@ function ptbChgForm($ptb, $id, $return, $pag){
 	if($MySQL['result']->num_rows !== 0){
 		$MySQL['row'] = $MySQL['result']->fetch_assoc();	
 		echo "
+				<table class='item-container'><tbody><tr><td>
 				<form method='get'>
 					<input type='hidden' name='action' value='save'>
 					<input type='hidden' name='ptb' value='".$ptb."'>
@@ -197,7 +198,7 @@ function ptbChgForm($ptb, $id, $return, $pag){
 			}
 			echo "<label for='sticky'>Sticky: </label><select name='sticky'><option".$sticky." value='0'>False</option><option".$sticky." value='1'>True</option>";
 		}
-		echo "	<input class='post-area-submit' type='submit' name='save' value='Save'></form>";
+		echo "	<input class='post-area-submit' type='submit' name='save' value='Save'></form></td></tr></table>";
 	}
 	include("dbdisconnect.inc.php");
 }
