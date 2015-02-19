@@ -164,7 +164,7 @@ function ptbChgForm($ptb, $id, $return, $pag){
 					<input type='hidden' name='pag' value='".$pag."'>
 					<input type='hidden' name='p' value='".$ptbs[1]."'>";
 		if($ptb == 't' || $ptb == 'b'){
-			echo "	<input type='text' name='data' value='".$MySQL['row'][(substr($columns[0], 1, -1))]."'>";
+			echo "	Name: <input type='text' name='data' value='".$MySQL['row'][(substr($columns[0], 1, -1))]."'><br>";
 		} elseif($ptb == 'p'){
 			echo "	<textarea rows='15' name='data'>".$MySQL['row'][(substr($fin_columns, 1, -1))]."</textarea>";
 		}
@@ -183,13 +183,13 @@ function ptbChgForm($ptb, $id, $return, $pag){
 		}
 		if($ptb == 't'){
 			$MySQL['result2'] = $MySQL['connection']->query("SELECT * FROM boards");
-			echo "<select name='board_id'>";
+			echo "Board: <select name='board_id'>";
 			while($MySQL['row2'] = $MySQL['result2']->fetch_assoc()) { 
 				echo "<option ";
 				if ($MySQL['row2']['id'] == $MySQL['row']['board_id'])echo "selected ";
 				echo "value='".$MySQL['row2']['id']."' >".$MySQL['row2']['name']."</option>";
 			}
-			echo "</select>";
+			echo "</select><br>";
 		
 			if($MySQL['row'][(substr($columns[1], 1, -1))]){
 				$sticky = ' selected';
