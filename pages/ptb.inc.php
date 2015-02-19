@@ -198,7 +198,7 @@ function ptbChgForm($ptb, $id, $return, $pag){
 			}
 			echo "<label for='sticky'>Sticky: </label><select name='sticky'><option".$sticky." value='0'>False</option><option".$sticky." value='1'>True</option>";
 		}
-		echo "	<input class='post-area-submit' type='submit' name='save' value='Save'></form></td></tr></table>";
+		echo "	<br><input class='post-area-submit' type='submit' name='save' value='Save'></form></td></tr></table>";
 	}
 	include("dbdisconnect.inc.php");
 }
