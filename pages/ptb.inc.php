@@ -420,7 +420,7 @@ function showPosts($thread){
 			echo "
 			<table class='item-container'>
 				<tr>
-					<td class='userbar'>
+					<td class='userbar' rowspan='2'>
 						<p class='username'>".$MySQL['row']["firstname"]."</p>
 						<p class='rank'>".getUserRank($MySQL['row']["user_id"])."</p>
 						<p class='avatar'>".getUserAvatar($MySQL['row']["user_id"])."</p>
@@ -479,9 +479,12 @@ function showPosts($thread){
 			}
 			echo "				</p>
 							<p class='postedon'>".$postnr.", posted on: ".$MySQL['row']["date_created"]."</p>
-							<hr />".$MySQL['row']["text"].$sig."
+							<hr />".$MySQL['row']["text"]."
 						
 					</td>
+				</tr>
+				<tr>
+					<td>".$sig."</td>
 				</tr>
 			</table>";
 			$i++;
