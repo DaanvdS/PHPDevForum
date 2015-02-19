@@ -67,7 +67,7 @@ hr {
 .item:hover
 {
 	background-color: #FFE34E;
-	height: 50px;
+	/* height: 50px; */
 	padding: 4px;
 	width: 100%;
 	border-radius: 2px;
