@@ -54,8 +54,9 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
 	$columns = implode (",", $columns);
 	$values = implode (",", $values);
   	$MySQL['query'] = "REPLACE INTO `".$ptb[0]."` (`id`,".$columns.") VALUES (".$id.",".$values.")";
+	echo $MySQL['query'];
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-	echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'&pag='.$pag.'" />';
+	//echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'&pag='.$pag.'" />';
 	include("dbdisconnect.inc.php");
 }
 
@@ -100,7 +101,6 @@ function ptbChgForm($ptb, $id, $return, $pag){
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 		if($MySQL['result']->num_rows !== 0){
 			$MySQL['row'] = $MySQL['result']->fetch_assoc();	
-			
 		}
 	} else {
 		$MySQL['row'][(substr($columns[0], 1, -1))] = "New";
