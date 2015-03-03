@@ -117,11 +117,9 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
 	$columns = implode (",", $columns);
 	$values = implode (",", $values);
   	$MySQL['query'] = "REPLACE INTO `".$ptb[0]."` (`id`,".$columns.") VALUES (".$id.",".$values.")";
-	echo $MySQL['query'];
+	//echo $MySQL['query'];
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-	if($MySQL['connection']->affected_rows == 1){
-		echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'&pag='.$pag.'" />';
-	}
+	echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'&pag='.$pag.'" />';
 	include("dbdisconnect.inc.php");
 }
 
