@@ -159,7 +159,7 @@ function ptbChgForm($ptb, $id, $return, $pag){
 				<input type='hidden' name='return' value='".$return."'>
 				<input type='hidden' name='pag' value='".$pag."'>
 				<input type='hidden' name='p' value='".$ptbs[1]."'>";
-	if(!($id == 0){
+	if(!($id == 0)){
 		$MySQL['query'] = "SELECT ".$fin_columns." FROM `".$ptbs[0]."` WHERE `id` = ".$id." LIMIT 1";
 		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 		if($MySQL['result']->num_rows !== 0){
