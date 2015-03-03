@@ -328,8 +328,7 @@ function showBoards(){
 					<input type='hidden' name='ptb' value='b'>
 					<input type='hidden' name='return' value='board'>
 					<input type='hidden' name='p' value='index'>
-					<input type='text' name='data' value='New'>
-					<input type='submit' name='submit' value='Make'>
+					<input type='submit' name='submit' value='New'>
 				</form>
 			</div>";
 	}
@@ -384,8 +383,7 @@ function showThreads($board){
 					<input type='hidden' name='ptb' value='t'>
 					<input type='hidden' name='return' value='".$board."'>
 					<input type='hidden' name='p' value='index'>
-					<input type='text' name='data' value='New'>
-					<input type='submit' name='submit' value='Make'>
+					<input type='submit' name='submit' value='New'>
 				</form>
 			</div>";
 	}
