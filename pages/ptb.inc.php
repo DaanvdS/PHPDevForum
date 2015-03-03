@@ -63,9 +63,9 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
   	$MySQL['query'] = "INSERT INTO `".$ptb[0]."` (`id`,".$columnsT.") VALUES (".$id.",".$valuesT.") ON DUPLICATE KEY
 		UPDATE ".$fin_update."
 	";
-	echo $MySQL['query'];
-	//$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-	//echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'&pag='.$pag.'" />';
+	//echo $MySQL['query'];
+	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+	echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'&pag='.$pag.'" />';
 	include("dbdisconnect.inc.php");
 }
 
