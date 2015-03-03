@@ -116,12 +116,12 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
 	}*/
 	$columns = implode (",", $columns);
 	$values = implode (",", $values);
-  	$MySQL['query'] = "REPLACE INTO `".$ptb[0]."` SET ".$columns." VALUES (".$values.") WHERE `id` = ".$id;
+  	$MySQL['query'] = "REPLACE INTO `".$ptb[0]."` (".$columns.") VALUES (".$values.") WHERE `id` = ".$id;
 	echo $MySQL['query'];
-	/*$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	if($MySQL['connection']->affected_rows == 1){
 		echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'&pag='.$pag.'" />';
-	}*/
+	}
 	include("dbdisconnect.inc.php");
 }
 
