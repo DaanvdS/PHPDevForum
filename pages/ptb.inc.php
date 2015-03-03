@@ -51,11 +51,21 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
 	}
 	
 	$ptb=ptbSwitch($ptb);
-	$columns = implode (",", $columns);
-	$values = implode (",", $values);
-  	$MySQL['query'] = "REPLACE INTO `".$ptb[0]."` (`id`,".$columns.") VALUES (".$id.",".$values.")";
+	$columnsT = implode (",", $columns);
+	$valuesT = implode (",", $values);
+	if(count($columns) == 1){
+ 		$fin_update=$columns[0].' = '.$values[0];
+ 	} elseif(count($columns) == 2) {
+ 		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1];
+ 	}
+ 	elseif(count($columns) == 3) {
+ 		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1].', '.$columns[2].' = '.$values[2];
+-	}
+  	$MySQL['query'] = "INSERT INTO `".$ptb[0]."` (`id`,".$columnsT.") VALUES (".$id.",".$valuesT.") ON DUIPLICATE KEY UPDATE
+		UPDATE `".$ptb[0]."` SET ".$fin_update." WHERE `id` = ".$id."
+	";
 	echo $MySQL['query'];
-	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+	//$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	//echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'&pag='.$pag.'" />';
 	include("dbdisconnect.inc.php");
 }
