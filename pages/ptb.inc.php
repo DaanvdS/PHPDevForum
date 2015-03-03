@@ -150,57 +150,67 @@ function ptbChgForm($ptb, $id, $return, $pag){
 		}
 		$i++;
 	}
-
-	$MySQL['query'] = "SELECT ".$fin_columns." FROM `".$ptbs[0]."` WHERE `id` = ".$id." LIMIT 1";
-	$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-	if($MySQL['result']->num_rows !== 0){
-		$MySQL['row'] = $MySQL['result']->fetch_assoc();	
-		echo "
-				<table class='item-container'><tbody><tr><td>
-				<form method='get'>
-					<input type='hidden' name='action' value='save'>
-					<input type='hidden' name='ptb' value='".$ptb."'>
-					<input type='hidden' name='id' value='".$id."'>
-					<input type='hidden' name='return' value='".$return."'>
-					<input type='hidden' name='pag' value='".$pag."'>
-					<input type='hidden' name='p' value='".$ptbs[1]."'>";
-		if($ptb == 't' || $ptb == 'b'){
-			echo "	Name: <input type='text' name='data' value='".$MySQL['row'][(substr($columns[0], 1, -1))]."'><br>";
-		} elseif($ptb == 'p'){
-			echo "	<textarea rows='15' name='data'>".$MySQL['row'][(substr($fin_columns, 1, -1))]."</textarea>";
+	echo "
+			<table class='item-container'><tbody><tr><td>
+			<form method='get'>
+				<input type='hidden' name='action' value='save'>
+				<input type='hidden' name='ptb' value='".$ptb."'>
+				<input type='hidden' name='id' value='".$id."'>
+				<input type='hidden' name='return' value='".$return."'>
+				<input type='hidden' name='pag' value='".$pag."'>
+				<input type='hidden' name='p' value='".$ptbs[1]."'>";
+	if(!($id == 0){
+		$MySQL['query'] = "SELECT ".$fin_columns." FROM `".$ptbs[0]."` WHERE `id` = ".$id." LIMIT 1";
+		$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+		if($MySQL['result']->num_rows !== 0){
+			$MySQL['row'] = $MySQL['result']->fetch_assoc();	
+			
 		}
-		if($ptb == 'b'){
-			$MySQL['result2'] = $MySQL['connection']->query("SELECT * FROM usergroups");
-			echo "<select name='groupID'>";
-			while($MySQL['row2'] = $MySQL['result2']->fetch_assoc()) { 
-				if($MySQL['row']['groupID'] == $MySQL['row2']['id']){
-					$sticky = ' selected';
-				} else {
-					$sticky = '';
-				}
-				echo "<option".$sticky." value='".$MySQL['row2']['id']."'>".$MySQL['row2']['name']."</option>";
-			}
-			echo "</select>";
-		}
-		if($ptb == 't'){
-			$MySQL['result2'] = $MySQL['connection']->query("SELECT * FROM boards");
-			echo "Board: <select name='board_id'>";
-			while($MySQL['row2'] = $MySQL['result2']->fetch_assoc()) { 
-				echo "<option ";
-				if ($MySQL['row2']['id'] == $MySQL['row']['board_id'])echo "selected ";
-				echo "value='".$MySQL['row2']['id']."' >".$MySQL['row2']['name']."</option>";
-			}
-			echo "</select><br>";
-		
-			if($MySQL['row'][(substr($columns[1], 1, -1))]){
+	} else {
+		$MySQL['row'][(substr($columns[0], 1, -1))] = "New";
+		$MySQL['row'][(substr($fin_columns, 1, -1))] = "";
+		$MySQL['row']['groupID'] = 1;
+		$MySQL['row']['board_id'] = $return;
+		$MySQL['row'][(substr($columns[1], 1, -1))] = false;
+	}
+	
+	if($ptb == 't' || $ptb == 'b'){
+		echo "	Name: <input type='text' name='data' value='".$MySQL['row'][(substr($columns[0], 1, -1))]."'><br>";
+	} elseif($ptb == 'p'){
+		echo "	<textarea rows='15' name='data'>".$MySQL['row'][(substr($fin_columns, 1, -1))]."</textarea>";
+	}
+	if($ptb == 'b'){
+		$MySQL['result2'] = $MySQL['connection']->query("SELECT * FROM usergroups");
+		echo "<select name='groupID'>";
+		while($MySQL['row2'] = $MySQL['result2']->fetch_assoc()) { 
+			if($MySQL['row']['groupID'] == $MySQL['row2']['id']){
 				$sticky = ' selected';
 			} else {
 				$sticky = '';
 			}
-			echo "<label for='sticky'>Sticky: </label><select name='sticky'><option".$sticky." value='0'>False</option><option".$sticky." value='1'>True</option>";
+			echo "<option".$sticky." value='".$MySQL['row2']['id']."'>".$MySQL['row2']['name']."</option>";
 		}
-		echo "	<br><input class='post-area-submit' type='submit' name='save' value='Save'></form></td></tr></table>";
+		echo "</select>";
 	}
+	if($ptb == 't'){
+		$MySQL['result2'] = $MySQL['connection']->query("SELECT * FROM boards");
+		echo "Board: <select name='board_id'>";
+		while($MySQL['row2'] = $MySQL['result2']->fetch_assoc()) { 
+			echo "<option ";
+			if ($MySQL['row2']['id'] == $MySQL['row']['board_id'])echo "selected ";
+			echo "value='".$MySQL['row2']['id']."' >".$MySQL['row2']['name']."</option>";
+		}
+		echo "</select><br>";
+	
+		if($MySQL['row'][(substr($columns[1], 1, -1))]){
+			$sticky = ' selected';
+		} else {
+			$sticky = '';
+		}
+		echo "<label for='sticky'>Sticky: </label><select name='sticky'><option".$sticky." value='0'>False</option><option".$sticky." value='1'>True</option>";
+	}
+	echo "	<br><input class='post-area-submit' type='submit' name='save' value='Save'></form></td></tr></table>";
+
 	include("dbdisconnect.inc.php");
 }
 
@@ -327,8 +337,9 @@ function showBoards(){
 				<form method='get'>
 					<input type='hidden' name='action' value='change'>
 					<input type='hidden' name='ptb' value='b'>
-					<input type='hidden' name='return' value='board'>
+					<input type='hidden' name='return' value=''>
 					<input type='hidden' name='p' value='index'>
+					<input type='hidden' name='id' value='0'>
 					<input type='submit' name='submit' value='New'>
 				</form>
 			</div>";
@@ -384,6 +395,7 @@ function showThreads($board){
 					<input type='hidden' name='ptb' value='t'>
 					<input type='hidden' name='return' value='".$board."'>
 					<input type='hidden' name='p' value='index'>
+					<input type='hidden' name='id' value='0'>
 					<input type='submit' name='submit' value='New'>
 				</form>
 			</div>";
