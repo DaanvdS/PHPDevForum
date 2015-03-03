@@ -60,7 +60,7 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
  	} elseif(count($columns) == 3) {
  		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1].', '.$columns[2].' = '.$values[2];
 	}
-  	$MySQL['query'] = "INSERT INTO `".$ptb[0]."` (`id`,".$columnsT.") VALUES (".$id.",".$valuesT.") ON DUIPLICATE KEY
+  	$MySQL['query'] = "INSERT INTO `".$ptb[0]."` (`id`,".$columnsT.") VALUES (".$id.",".$valuesT.") ON DUPLICATE KEY
 		UPDATE ".$fin_update."
 	";
 	echo $MySQL['query'];
