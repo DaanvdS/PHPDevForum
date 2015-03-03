@@ -24,61 +24,6 @@ function ptbDelete($ptb, $id, $return){
 	include("dbdisconnect.inc.php");
 }
 
-function ptbNew($ptb, $data, $return, $userID){
-	include("dbconnect.inc.php");
-	$data=$MySQL['connection']->real_escape_string($data);
-	switch($ptb){
-    	case 'p':
-			$columns[0] = '`text`';
-			$columns[1] = '`thread_id`';
-			$columns[2] = '`user_id`';
-			$values[0] = "'".$data."'";
-			$values[1] = "'".$return."'";
-			$values[2] = "'".$userID."'";
-			$MySQL['query'] = "SELECT `name`, `op` FROM `threads` WHERE `id` = '".$return."'";
-			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-			$MySQL['row'] = $MySQL['result']->fetch_assoc();
-			$op = $MySQL['row']['op'];
-			$name = $MySQL['row']['name'];
-			$username = getFirstName($userID)." ".getLastName($userID);
-			if(!$op == $userID){
-				$MySQL['query'] = "INSERT INTO `messages` (`senderID`, `receiverID`, `text`) VALUES (0, ".$MySQL['row']['op'].", '<p>Hi,</p><p>".$username." has posted a reply onto your thread \"".$name."\". Click <a href=\"?p=thread&id=".$return."\">here</a> to view it.</p>')";
-				$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-			}
-			break;
-		case 't':
-			$columns[0] = '`name`';
-			$columns[1] = '`board_id`';
-			$columns[2] = '`op`';
-			$values[0] = "'".$data."'";
-			$values[1] = "'".$return."'";
-			$values[2] = "'".$userID."'";
-			break;
-		case 'b':
-			$columns[0] = '`name`';
-			$values[0] = "'".$data."'";
-			break;
-	}
-	$ptb = ptbSwitch($ptb);
-	$i = 0;
-	while($i < count($columns)){
-		if($i == 0){
-			$fin_columns = $columns[$i];
-			$fin_values = $values[$i];
-		} else {
-			$fin_columns = $fin_columns.', '.$columns[$i];
-			$fin_values = $fin_values.', '.$values[$i];
-		}
-		$i++;
-	}
-  	$MySQL['query'] = "INSERT INTO `".$ptb[0]."` (".$fin_columns.") VALUES (".$fin_values.")";
-	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-	if($MySQL['connection']->affected_rows == 1){
-		echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
-	}
-	include("dbdisconnect.inc.php");
-}
-
 function ptbChgSav($ptb, $id, $data, $return, $pag){
 	include("dbconnect.inc.php");
 	for($i=0;$i<count($data);$i++){
@@ -106,18 +51,9 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
 	}
 	
 	$ptb=ptbSwitch($ptb);
-	/*if(count($columns) == 1){
-		$fin_update=$columns[0].' = '.$values[0];
-	} elseif(count($columns) == 2) {
-		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1];
-	}
-	elseif(count($columns) == 3) {
-		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1].', '.$columns[2].' = '.$values[2];
-	}*/
 	$columns = implode (",", $columns);
 	$values = implode (",", $values);
   	$MySQL['query'] = "REPLACE INTO `".$ptb[0]."` (`id`,".$columns.") VALUES (".$id.",".$values.")";
-	//echo $MySQL['query'];
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'&pag='.$pag.'" />';
 	include("dbdisconnect.inc.php");
@@ -518,6 +454,31 @@ function showPosts($thread){
 	
 }
 
+function ptbPageLinks($ptb, $return, $pag){
+	include('dbconnect.inc.php');
+	switch($ptb){
+		case 'p':
+			$MySQL['query']="SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$return."";
+			$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+			$MySQL['row']=$MySQL['result']->fetch_assoc();
+			$amRows=$MySQL['row']['amRows'];
+			if($amRows>10){
+				echo "<p class='pagination'>Page: ";
+				$amPages=ceil($amRows/10);
+				for($i=0;$i<$amPages;$i++){
+					if($pag==($i+1)){
+						echo "<a href='?p=thread&id=".$return."&pag=".($i+1)."'><b>[".($i+1)."]</b></a>&nbsp;";
+					} else {
+						echo "<a href='?p=thread&id=".$return."&pag=".($i+1)."'>".($i+1)."</a>&nbsp;";
+					}
+				}
+				echo "</p>";
+			}
+			break;
+	}
+	include('dbdisconnect.inc.php');
+}
+
 // DEPRECIATED
 function ptbShow($ptb, $return){
 	include('dbconnect.inc.php');
@@ -669,28 +630,58 @@ function ptbShow($ptb, $return){
 	include('dbdisconnect.inc.php');
 }
 
-function ptbPageLinks($ptb, $return, $pag){
-	include('dbconnect.inc.php');
+function ptbNew($ptb, $data, $return, $userID){
+	include("dbconnect.inc.php");
+	$data=$MySQL['connection']->real_escape_string($data);
 	switch($ptb){
-		case 'p':
-			$MySQL['query']="SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$return."";
-			$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-			$MySQL['row']=$MySQL['result']->fetch_assoc();
-			$amRows=$MySQL['row']['amRows'];
-			if($amRows>10){
-				echo "<p class='pagination'>Page: ";
-				$amPages=ceil($amRows/10);
-				for($i=0;$i<$amPages;$i++){
-					if($pag==($i+1)){
-						echo "<a href='?p=thread&id=".$return."&pag=".($i+1)."'><b>[".($i+1)."]</b></a>&nbsp;";
-					} else {
-						echo "<a href='?p=thread&id=".$return."&pag=".($i+1)."'>".($i+1)."</a>&nbsp;";
-					}
-				}
-				echo "</p>";
+    	case 'p':
+			$columns[0] = '`text`';
+			$columns[1] = '`thread_id`';
+			$columns[2] = '`user_id`';
+			$values[0] = "'".$data."'";
+			$values[1] = "'".$return."'";
+			$values[2] = "'".$userID."'";
+			$MySQL['query'] = "SELECT `name`, `op` FROM `threads` WHERE `id` = '".$return."'";
+			$MySQL['result'] = $MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+			$MySQL['row'] = $MySQL['result']->fetch_assoc();
+			$op = $MySQL['row']['op'];
+			$name = $MySQL['row']['name'];
+			$username = getFirstName($userID)." ".getLastName($userID);
+			if(!$op == $userID){
+				$MySQL['query'] = "INSERT INTO `messages` (`senderID`, `receiverID`, `text`) VALUES (0, ".$MySQL['row']['op'].", '<p>Hi,</p><p>".$username." has posted a reply onto your thread \"".$name."\". Click <a href=\"?p=thread&id=".$return."\">here</a> to view it.</p>')";
+				$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			}
 			break;
+		case 't':
+			$columns[0] = '`name`';
+			$columns[1] = '`board_id`';
+			$columns[2] = '`op`';
+			$values[0] = "'".$data."'";
+			$values[1] = "'".$return."'";
+			$values[2] = "'".$userID."'";
+			break;
+		case 'b':
+			$columns[0] = '`name`';
+			$values[0] = "'".$data."'";
+			break;
 	}
-	include('dbdisconnect.inc.php');
+	$ptb = ptbSwitch($ptb);
+	$i = 0;
+	while($i < count($columns)){
+		if($i == 0){
+			$fin_columns = $columns[$i];
+			$fin_values = $values[$i];
+		} else {
+			$fin_columns = $fin_columns.', '.$columns[$i];
+			$fin_values = $fin_values.', '.$values[$i];
+		}
+		$i++;
+	}
+  	$MySQL['query'] = "INSERT INTO `".$ptb[0]."` (".$fin_columns.") VALUES (".$fin_values.")";
+	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+	if($MySQL['connection']->affected_rows == 1){
+		echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
+	}
+	include("dbdisconnect.inc.php");
 }
 ?>
