@@ -106,19 +106,22 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
 	}
 	
 	$ptb=ptbSwitch($ptb);
-	if(count($columns) == 1){
+	/*if(count($columns) == 1){
 		$fin_update=$columns[0].' = '.$values[0];
 	} elseif(count($columns) == 2) {
 		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1];
 	}
 	elseif(count($columns) == 3) {
 		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1].', '.$columns[2].' = '.$values[2];
-	}
-  	$MySQL['query']="UPDATE `".$ptb[0]."` SET ".$fin_update." WHERE `id` = ".$id;
-	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+	}*/
+	$columns = implode (",", $columns);
+	$values = implode (",", $values);
+  	$MySQL['query'] = "REPLACE INTO `".$ptb[0]."` SET ".$colums." VALUES (".$values.") WHERE `id` = ".$id;
+	echo $MySQL['query'];
+	/*$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	if($MySQL['connection']->affected_rows == 1){
 		echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'&pag='.$pag.'" />';
-	}
+	}*/
 	include("dbdisconnect.inc.php");
 }
 
@@ -324,7 +327,7 @@ function showBoards(){
 		echo "
 			<div class='post-area'>
 				<form method='get'>
-					<input type='hidden' name='action' value='new'>
+					<input type='hidden' name='action' value='change'>
 					<input type='hidden' name='ptb' value='b'>
 					<input type='hidden' name='return' value='board'>
 					<input type='hidden' name='p' value='index'>
@@ -379,7 +382,7 @@ function showThreads($board){
 		echo "
 			<div class='post-area'>
 				<form method='get'>
-					<input type='hidden' name='action' value='new'>
+					<input type='hidden' name='action' value='change'>
 					<input type='hidden' name='ptb' value='t'>
 					<input type='hidden' name='return' value='".$board."'>
 					<input type='hidden' name='p' value='index'>
