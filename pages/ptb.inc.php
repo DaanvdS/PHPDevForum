@@ -61,7 +61,7 @@ function ptbChgSav($ptb, $id, $data, $return, $pag){
  		$fin_update=$columns[0].' = '.$values[0].', '.$columns[1].' = '.$values[1].', '.$columns[2].' = '.$values[2];
 	}
   	$MySQL['query'] = "INSERT INTO `".$ptb[0]."` (`id`,".$columnsT.") VALUES (".$id.",".$valuesT.") ON DUIPLICATE KEY
-		UPDATE `".$ptb[0]."` SET ".$fin_update." WHERE `id` = ".$id."
+		UPDATE ".$fin_update."
 	";
 	echo $MySQL['query'];
 	//$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
