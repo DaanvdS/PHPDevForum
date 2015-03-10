@@ -47,6 +47,7 @@ function makenewThreadPost($ptb, $data, $return, $userID){
 function ptbNew($ptb, $data, $firstpost, $return, $userID){
 	include("dbconnect.inc.php");
 	$data=$MySQL['connection']->real_escape_string($data);
+	$ptbold=$ptb;
 	switch($ptb){
     	case 'p':
 			$columns[0] = '`text`';
@@ -94,8 +95,8 @@ function ptbNew($ptb, $data, $firstpost, $return, $userID){
   	$MySQL['query'] = "INSERT INTO `".$ptb[0]."` (".$fin_columns.") VALUES (".$fin_values.")";
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	if($MySQL['connection']->affected_rows == 1){
-		echo $ptb;
-		if($ptb=="t"){
+		echo $ptbold;
+		if($ptbold=="t"){
 			//echo $MySQL['connection']->insert_id;
 			$MySQL['query'] = "INSERT INTO `posts` (`text`, `user_id`, `thread_id`, `date_created`) VALUES ('".$firstpost."', ".$userID.", ".$MySQL['connection']->insert_id.", CURRENT_TIMESTAMP);";
 			echo $MySQL['query'];
