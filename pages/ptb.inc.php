@@ -24,7 +24,27 @@ function ptbDelete($ptb, $id, $return){
 	include("dbdisconnect.inc.php");
 }
 
-function ptbNew($ptb, $data, $return, $userID){
+function makenewThreadPost($ptb, $data, $return, $userID){
+	include("dbconnect.inc.php");
+	$ptbs = ptbSwitch($ptb);
+	
+	echo "<p>First post</p>
+		<table class='item-container'><tbody><tr><td>
+		<form method='get'>
+			<input type='hidden' name='action' value='new'>
+			<input type='hidden' name='ptb' value='".$ptb."'>
+			<input type='hidden' name='id' value='".$id."'>
+			<input type='hidden' name='data' value='".$data."'>
+			<input type='hidden' name='return' value='".$return."'>
+			<input type='hidden' name='pag' value='".$pag."'>
+			<input type='hidden' name='p' value='".$ptbs[1]."'>";		
+	echo "	<textarea rows='15' name='firstpost'></textarea>";
+	echo "	<br><input class='post-area-submit' type='submit' name='save' value='Save'></form></td></tr></table>";
+
+	include("dbdisconnect.inc.php");
+}
+
+function ptbNew($ptb, $data, $firstpost, $return, $userID){
 	include("dbconnect.inc.php");
 	$data=$MySQL['connection']->real_escape_string($data);
 	switch($ptb){
@@ -74,7 +94,15 @@ function ptbNew($ptb, $data, $return, $userID){
   	$MySQL['query'] = "INSERT INTO `".$ptb[0]."` (".$fin_columns.") VALUES (".$fin_values.")";
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	if($MySQL['connection']->affected_rows == 1){
-		echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
+		if($ptb=="t"){
+			$MySQL['query'] = "INSERT INTO `posts` (`text`, `user_id`, `thread_id`, `date_created`) VALUES ('".$firstpost."', ".$userID.", ".$MySQL['connection']->insert_id.", CURRENT_TIMESTAMP);";
+			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+			if($MySQL['connection']->affected_rows == 1){
+				echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
+			}
+		} else {
+			echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
+		}
 	}
 	include("dbdisconnect.inc.php");
 }
@@ -213,7 +241,11 @@ function ptbAction(){
 			break;
 		case 'new': 
 			logAction();
-			ptbNew(getIfIssetGet('ptb', ''), getIfIssetGet('data', ''), getIfIssetGet('return', ''), getLoggedInUser());
+			if(getIfIssetGet('ptb', '')=="t" && getIfIssetGet('fistpost', '')==""){
+				makenewThreadPost(getIfIssetGet('ptb', ''), getIfIssetGet('data', ''), getIfIssetGet('return', ''), getLoggedInUser());
+			} else {
+				ptbNew(getIfIssetGet('ptb', ''), getIfIssetGet('data', ''), getIfIssetGet('firstpost', ''), getIfIssetGet('return', ''), getLoggedInUser());
+			}
 			break;
 		case 'save': 
 			logAction();
