@@ -472,11 +472,14 @@ function showPosts($thread){
 				echo "
 							<a class='hidden-a' href='?p=thread&action=change&ptb=p&id=".$MySQL['row']['id']."&return=".$thread."&pag=".$pag."'>
 								<img src='images/change.png'>
-							</a>
+							</a>";
+				if(!($i==0)){
+					echo "
 							<a class='hidden-a' href='?p=thread&action=delete&ptb=p&id=".$MySQL['row']['id']."&return=".$thread."&pag=".$pag."'>
 								<img src='images/remove.png'>
 							</a>
 						</p>";
+				}
 			}
 			if($i==0){
 				$threadtitle=$MySQL['row']["name"];
