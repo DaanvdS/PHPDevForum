@@ -95,10 +95,11 @@ function ptbNew($ptb, $data, $firstpost, $return, $userID){
 	$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 	if($MySQL['connection']->affected_rows == 1){
 		if($ptb=="t"){
+			echo $MySQL['connection']->insert_id;
 			$MySQL['query'] = "INSERT INTO `posts` (`text`, `user_id`, `thread_id`, `date_created`) VALUES ('".$firstpost."', ".$userID.", ".$MySQL['connection']->insert_id.", CURRENT_TIMESTAMP);";
 			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			if($MySQL['connection']->affected_rows == 1){
-				echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
+				//echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
 			}
 		} else {
 			echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
@@ -241,8 +242,6 @@ function ptbAction(){
 			break;
 		case 'new': 
 			logAction();
-			echo getIfIssetGet('ptb', '');
-			echo getIfIssetGet('firstpost', '');
 			if((getIfIssetGet('ptb', '')=="t") && (getIfIssetGet('firstpost', '')=="")){
 				makenewThreadPost(getIfIssetGet('ptb', ''), getIfIssetGet('data', ''), getIfIssetGet('return', ''), getLoggedInUser());
 			} else {
