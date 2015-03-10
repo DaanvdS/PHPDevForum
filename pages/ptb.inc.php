@@ -121,7 +121,8 @@ function ptbChgForm($ptb, $id, $return, $pag){
 	
 	if($ptb == 't' || $ptb == 'b'){
 		echo "	Name: <input type='text' name='data' value='".$MySQL['row'][(substr($columns[0], 1, -1))]."'><br>";
-	} elseif($ptb == 't'){
+	}
+	if($ptb == 't'){
 		echo "	<textarea rows='15' name='data'>".$MySQL['row'][(substr($fin_columns, 1, -1))]."</textarea>";
 	}
 	if($ptb == 'b'){
