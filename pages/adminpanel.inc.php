@@ -4,17 +4,19 @@
 
 logAction();
 if(isLoggedIn() && isAdmin()){
-	include("pages/adminfunctions.inc.php");
-	switch(getIfIssetGet('section', '')){
-		case '': echo "<div class='item-container'><p>Section: <a href='?p=adminpanel&section=usermanagement'>User management</a> <a href='?p=adminpanel&section=groupmanagement'>Group management</a> <a href='?p=adminpanel&section=pull'>Git pull</a></p></div>"; break;
-		case 'usermanagement': adminShowUserPanel(); break;
-		case 'groupmanagement': adminShowGroupPanel(); break;
-		case 'pull': 
-			include("dbconnect.inc.php");
-			$outcome=shell_exec("sh /home/daan/public_html/forum/PHPDevForum/pull.sh 2>&1");
-			echo '<script>alert("Git: '.$MySQL['connection']->escape_string($outcome).'");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
-			include("dbdisconnect.inc.php");
-			break;
+	if(!($detect->isMobile() && !$detect->isTablet()) || (getIfIssetGet('forceAdmin', '0') == 1)){
+		include("pages/adminfunctions.inc.php");
+		switch(getIfIssetGet('section', '')){
+			case '': echo "<div class='item-container'><p>Section: <a href='?p=adminpanel&section=usermanagement'>User management</a> <a href='?p=adminpanel&section=groupmanagement'>Group management</a> <a href='?p=adminpanel&section=pull'>Git pull</a></p></div>"; break;
+			case 'usermanagement': adminShowUserPanel(); break;
+			case 'groupmanagement': adminShowGroupPanel(); break;
+			case 'pull': 
+				include("dbconnect.inc.php");
+				$outcome=shell_exec("sh /home/daan/public_html/forum/PHPDevForum/pull.sh 2>&1");
+				echo '<script>alert("Git: '.$MySQL['connection']->escape_string($outcome).'");</script><meta http-equiv="refresh" content="0; url=?p=adminpanel" />';
+				include("dbdisconnect.inc.php");
+				break;
+		}
 	}
 } else {
 	echo "<p>You are not logged in/do not have the required rights.</p>";
