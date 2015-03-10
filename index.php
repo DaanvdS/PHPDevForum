@@ -52,7 +52,7 @@ include('dbdisconnect.inc.php');
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" /> 
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400' rel='stylesheet' type='text/css' />
-		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 		<link rel="icon" href="favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" href="styles/style.css" />
 		<link rel="stylesheet" type="text/css" href="styles/post.css" />
