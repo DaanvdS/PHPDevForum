@@ -377,34 +377,37 @@ function showThreads($board){
 		echo "
 		<table class='item-container'>";
 		while($MySQL['row'] = $MySQL['result']->fetch_assoc()) {
-				//if(hasRights(getLoggedInUser(), $MySQL['row']['groupID'])){
-				if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
-				echo "
-				<tr>
-					<td class='item".$sticky."' onclick='window.location.href = \"?p=".substr("threads",0,-1)."&id=".$MySQL['row']["id"]."\"'>
-						".$MySQL['row']["name"]."
-					</td>";
-				if(isLoggedIn() && isAdmin()){
+				$MySQL['query2'] = "SELECT `groupID` FROM `boards` WHERE id=".$board." LIMIT 1";
+				$MySQL['result2'] = $MySQL['connection']->query($MySQL['query2']) or die(mysqli_error($MySQL['connection']));
+				$MySQL['row2'] = $MySQL['result2']->fetch_assoc();
+				if(hasRights(getLoggedInUser(), $MySQL['row2']['groupID'])){
+					if(isset($MySQL['row']['sticky']) && $MySQL['row']['sticky']==1){$sticky='-sticky';}else {$sticky='';}
 					echo "
-					<td class='item-icons'>
-						<p>
-							<a class='hidden-a' href='?p=index&action=change&ptb=t&id=".$MySQL['row']["id"]."&return=".$board."'>
-								<img src='images/change.png'>
-							</a>
-							<a class='hidden-a' href='?p=index&action=delete&ptb=t&id=".$MySQL['row']['id']."&return=".$board."'>
-								<img src='images/remove.png'>
-							</a>
-						</p>
-					</td>";
-				
-				} else {
+					<tr>
+						<td class='item".$sticky."' onclick='window.location.href = \"?p=".substr("threads",0,-1)."&id=".$MySQL['row']["id"]."\"'>
+							".$MySQL['row']["name"]."
+						</td>";
+					if(isLoggedIn() && isAdmin()){
+						echo "
+						<td class='item-icons'>
+							<p>
+								<a class='hidden-a' href='?p=index&action=change&ptb=t&id=".$MySQL['row']["id"]."&return=".$board."'>
+									<img src='images/change.png'>
+								</a>
+								<a class='hidden-a' href='?p=index&action=delete&ptb=t&id=".$MySQL['row']['id']."&return=".$board."'>
+									<img src='images/remove.png'>
+								</a>
+							</p>
+						</td>";
+					
+					} else {
+						echo "
+						<td class='item-empty'>
+						</td>";
+					}
 					echo "
-					<td class='item-empty'>
-					</td>";
-				}
-				echo "
-			</tr>";
-			//}
+				</tr>";
+			}
 		} 
 		echo "
 		</table>";
