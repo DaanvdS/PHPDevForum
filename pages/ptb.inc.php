@@ -541,6 +541,31 @@ function showPosts($thread){
 	
 }
 
+function ptbPageLinks($ptb, $return, $pag){
+	include('dbconnect.inc.php');
+	switch($ptb){
+		case 'p':
+			$MySQL['query']="SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$return."";
+			$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
+			$MySQL['row']=$MySQL['result']->fetch_assoc();
+			$amRows=$MySQL['row']['amRows'];
+			if($amRows>10){
+				echo "<p class='pagination'>Page: ";
+				$amPages=ceil($amRows/10);
+				for($i=0;$i<$amPages;$i++){
+					if($pag==($i+1)){
+						echo "<a href='?p=thread&id=".$return."&pag=".($i+1)."'><b>[".($i+1)."]</b></a>&nbsp;";
+					} else {
+						echo "<a href='?p=thread&id=".$return."&pag=".($i+1)."'>".($i+1)."</a>&nbsp;";
+					}
+				}
+				echo "</p>";
+			}
+			break;
+	}
+	include('dbdisconnect.inc.php');
+}
+
 // DEPRECIATED
 function ptbShow($ptb, $return){
 	include('dbconnect.inc.php');
@@ -686,31 +711,6 @@ function ptbShow($ptb, $return){
 							<input type='submit' name='submit' value='Make'>
 						</form>
 					</div>";
-			}
-			break;
-	}
-	include('dbdisconnect.inc.php');
-}
-
-function ptbPageLinks($ptb, $return, $pag){
-	include('dbconnect.inc.php');
-	switch($ptb){
-		case 'p':
-			$MySQL['query']="SELECT COUNT(*) AS `amRows` FROM `posts` WHERE `posts`.`thread_id`=".$return."";
-			$MySQL['result']=$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
-			$MySQL['row']=$MySQL['result']->fetch_assoc();
-			$amRows=$MySQL['row']['amRows'];
-			if($amRows>10){
-				echo "<p class='pagination'>Page: ";
-				$amPages=ceil($amRows/10);
-				for($i=0;$i<$amPages;$i++){
-					if($pag==($i+1)){
-						echo "<a href='?p=thread&id=".$return."&pag=".($i+1)."'><b>[".($i+1)."]</b></a>&nbsp;";
-					} else {
-						echo "<a href='?p=thread&id=".$return."&pag=".($i+1)."'>".($i+1)."</a>&nbsp;";
-					}
-				}
-				echo "</p>";
 			}
 			break;
 	}
