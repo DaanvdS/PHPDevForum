@@ -102,7 +102,7 @@ function ptbNew($ptb, $data, $firstpost, $return, $userID){
 				//echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
 			}
 		} else {
-			echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
+			//echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
 		}
 	}
 	include("dbdisconnect.inc.php");
