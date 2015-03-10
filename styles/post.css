@@ -1,0 +1,155 @@
+.post
+{
+	position:relative;
+	display:block;
+	color: black;
+	left: 0px;
+	min-height: 80px;
+	/*width:100%;*/
+	margin-bottom:2px;
+	background-color: #FFFFFF;
+	/* border-radius: 2px; */
+}
+.post td
+{
+	background-color:transparent;
+	vertical-align:top;
+}
+.post b /*title*/
+{
+	color: Maroon;
+}
+.post-td
+{
+	width:100%;
+}
+.post-content
+{
+	vertical-align:top;
+	width:100%;
+}
+.post-content p
+{
+	background-color : transparent;
+}
+.postbuttons {
+	height: 20px;
+}
+.post-area
+{
+	width: 100%;
+	margin-top: 5px;
+	text-align: right;
+	background-color: #FFFFFF;
+	box-shadow: 0px 4px 10px #aaaaaa;
+	min-height: 30px;
+}
+.post-area-submit
+{
+	margin: 4px;
+	float: right;
+}
+blockquote {
+	background: #f9f9f9;
+	border-left: 3px solid #ccc;
+	margin: 0.25em 2px;
+	padding: 0.15em 2px;
+	quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote p {
+	font-size: small;
+}
+hr {
+    border: none;
+    height: 1px;
+    /* Set the hr color */
+    background-color: #888; /* Modern Browsers */
+}
+
+.avatar
+{
+	height: 72px;
+	width: 80px;
+}
+.avatar img
+{
+	width: 72px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.user-info
+{
+	text-align: center;
+	font-size: 8pt;
+}
+.userbar
+{
+	/* background:#A4B9F1; */
+	width: 80px;
+	height: auto;
+	vertical-align: top;
+}
+.username
+{
+	font-weight: bold;
+	text-align: center;
+}
+.rank
+{
+	text-align: center;
+	font-size: small;
+}
+.postbuttons {
+	width: 80px;
+	text-align: center;
+}
+.postedon {
+	font-size: small;
+}
+.up {
+	width: 100%;
+}
+.signature p {
+	margin: 0;
+	padding: 0;
+	font-size: small;
+}
+.op 
+{
+	font-style: italic;
+}
+.small {
+	font-size: x-small;
+}
+.newPtb {
+	margin-bottom: 4px;
+	text-align: center;
+}
+table,th,td,tr { margin:0px;padding:0px;}
+table
+{
+	/* margin: 4px; */
+	color: #000000;
+}
+th, td 
+{
+	padding-top: 1px;
+	padding-bottom: 1px;
+	padding-left: 9px;
+	padding-right: 9px;
+}
+th
+{
+	background-color: #FFB675;
+	border-bottom: 2px solid #FF7800; 
+	font-weight: normal;
+}
+td
+{
+	background-color: white;
+}
+.selected
+{
+	background-color: grey;
+}
