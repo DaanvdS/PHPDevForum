@@ -33,8 +33,10 @@ function makenewThreadPost($ptb, $data, $return, $userID){
 		<form method='get'>
 			<input type='hidden' name='action' value='new'>
 			<input type='hidden' name='ptb' value='".$ptb."'>
+			<input type='hidden' name='id' value=''>
 			<input type='hidden' name='data' value='".$data."'>
 			<input type='hidden' name='return' value='".$return."'>
+			<input type='hidden' name='pag' value=''>
 			<input type='hidden' name='p' value='".$ptbs[1]."'>";		
 	echo "	<textarea rows='15' name='firstpost'></textarea>";
 	echo "	<br><input class='post-area-submit' type='submit' name='save' value='Save'></form></td></tr></table>";
