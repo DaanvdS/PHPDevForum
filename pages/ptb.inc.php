@@ -242,8 +242,8 @@ function ptbAction(){
 		case 'new': 
 			logAction();
 			echo getIfIssetGet('ptb', '');
-			echo getIfIssetGet('fistpost', '');
-			if((getIfIssetGet('ptb', '')=="t") && (getIfIssetGet('fistpost', '')=="")){
+			echo getIfIssetGet('firstpost', '');
+			if((getIfIssetGet('ptb', '')=="t") && (getIfIssetGet('firstpost', '')=="")){
 				makenewThreadPost(getIfIssetGet('ptb', ''), getIfIssetGet('data', ''), getIfIssetGet('return', ''), getLoggedInUser());
 			} else {
 				ptbNew(getIfIssetGet('ptb', ''), getIfIssetGet('data', ''), getIfIssetGet('firstpost', ''), getIfIssetGet('return', ''), getLoggedInUser());
