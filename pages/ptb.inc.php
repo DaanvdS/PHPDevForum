@@ -33,10 +33,8 @@ function makenewThreadPost($ptb, $data, $return, $userID){
 		<form method='get'>
 			<input type='hidden' name='action' value='new'>
 			<input type='hidden' name='ptb' value='".$ptb."'>
-			<input type='hidden' name='id' value='".$id."'>
 			<input type='hidden' name='data' value='".$data."'>
 			<input type='hidden' name='return' value='".$return."'>
-			<input type='hidden' name='pag' value='".$pag."'>
 			<input type='hidden' name='p' value='".$ptbs[1]."'>";		
 	echo "	<textarea rows='15' name='firstpost'></textarea>";
 	echo "	<br><input class='post-area-submit' type='submit' name='save' value='Save'></form></td></tr></table>";
@@ -97,7 +95,6 @@ function ptbNew($ptb, $data, $firstpost, $return, $userID){
 	if($MySQL['connection']->affected_rows == 1){
 		if($ptbold=="t"){
 			$MySQL['query'] = "INSERT INTO `posts` (`text`, `user_id`, `thread_id`, `date_created`) VALUES ('".$firstpost."', ".$userID.", ".$MySQL['connection']->insert_id.", CURRENT_TIMESTAMP);";
-			echo $MySQL['query'];
 			$MySQL['connection']->query($MySQL['query']) or die(mysqli_error($MySQL['connection']));
 			if($MySQL['connection']->affected_rows == 1){
 				echo '<meta http-equiv="refresh" content="0; url=?p='.$ptb[1].'&id='.$return.'" />';
