@@ -55,7 +55,7 @@ include('dbdisconnect.inc.php');
 		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 		<link rel="icon" href="favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" href="styles/style.css" />
-		<link rel="stylesheet" type="text/css" href="styles/table.css" />
+		<link rel="stylesheet" type="text/css" href="styles/post.css" />
 		<link rel="stylesheet" type="text/css" href="styles/ptb.css" />
 		<script type="text/javascript" src="tinymce/js/tinymce/tinymce.min.js"></script>
 		<script type="text/javascript">
